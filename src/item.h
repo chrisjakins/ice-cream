@@ -1,16 +1,22 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include <string>
+#include <gtkmm.h>
 
 class Item {
     public:
-        virtual Item() = 0;
+        Item();
 
         bool isInStock();
-        void restock();
+        void restock(int);
 
         void changeRetailCost(double);
         void updateDescription(std::string);
+        
+        std::string getName();
+        double getWholesaleCost();
+        double getRetailCost();
+        int getStock();
 
     protected:
         std::string _name;

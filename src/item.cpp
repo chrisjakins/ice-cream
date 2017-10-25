@@ -17,3 +17,20 @@ void Item::changeRetailCost(double newCost) {
 void Item::updateDescription(std::string newDesc) {
     _description = newDesc;
 }
+
+std::string Item::getName() {
+    return _name;
+}
+
+double Item::getWholesaleCost() {
+    return _wholesaleCost;
+}
+
+double Item::getRetailCost() {
+    return _retailCost;
+}
+
+int Item::getStock() {
+    return _stockRemaining;
+}
+
