@@ -1,6 +1,6 @@
 CFLAGS := -std=c++11 -pedantic -Wall
 DEBUG := -g
-OBJECTS := main.o
+OBJECTS := main.o scoop.o
 SOURCE := ./src/
 
 # TODO find a place to put the bin files
