@@ -1,13 +1,14 @@
 #ifndef ITEM_H
 #define ITEM_H
+//#include <gtkmm.h>
 #include <string>
 
 class Item {
     public:
-        Item(std::string, std::string, double, double, int, Gtk::Image);
+        Item(std::string, std::string, double, double, int);//, Gtk::Image);
         
         /* constructor without image */
-        Item(std::string, std::string, double, double, int);
+       // Item(std::string, std::string, double, double, int);
 
         bool isInStock();
         void restock(int);
@@ -26,6 +27,6 @@ class Item {
         double _wholesaleCost;
         double _retailCost;
         int _stockRemaining;
-        Gtk::Image _image;
+      //  Gtk::Image _image;
 };
 #endif
