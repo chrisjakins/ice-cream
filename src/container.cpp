@@ -1,18 +1,16 @@
 #include "container.h"
 
-Container::Container(int type) : cType{type} {}
-void Container::set_max(){
-  //switch(cType){
-  //  case(cup): maxScoop = 2;
-  //  case(bowl): maxScoop =5;
-  //  case(waffle): maxScoop = 3;
-  //  default: maxScoop = 0;
-  //}
-  if(cType == bowl){
-    maxScoop = 2;
-  }
-};
 
-int Container::get_max(){
+Container::Container(std::string name, std::string description, double wholesaleCost, double retailCost, int stockRemaining, int maxScoop) :  
+maxScoop{maxScoop}
+{_name = name;
+_description = description;
+_wholesaleCost = wholesaleCost;
+_retailCost = retailCost;
+_stockRemaining = stockRemaining;
+}
+
+
+int Container::getMax(){
 	return maxScoop;
 }

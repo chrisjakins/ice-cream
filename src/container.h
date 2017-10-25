@@ -1,20 +1,18 @@
 #ifndef _CONTAINER_H
 #define _CONTAINER_H
 #include <string>
-using namespace std;
+#include "item.h"
 
-class Container{
+
+class Container: protected Item{
   public:
-    Container(int type);
-    static const int cup = 0;
-    static const int bowl = 1;
-    static const int waffle = 2;
+    Container(std::string name, std::string description, double wholesaleCost, double retailCost, int stockRemaining, int maxScoop);
     
-    void set_max();
-    int get_max();
+    
+    
+    int getMax();
 
   private:
     int maxScoop;
-    int cType;
 };
 #endif
