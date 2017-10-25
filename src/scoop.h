@@ -1,25 +1,13 @@
 #ifndef _SCOOP_H
 #define _SCOOP_H
 #include <string>
-using namespace std;
+#include "item.h"
 
-class Scoop {
+class Scoop: public Item {
   public:
-    Scoop(int flav) : flavor(flav) { }
-
-    static const int vanilla = 0;
-    static const int chocolate = 1;
-    static const int strawberry = 2;
-
-    string to_string() {
-      switch(flavor) {
-        case(vanilla):return "vanilla";
-        case(chocolate):return "chocolate";
-        case(strawberry):return "strawberry";
-        default: return "UNKNOWN";
-      }
-    }
-  private:
-    int flavor;
+    // Scoop(std::string, std::string, double, double, int, Gtk::Image);
+    
+    /* for testing purposes before we are ready to work with images */
+    Scoop(std::string, std::string, double, double, int);
 };
 #endif

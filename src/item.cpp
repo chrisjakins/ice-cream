@@ -2,10 +2,10 @@
 
 #include "item.h"
 
-Item(std::string name, std::string desc, double wsc, double rtc, int stock, Gtk::Image img)
-: _name{name}, _description{desc}, _wholesaleCost{wsc},
-  _retail{rtc}, _stockRemaining{stock}, _image{image}
-{ }
+// Item(std::string name, std::string desc, double wsc, double rtc, int stock, Gtk::Image img)
+// : _name{name}, _description{desc}, _wholesaleCost{wsc},
+//   _retail{rtc}, _stockRemaining{stock}, _image{image}
+// { }
 
 Item::Item(std::string name, std::string desc, double wsc, double rtc, int stock)
 : _name(name), _description(desc), _wholesaleCost(wsc),
