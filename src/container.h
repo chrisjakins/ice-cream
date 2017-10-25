@@ -5,11 +5,16 @@ using namespace std;
 
 class Container{
   public:
-    Container(string type) : type{type} {}
-    void set_max(type);
-    void get_max();
+    Container(int type);
+    static const int cup = 0;
+    static const int bowl = 1;
+    static const int waffle = 2;
+    
+    void set_max();
+    int get_max();
+
   private:
     int maxScoop;
-    string type;
+    int cType;
 };
 #endif
