@@ -1,22 +1,24 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include <string>
-#include <gtkmm.h>
 
 class Item {
     public:
-        Item();
+        Item(std::string, std::string, double, double, int, Gtk::Image);
+        
+        /* constructor without image */
+        Item(std::string, std::string, double, double, int);
 
         bool isInStock();
         void restock(int);
+        int getStock();
 
         void changeRetailCost(double);
         void updateDescription(std::string);
-        
         std::string getName();
+        
         double getWholesaleCost();
         double getRetailCost();
-        int getStock();
 
     protected:
         std::string _name;
