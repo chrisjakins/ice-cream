@@ -2,10 +2,10 @@
 #include <iostream>
 
 int main() {
-    Scoop scoop(Scoop::chocolate);
+    Scoop vanilla("vanilla", "for those who like to keep it classy", 2.0, 5.0, 30);
 
-    if (scoop.to_string() != "chocolate") {
-      cerr << "chocolate failed: got " << scoop.to_string() << endl;
+    if (vanilla.getName() != "Vanilla") {
+      cerr << "Vanilla test failed: got " << vanilla.getName() << endl;
       return 1;
     }
 
