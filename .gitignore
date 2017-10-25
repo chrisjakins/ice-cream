@@ -31,6 +31,5 @@
 *.out
 *.app
 
-# Visual Studio Code Folder
-
+# Visual Studio Code
 .vscode/
