@@ -4,13 +4,21 @@
 
 class Item {
     public:
-        virtual Item() = 0;
+        Item(std::string, std::string, double, double, int, Gtk::Image);
+        
+        /* constructor without image */
+        Item(std::string, std::string, double, double, int);
 
         bool isInStock();
-        void restock();
+        void restock(int);
+        int getStock();
 
         void changeRetailCost(double);
         void updateDescription(std::string);
+        std::string getName();
+        
+        double getWholesaleCost();
+        double getRetailCost();
 
     protected:
         std::string _name;
