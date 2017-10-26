@@ -1,5 +1,6 @@
 #include <string>
 //#include <gtkmm.h>
+
 #include "item.h"
 
 //Item::Item(std::string name, std::string desc, double wsc, double rtc, int stock, Gtk::Image img)

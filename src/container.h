@@ -1,14 +1,13 @@
 #ifndef _CONTAINER_H
 #define _CONTAINER_H
+
 #include <string>
+
 #include "item.h"
 
-
-class Container: protected Item{
+class Container : protected Item {
   public:
-    Container(std::string name, std::string description, double wholesaleCost, double retailCost, int stockRemaining, int maxScoop);
-    
-    
+    Container(std::string, std::string, double, double, int, int);
     
     int getMax();
 

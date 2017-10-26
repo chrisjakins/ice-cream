@@ -2,7 +2,6 @@
 #define ITEM_H
 //#include <gtkmm.h>
 #include <string>
-// #include <gtkmm.h>
 
 class Item {
     public:

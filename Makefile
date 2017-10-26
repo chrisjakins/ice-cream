@@ -1,10 +1,13 @@
 CFLAGS := -std=c++11 -pedantic -Wall `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
+OBJECTS := main.o scoop.o main_window.o container.o item.o topping.o
+SOURCE := ./src/
+
 DEBUG := -g
+
 TESTSCOOP := test_scoop.o scoop.o item.o
 TESTCONTAINER := test_container.o container.o item.o
 TESTTOPPING := test_topping.o topping.o item.o
-OBJECTS := main.o scoop.o main_window.o container.o item.o topping.o
-SOURCE := ./src/
+
 
 # TODO find a place to put the bin files
 run: build

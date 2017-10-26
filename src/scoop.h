@@ -1,9 +1,11 @@
 #ifndef _SCOOP_H
 #define _SCOOP_H
+
 #include <string>
+
 #include "item.h"
 
-class Scoop: public Item {
+class Scoop : public Item {
   public:
     // Scoop(std::string, std::string, double, double, int, Gtk::Image);
     
