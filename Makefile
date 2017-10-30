@@ -7,7 +7,7 @@ DEBUG := -g
 TESTSCOOP := test_scoop.o scoop.o item.o
 TESTCONTAINER := test_container.o container.o item.o
 TESTTOPPING := test_topping.o topping.o item.o
-
+TESTSERV := test_serving.o serving.o item.o container.o topping.o scoop.o
 
 # TODO find a place to put the bin files
 run: build
@@ -19,7 +19,7 @@ build: $(OBJECTS)
 %.o: $(SOURCE)%.cpp
 	$(CXX) -c $< $(CFLAGS)
 
-testall: testscoop testcontainer testtopping
+testall: testscoop testcontainer testtopping testserv
 
 testscoop: $(TESTSCOOP)
 	$(CXX) $(TESTSCOOP) $(CFLAGS)
@@ -31,6 +31,10 @@ testcontainer: $(TESTCONTAINER)
 
 testtopping: $(TESTTOPPING)
 	$(CXX) $(TESTTOPPING) $(CFLAGS)
+	./a.out
+
+testserv: $(TESTSERV)
+	$(CXX) $(TESTSERV) $(CFLAGS)
 	./a.out
 
 clean:
