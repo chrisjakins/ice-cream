@@ -11,5 +11,7 @@ class Scoop : public Item {
     
     /* for testing purposes before we are ready to work with images */
     Scoop(std::string, std::string, double, double, int);
+
+    std::string type() override;
 };
 #endif

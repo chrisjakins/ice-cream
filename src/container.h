@@ -5,9 +5,11 @@
 
 #include "item.h"
 
-class Container : protected Item {
+class Container : public Item {
   public:
     Container(std::string, std::string, double, double, int, int);
+
+    std::string type() override;
     
     int getMax();
 

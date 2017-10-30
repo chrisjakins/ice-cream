@@ -6,18 +6,24 @@
 class Item {
     public:
         Item(std::string, std::string, double, double, int);//, Gtk::Image);
-        
         /* constructor without image */
        // Item(std::string, std::string, double, double, int);
 
+        virtual std::string type() = 0;
+
+        /* stock operations */
         bool isInStock();
         void restock(int);
-        int getStock();
+        void consume(int);
 
+        /* Updating values */
         void changeRetailCost(double);
         void updateDescription(std::string);
+
+        /* Getters */
         std::string getName();
-        
+        std::string getDescription();
+        int getStock();
         double getWholesaleCost();
         double getRetailCost();
 

@@ -21,6 +21,10 @@ void Item::restock(int addedStock) {
     _stockRemaining += addedStock;
 }
 
+void Item::consume(int quantity) {
+    _stockRemaining -= quantity;
+}
+
 void Item::changeRetailCost(double newCost) {
     _retailCost = newCost;
 }
@@ -45,3 +49,6 @@ int Item::getStock() {
     return _stockRemaining;
 }
 
+std::string Item::getDescription() {
+    return _description;
+}

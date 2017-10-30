@@ -1,3 +1,5 @@
+#include <string>
+
 #include "container.h"
 
 Container::Container(std::string name, std::string description, double wholesaleCost,
@@ -7,4 +9,8 @@ Container::Container(std::string name, std::string description, double wholesale
 
 int Container::getMax() {
 	return maxScoop;
+}
+
+std::string Container::type() {
+    return "Container";
 }
