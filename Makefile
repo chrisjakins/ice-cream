@@ -1,5 +1,5 @@
 CFLAGS := -std=c++11 -pedantic -Wall `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
-OBJECTS := main.o scoop.o main_window.o container.o item.o topping.o person.o customer.o
+OBJECTS := main.o scoop.o main_window.o container.o item.o topping.o person.o customer.o server.o
 SOURCE := ./src/
 
 DEBUG := -g
@@ -7,8 +7,9 @@ DEBUG := -g
 TESTSCOOP := test_scoop.o scoop.o item.o
 TESTCONTAINER := test_container.o container.o item.o
 TESTTOPPING := test_topping.o topping.o item.o
-TESTSERV := test_serving.o serving.o item.o container.o topping.o scoop.o
+TESTSERVING := test_serving.o serving.o item.o container.o topping.o scoop.o
 TESTCUSTOMER := test_customer.o person.o customer.o
+TESTSERVER := test_server.o person.o server.o
 
 # TODO find a place to put the bin files
 run: build
@@ -20,7 +21,7 @@ build: $(OBJECTS)
 %.o: $(SOURCE)%.cpp
 	$(CXX) -c $< $(CFLAGS)
 
-testall: testscoop testcontainer testtopping testserv testcustomer
+testall: testscoop testcontainer testtopping testserving testcustomer testserver
 
 testscoop: $(TESTSCOOP)
 	$(CXX) $(TESTSCOOP) $(CFLAGS)
@@ -34,12 +35,16 @@ testtopping: $(TESTTOPPING)
 	$(CXX) $(TESTTOPPING) $(CFLAGS)
 	./a.out
 
-testserv: $(TESTSERV)
-	$(CXX) $(TESTSERV) $(CFLAGS)
+testserving: $(TESTSERVING)
+	$(CXX) $(TESTSERVING) $(CFLAGS)
 	./a.out
 
 testcustomer: $(TESTCUSTOMER)
 	$(CXX) $(TESTCUSTOMER) $(CFLAGS)
+	./a.out
+
+testserver: $(TESTSERVER)
+	$(CXX) $(TESTSERVER) $(CFLAGS)
 	./a.out
 
 clean:
