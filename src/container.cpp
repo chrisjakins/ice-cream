@@ -7,7 +7,7 @@ Container::Container(std::string name, std::string description, double wholesale
 : Item(name, description, wholesaleCost, retailCost, stockRemaining), maxScoop{maxScoop}
 {  }
 
-int Container::getMax() {
+int Container::max() {
 	return maxScoop;
 }
 
