@@ -1,5 +1,6 @@
 CFLAGS := -std=c++11 -pedantic -Wall `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
-OBJECTS := main.o scoop.o main_window.o container.o item.o topping.o person.o customer.o server.o
+OBJECTS := main.o scoop.o main_window.o container.o item.o 
+OBJECTS += topping.o person.o customer.o order.o server.o
 SOURCE := ./src/
 
 DEBUG := -g

@@ -6,7 +6,7 @@
 class Person {
     public:
         Person(std::string, int, std::string);
-        
+
         void toggle_active();
         std::string name();
         int id();
@@ -15,8 +15,8 @@ class Person {
 
     private:
         std::string _name;
-        int _id;
         std::string _phone;
+        const int _id;
         bool _active = true;
 };
 #endif
