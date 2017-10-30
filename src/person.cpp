@@ -6,15 +6,15 @@ Person::Person(std::string name, int id, std::string phone) {
     _phone = phone;
 }
 
-std::string Person::getName() {
+std::string Person::name() {
     return _name;
 }
 
-int Person::getId() {
+int Person::id() {
     return _id;
 }
 
-std::string Person::getPhone() {
+std::string Person::phone() {
     return _phone;
 }
 

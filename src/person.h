@@ -8,9 +8,9 @@ class Person {
         Person(std::string, int, std::string);
         
         void toggle_active();
-        std::string getName();
-        int getId();
-        std::string getPhone();
+        std::string name();
+        int id();
+        std::string phone();
         bool isActive();
 
     private:
