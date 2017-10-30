@@ -17,6 +17,6 @@ std::string Topping::type() {
     return "Topping";
 }
 
-int Topping::getAmount() {
+int Topping::amount() {
     return _quantity;
 }

@@ -13,7 +13,7 @@ class Topping : public Item {
         Topping(std::string, std::string, double, double, int, int);
 
         std::string type() override;
-        int getAmount();
+        int amount();
 
 
         const static int LIGHT = 1;

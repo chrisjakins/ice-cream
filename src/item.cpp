@@ -33,22 +33,22 @@ void Item::updateDescription(std::string newDesc) {
     _description = newDesc;
 }
 
-std::string Item::getName() {
+std::string Item::name() {
     return _name;
 }
 
-double Item::getWholesaleCost() {
+double Item::wholesaleCost() {
     return _wholesaleCost;
 }
 
-double Item::getRetailCost() {
+double Item::retailCost() {
     return _retailCost;
 }
 
-int Item::getStock() {
+int Item::stock() {
     return _stockRemaining;
 }
 
-std::string Item::getDescription() {
+std::string Item::description() {
     return _description;
 }

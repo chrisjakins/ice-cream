@@ -21,11 +21,11 @@ class Item {
         void updateDescription(std::string);
 
         /* Getters */
-        std::string getName();
-        std::string getDescription();
-        int getStock();
-        double getWholesaleCost();
-        double getRetailCost();
+        std::string name();
+        std::string description();
+        int stock();
+        double wholesaleCost();
+        double retailCost();
 
     protected:
         std::string _name;

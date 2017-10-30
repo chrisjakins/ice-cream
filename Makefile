@@ -20,7 +20,7 @@ build: $(OBJECTS)
 %.o: $(SOURCE)%.cpp
 	$(CXX) -c $< $(CFLAGS)
 
-testall: testscoop testcontainer testtopping testserv
+testall: testscoop testcontainer testtopping testserv testcustomer
 
 testscoop: $(TESTSCOOP)
 	$(CXX) $(TESTSCOOP) $(CFLAGS)
