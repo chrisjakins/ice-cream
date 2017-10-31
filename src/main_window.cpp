@@ -91,6 +91,35 @@ void Main_window::on_quit_click() {
 void Main_window::createServer() {}
 void Main_window::createCustomer() {}
 void Main_window::createOrder() {}
-void Main_window::createItem(){}
+void Main_window::createItem(){
+    // TEMPORARY will refactor and add to controller
+    Gtk::Dialog *dialog = new Gtk::Dialog();
+    dialog->set_title("Select Item Type");
+    dialog->set_transient_for(*this);
+
+    // Item Type
+    Gtk::HBox b_type;
+    
+    Gtk::Label l_type{"Item Type:"};
+    l_type.set_width_chars(15);
+    b_type.pack_start(l_type, Gtk::PACK_SHRINK);
+
+    Gtk::ComboBoxText c_type;
+    c_type.set_size_request(160);
+    c_type.append("Container");
+    c_type.append("Flavor");
+    c_type.append("Topping");
+    b_type.pack_start(c_type, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(b_type, Gtk::PACK_SHRINK);
+
+    // Show dialog
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+    // int result = dialog->run();
+    dialog->run();
+
+    dialog->close();
+}
 
 Main_window::~Main_window() { }
