@@ -2,6 +2,7 @@
 #define EMPORIUM_H
 
 #include <deque>
+#include <string>
 
 #include "item.h"
 #include "order.h"
@@ -12,7 +13,14 @@ class Emporium {
         Emporium(int, double);
 
         void addItems(Item *);
-        void removeItems(int);
+        void removeItems(int); // consider not having this removed = stock to 0
+        std::string listItems();
+
+        void addPerson(Person *);
+        std::string listPersons();
+        
+        void addOrder(Order *);
+        std::string listOrders();
 
         /* FILE I/O */
         /* void load(std::istream); */

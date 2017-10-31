@@ -25,6 +25,10 @@ class Order {
 
         void updateState(const int);
 
+        /*** listing ***/
+        std::string customer();
+        std::string server();
+
         const static int UNFILLED = 0;
         const static int FILLED = 1;
         const static int CANCELLED = 2;

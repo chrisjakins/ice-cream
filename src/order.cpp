@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 
 #include "order.h"
 #include "item.h"
@@ -28,4 +29,18 @@ double Order::price() {
 
 void Order::updateState(const int newState) {
     _state = newState;
+}
+
+/*************************
+        Listing
+*************************/
+
+std::string customer() {
+    std::string cust = "";
+    cust += _customer->name();
+}
+
+std::string server() {
+    std::string serv = "";
+    serv += _server->name();
 }
