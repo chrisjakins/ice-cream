@@ -7,7 +7,7 @@
     Data access:
         sequentially/random/key
 */
-#include <list>
+#include <vector>
 
 #include "serving.h"
 #include "customer.h"
