@@ -1,9 +1,11 @@
 CFLAGS := -std=c++11 -pedantic -Wall `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
-OBJECTS := scoop.o main_window.o container.o item.o serving.o
-OBJECTS += topping.o person.o customer.o order.o server.o main.o emporium.o
-SOURCE := ./src/
-
 DEBUG := -g
+
+OBJECTS := main.o scoop.o main_window.o container.o item.o serving.o
+OBJECTS += topping.o person.o customer.o order.o server.o emporium.o
+
+SOURCEDIR := ./src/
+TESTDIR := ./tests/
 
 TESTSCOOP := test_scoop.o scoop.o item.o
 TESTCONTAINER := test_container.o container.o item.o
@@ -19,7 +21,7 @@ run: build
 build: $(OBJECTS)
 	$(CXX) $(OBJECTS) $(CFLAGS)
 
-%.o: $(SOURCE)%.cpp
+%.o: $(SOURCEDIR)%.cpp
 	$(CXX) -c $< $(CFLAGS)
 
 testall: testscoop testcontainer testtopping testserving testcustomer testserver
