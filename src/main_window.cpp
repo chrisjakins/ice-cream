@@ -31,51 +31,43 @@ Main_window::Main_window() {
     menuitem_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     filemenu->append(*menuitem_quit);
 
-    //     MANAGER
-    // Create a Manager menu and add to the menu bar
-    Gtk::MenuItem *menuitem_manager = Gtk::manage(new Gtk::MenuItem("_Manager", true));
-    menubar->append(*menuitem_manager);
-    Gtk::Menu *managermenu = Gtk::manage(new Gtk::Menu());
-    menuitem_manager->set_submenu(*managermenu);
+    //     CREATE
+    // Create a 'Create' menu and add to the menu bar
+    Gtk::MenuItem *menuitem_create = Gtk::manage(new Gtk::MenuItem("_Create", true));
+    menubar->append(*menuitem_create);
+    Gtk::Menu *createmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_create->set_submenu(*createmenu);
 
     //         CREATE ITEM
-    // Append Create Item to the Manager menu
-    Gtk::MenuItem *menuitem_createItem = Gtk::manage(new Gtk::MenuItem("_Create Item", true));
+    // Append Item to the Create menu
+    Gtk::MenuItem *menuitem_createItem = Gtk::manage(new Gtk::MenuItem("_Item...", true));
     menuitem_createItem->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createItem));
-    managermenu->append(*menuitem_createItem);
+    createmenu->append(*menuitem_createItem);
 
-    //     SERVER
-    // Create a Server menu and add to the menu bar
-    Gtk::MenuItem *menuitem_server = Gtk::manage(new Gtk::MenuItem("_Server", true));
-    menubar->append(*menuitem_server);
-    Gtk::Menu *servermenu = Gtk::manage(new Gtk::Menu());
-    menuitem_server->set_submenu(*servermenu);
+    //         CREATE SERVER
+    // Append Server to the Create menu
+    Gtk::MenuItem *menuitem_createServer = Gtk::manage(new Gtk::MenuItem("_Server...", true));
+    menuitem_createServer->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createServer));
+    createmenu->append(*menuitem_createServer);
 
-    //         ADD SERVING
-    // Append Add Serving to the Server menu
-    Gtk::MenuItem *menuitem_addServing = Gtk::manage(new Gtk::MenuItem("_Add Serving", true));
-    menuitem_addServing->signal_activate().connect(sigc::mem_fun(*this, &Main_window::addServing));
-    servermenu->append(*menuitem_addServing);
+    //         CREATE CUSTOMER
+    // Append Customer to the Create menu
+    Gtk::MenuItem *menuitem_createCustomer = Gtk::manage(new Gtk::MenuItem("_Customer...", true));
+    menuitem_createCustomer->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createCustomer));
+    createmenu->append(*menuitem_createCustomer);
 
-    //         ADD CUSTOMER
-    // Append Add Customer to the Server menu
-    Gtk::MenuItem *menuitem_addCustomer = Gtk::manage(new Gtk::MenuItem("_Add Customer", true));
-    menuitem_addCustomer->signal_activate().connect(sigc::mem_fun(*this, &Main_window::addCustomer));
-    servermenu->append(*menuitem_addCustomer);
+    //         CREATE ORDER
+    // Append Order to the Create menu
+    Gtk::MenuItem *menuitem_createOrder = Gtk::manage(new Gtk::MenuItem("_Order...", true));
+    menuitem_createOrder->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createOrder));
+    createmenu->append(*menuitem_createOrder);
 
-    //         ADD ORDER
-    // Append Add Order to the Server menu
-    Gtk::MenuItem *menuitem_addOrder = Gtk::manage(new Gtk::MenuItem("_Add Order", true));
-    menuitem_addOrder->signal_activate().connect(sigc::mem_fun(*this, &Main_window::addOrder));
-    servermenu->append(*menuitem_addOrder);
-
-    //     CUSTOMER
-    // Create a Customer menu and add to the menu bar
-    Gtk::MenuItem *menuitem_customer = Gtk::manage(new Gtk::MenuItem("_Customer", true));
-    menubar->append(*menuitem_customer);
-    Gtk::Menu *customermenu = Gtk::manage(new Gtk::Menu());
-    menuitem_customer->set_submenu(*customermenu);
-
+    //     HELP
+    // Create a Help menu and add to the menu bar
+    Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
+    menubar->append(*menuitem_help);
+    Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_help->set_submenu(*helpmenu);
 
     // /////////////
     // T O O L B A R
@@ -90,16 +82,15 @@ Main_window::Main_window() {
 // C A L L B A C K S
 // /////////////////
 
+// File Menu
 void Main_window::on_quit_click() {
     hide();
 }
 
-// Server Menu
-void Main_window::addServing() {}
-void Main_window::addCustomer() {}
-void Main_window::addOrder() {}
-
-// Manager menu
+// Create Menu
+void Main_window::createServer() {}
+void Main_window::createCustomer() {}
+void Main_window::createOrder() {}
 void Main_window::createItem(){}
 
 Main_window::~Main_window() { }

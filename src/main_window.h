@@ -13,11 +13,11 @@ class Main_window : public Gtk::Window
 
         // Are NOT defined. Will need to
         // discuss implementation
-        void createItem();          // Prompts dialog to create item
-        void addServing();
-        void addCustomer();
-        void addOrder();
-        
+        void createItem();          // Prompts dialog to create various items
+        void createServer();        // Prompts dialog to create Server
+        void createCustomer();      // Prompts dialog to create beloved Customer
+        void createOrder();         // Prompts dialog to create Order
+
     private:
 };
 #endif 
