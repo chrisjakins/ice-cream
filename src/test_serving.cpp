@@ -28,7 +28,7 @@ int main() {
         std::cerr << "Serving not created properly, or price() doesn't work\n"
                   << "expected: 26.00\nactual: " << serv->price() << std::endl;
     }
-
+    std::cout << serv->preview();
     delete serv;
     return 0;
 }

@@ -37,3 +37,11 @@ double Serving::price() {
     }
     return total;
 }
+std::string Serving::preview(){
+    std::string selected="";
+    for(Item * i: _items){
+        selected += i->name() +" "+"("+i->description()+")"+"\t"+std::to_string(i->retailCost())+
+        "\n";
+    }
+    return selected;
+}   
