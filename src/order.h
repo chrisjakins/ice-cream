@@ -1,6 +1,12 @@
 #ifndef ORDER_H
 #define ORDER_H
 
+/* Container choice:
+    Data removal:
+        front/back/middle
+    Data access:
+        sequentially/random/key
+*/
 #include <list>
 
 #include "serving.h"
@@ -9,15 +15,15 @@
 
 class Order {
     public:
-        Order(Customer, Server, int);
+        Order(int, Customer, Server);
 
         /* how do these two work */
         void addServing(Serving *);
-        void removeServing();
+        void removeServing(int);
 
         double price();
 
-        void updateState();
+        void updateState(const int);
 
         const static int UNFILLED = 0;
         const static int FILLED = 1;
@@ -30,6 +36,6 @@ class Order {
          
         Customer _customer;
         Server _server;
-        std::list<Serving *> _servings;
+        std::vector<Serving *> _servings;
 };
 #endif

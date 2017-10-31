@@ -33,7 +33,7 @@ int Serving::numItems() {
 double Serving::price() {
     double total = 0;
     for (Item * i : _items) {
-        total += i->getRetailCost();
+        total += i->retailCost();
     }
     return total;
 }
