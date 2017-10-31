@@ -31,16 +31,22 @@ void Order::updateState(const int newState) {
     _state = newState;
 }
 
+int Order::id() {
+    return _id;
+}
+
 /*************************
         Listing
 *************************/
 
-std::string customer() {
+std::string Order::customer() {
     std::string cust = "";
-    cust += _customer->name();
+    cust += _customer.name();
+    return cust;
 }
 
-std::string server() {
+std::string Order::server() {
     std::string serv = "";
-    serv += _server->name();
+    serv += _server.name();
+    return serv;
 }

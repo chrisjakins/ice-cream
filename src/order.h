@@ -24,6 +24,7 @@ class Order {
         double price();
 
         void updateState(const int);
+        int id();
 
         /*** listing ***/
         std::string customer();

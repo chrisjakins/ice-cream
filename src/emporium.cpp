@@ -27,36 +27,36 @@ void Emporium::removeItems(int index) {
 
 std::string Emporium::listItems() {
     std::string list = "";
-    for (int i = 0; i < _items.size(); i++) {
+    for (unsigned int i = 0; i < _items.size(); i++) {
         list += _items[i]->name();
-        list += '\n';
+        list += "\n";
         list += _items[i]->description();
-        list += '\n\n';
+        list += "\n\n";
     }
     return list;
 }
 
 std::string Emporium::listPersons() {
     std::string list = "";
-    for (int i = 0; i < _persons.size(); i++) {
+    for (unsigned int i = 0; i < _persons.size(); i++) {
         list += _persons[i]->id();
-        list += '\n';
+        list += "\n";
         list += _persons[i]->name();
-        list += '\n\n';
+        list += "\n\n";
     }
     return list;
 }
 
 std::string Emporium::listOrders() {
     std::string list = "";
-    for (int i = 0; i < _orders.size(); i++) {
+    for (unsigned int i = 0; i < _orders.size(); i++) {
         list += _orders[i]->id();
-        list += '\n';
+        list += "\n";
         list += "Served by: \n";
         list += _orders[i]->server();
         list += "Ordered by: \n";
         list += _orders[i]->customer();
-        list += '\n\n';
+        list += "\n\n";
     }
     return list;
 }
