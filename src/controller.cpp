@@ -6,7 +6,16 @@ Controller::Controller(Emporium& emp)
 { }
 
 void Controller::execute(int cmd) {
-    if (cmd == CREATE_ITEM) {
+    switch (cmd) {
+        case CREATE_ITEM: createItem(); break;
+        case CREATE_SERVER: createServer(); break;
+        case CREATE_CUSTOMER: createCustomer(); break;
+        case CREATE_EMPORIUM: createEmporium(); break;
+        default: /* what to do here */;
+    }
+}
+
+void Controller::createItem() {
         Gtk::Dialog *dialog = new Gtk::Dialog();
         dialog->set_title("Select Item Type");
         // dialog->set_transient_for(*this);
@@ -124,9 +133,9 @@ void Controller::execute(int cmd) {
 
         while (Gtk::Main::events_pending())
             Gtk::Main::iteration();
-    }
-    else if (cmd == CREATE_SERVER)
-    {
+}
+
+void Controller::createServer() {
         Gtk::Dialog *dialog = new Gtk::Dialog();
         dialog->set_title("Create Server");
         // dialog->set_transient_for(*this);
@@ -191,8 +200,9 @@ void Controller::execute(int cmd) {
 
         while (Gtk::Main::events_pending())
             Gtk::Main::iteration();
-    } else if (cmd == CREATE_CUSTOMER)
-    {
+}
+
+void Controller::createCustomer() {
         Gtk::Dialog *dialog = new Gtk::Dialog();
         dialog->set_title("Create Customer");
         // dialog->set_transient_for(*this);
@@ -245,5 +255,8 @@ void Controller::execute(int cmd) {
 
         while (Gtk::Main::events_pending())
             Gtk::Main::iteration();
-    } else {}
+}
+
+void Controller::createEmporium() {
+
 }

@@ -8,11 +8,13 @@ class Controller {
     public:
         Controller(Emporium&);
 
+        void execute(int);
+
+
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;
         const static int CREATE_CUSTOMER = 3;
-
-        void execute(int);
+        const static int CREATE_EMPORIUM = 4;
 
     private:
         Emporium _emp;
@@ -20,5 +22,6 @@ class Controller {
         void createItem();
         void createServer();
         void createCustomer();
+        void createEmporium();
 };
 #endif
