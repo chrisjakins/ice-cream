@@ -1,12 +1,14 @@
 #include "main_window.h"
 
-Main_window::Main_window() {
+Main_window::Main_window(Emporium& emp) 
+: _controller(emp)
+{
 
     // /////////////////
     // G U I   S E T U P
     // /////////////////
 
-    set_default_size(400, 200);
+    set_default_size(800, 400);
     
     // Put a vertical box container as the Window contents
     Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));

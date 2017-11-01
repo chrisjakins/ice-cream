@@ -2,11 +2,13 @@
 #define MAIN_WINDOW_H
 
 #include <gtkmm.h>
+#include "controller.h"
+#include "emporium.h"
 
 class Main_window : public Gtk::Window
 {
     public:
-        Main_window();
+        Main_window(Emporium&);
         virtual ~Main_window();
     protected:
         void on_quit_click();       // Exit Ice Cream Application
@@ -19,6 +21,7 @@ class Main_window : public Gtk::Window
         void createOrder();         // Prompts dialog to create Order
 
     private:
+        Controller _controller;
 };
 #endif 
 
