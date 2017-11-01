@@ -94,15 +94,17 @@ void Main_window::on_quit_click() {
 // Should figure out how to make numbers match the static variables in 
 // controller.h
 void Main_window::createServer() {
-    _controller.execute(2); // 2 = CREATE_SERVER
+    _controller.execute(Controller::CREATE_SERVER);
 }
+
 void Main_window::createCustomer() {
-    _controller.execute(3); // 3 = CREATE_CUSTOMER
+    _controller.execute(Controller::CREATE_CUSTOMER);
 }
+
 void Main_window::createOrder() {}
+
 void Main_window::createItem(){
-    // _controller.execute(CREATE_ITEM); not sure why this won't work
-    _controller.execute(1);
+    _controller.execute(Controller::CREATE_ITEM);
 }
 
 Main_window::~Main_window() { }
