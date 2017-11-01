@@ -8,6 +8,11 @@ class Controller {
     public:
         Controller(Emporium&);
 
+        const static int CREATE_ITEM = 1;
+        const static int CREATE_SERVER = 2;
+
+        void execute(int);
+
     private:
         Emporium _emp;
 };

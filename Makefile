@@ -52,4 +52,4 @@ testserver: $(TESTSERVER)
 	./a.out
 
 clean:
-	-rm *.o *.out
+	-rm -f *.o *.out
