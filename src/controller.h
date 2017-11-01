@@ -15,5 +15,9 @@ class Controller {
 
     private:
         Emporium _emp;
+
+        void createItem();
+        void createServer();
+        void createCustomer();
 };
 #endif
