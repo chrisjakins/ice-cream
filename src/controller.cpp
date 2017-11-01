@@ -38,10 +38,30 @@ void Controller::execute(int cmd) {
         while (Gtk::Main::events_pending())
             Gtk::Main::iteration();
 
-        int item_type = c_type.get_active_row_number();
+        int itemType = c_type.get_active_row_number();
 
         dialog = new Gtk::Dialog();
-        dialog->set_title("Create Container");
+        
+        // May be better to use an enum here for more clarity
+        if (itemType == 0) {
+            dialog->set_title("Create Container");
+            // Max Scoops
+            Gtk::HBox b_scoops;
+
+            Gtk::Label l_scoops{"Max Scoops:"};
+            l_scoops.set_width_chars(15);
+            b_scoops.pack_start(l_scoops, Gtk::PACK_SHRINK);
+
+            Gtk::Entry e_scoops;
+            e_scoops.set_max_length(50);
+            b_scoops.pack_start(e_scoops, Gtk::PACK_SHRINK);
+            dialog->get_vbox()->pack_start(b_scoops, Gtk::PACK_SHRINK);
+
+        } else if (itemType == 1) {
+            dialog->set_title("Create Flavor");
+        } else {
+            dialog->set_title("Create Topping");
+        }
 
         // Name
         Gtk::HBox b_name;
