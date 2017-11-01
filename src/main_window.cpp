@@ -91,10 +91,14 @@ void Main_window::on_quit_click() {
 }
 
 // Create Menu
+// Should figure out how to make numbers match the static variables in 
+// controller.h
 void Main_window::createServer() {
-    _controller.execute(2);
+    _controller.execute(2); // 2 = CREATE_SERVER
 }
-void Main_window::createCustomer() {}
+void Main_window::createCustomer() {
+    _controller.execute(3); // 3 = CREATE_CUSTOMER
+}
 void Main_window::createOrder() {}
 void Main_window::createItem(){
     // _controller.execute(CREATE_ITEM); not sure why this won't work
