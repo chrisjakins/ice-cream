@@ -6,6 +6,7 @@ OBJECTS += topping.o person.o customer.o order.o server.o emporium.o
 
 SOURCEDIR := ./src/
 TESTDIR := ./tests/
+BINDIR := ./bin/
 
 TESTSCOOP := test_scoop.o scoop.o item.o
 TESTCONTAINER := test_container.o container.o item.o
