@@ -1,7 +1,7 @@
 #include <list>
 #include <memory> // unique_ptr?
 /* #include <exception>  // Do we need? */
-#include <iostream> // debugging
+#include <string>
 
 #include "serving.h"
 #include "item.h"
@@ -15,6 +15,7 @@ Serving * Serving::create(std::list<Item *> items) {
     for (auto it = items.begin(); it != items.end(); *it++) {
         serving->addItem(*it);
     }
+    /* deque implementation */
     /* for (unsigned int i = 0; i < items.size(); i++) { */
     /*     serving->addItem(items[i]); */
     /* } */
@@ -37,11 +38,14 @@ double Serving::price() {
     }
     return total;
 }
-std::string Serving::preview(){
-    std::string selected="";
-    for(Item * i: _items){
-        selected += i->name() +" "+"("+i->description()+")"+"\t"+std::to_string(i->retailCost())+
-        "\n";
+
+/* consider using Pango in this method, desc in italics */
+std::string Serving::preview() {
+    std::string selected = "";
+    for (Item * i : _items) {
+        selected += i->name() + "\n";
+        selected += i->description() + "\n";
+        selected += std::to_string(i->retailCost()) + "\n";
     }
     return selected;
 }   

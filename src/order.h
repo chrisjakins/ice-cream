@@ -17,16 +17,13 @@ class Order {
     public:
         Order(int, Customer, Server);
 
-        /* how do these two work */
         void addServing(Serving *);
         void removeServing(int);
 
-        double price();
-
         void updateState(const int);
-        int id();
 
-        /*** listing ***/
+        double price();
+        int id();
         std::string customer();
         std::string server();
 

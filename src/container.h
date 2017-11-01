@@ -14,6 +14,6 @@ class Container : public Item {
     int max();
 
   private:
-    int maxScoop;
+    int maxScoops;
 };
 #endif

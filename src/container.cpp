@@ -1,14 +1,15 @@
 #include <string>
 
 #include "container.h"
+#include "item.h"
 
-Container::Container(std::string name, std::string description, double wholesaleCost,
-                     double retailCost, int stockRemaining, int maxScoop)
-: Item(name, description, wholesaleCost, retailCost, stockRemaining), maxScoop{maxScoop}
+Container::Container(std::string name, std::string description, double wholesale,
+                     double retail, int stockRemaining, int maxScoop)
+: Item(name, description, wholesale, retail, stockRemaining), maxScoops{maxScoop}
 {  }
 
 int Container::max() {
-	return maxScoop;
+	return maxScoops;
 }
 
 std::string Container::type() {

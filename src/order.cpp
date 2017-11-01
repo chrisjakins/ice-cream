@@ -35,10 +35,6 @@ int Order::id() {
     return _id;
 }
 
-/*************************
-        Listing
-*************************/
-
 std::string Order::customer() {
     std::string cust = "";
     cust += _customer.name();

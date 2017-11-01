@@ -25,10 +25,13 @@ void Item::consume(int quantity) {
     _stockRemaining -= quantity;
 }
 
-void Item::changeRetailCost(double newCost) {
+void Item::changeRetail(double newCost) {
     _retailCost = newCost;
 }
 
+void Item::changeWholesale(double newCost) {
+    _wholesaleCost = newCost;
+}
 void Item::updateDescription(std::string newDesc) {
     _description = newDesc;
 }

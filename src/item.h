@@ -5,9 +5,8 @@
 
 class Item {
     public:
+        /* without image for now */
         Item(std::string, std::string, double, double, int);//, Gtk::Image);
-        /* constructor without image */
-       // Item(std::string, std::string, double, double, int);
 
         virtual std::string type() = 0;
 
@@ -17,7 +16,8 @@ class Item {
         void consume(int);
 
         /* Updating values */
-        void changeRetailCost(double);
+        void changeRetail(double);
+        void changeWholesale(double);
         void updateDescription(std::string);
 
         /* Getters */
@@ -28,7 +28,7 @@ class Item {
         double retailCost();
 
     protected:
-        std::string _name;
+        const std::string _name;
         std::string _description;
         double _wholesaleCost;
         double _retailCost;

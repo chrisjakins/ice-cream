@@ -3,7 +3,7 @@
 
 #include <list>
 #include <memory> // not sure if needed
-#include <string.h>
+#include <string>
 
 #include "item.h"
 
@@ -14,11 +14,12 @@ class Serving {
 
         int numItems();
         double price();
-        std::string preview ();
 
+        std::string preview();
 
     private:
-        std::list<Item *> _items;
         void addItem(Item *);
+
+        std::list<Item *> _items;
 };
 #endif
