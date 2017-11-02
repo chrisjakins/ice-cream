@@ -16,7 +16,6 @@ class Serving {
         double price();
 
         std::string preview();
-
     private:
         void addItem(Item *);
 

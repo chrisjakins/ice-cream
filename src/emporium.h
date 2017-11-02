@@ -2,6 +2,7 @@
 #define EMPORIUM_H
 
 #include <deque>
+#include <vector>
 #include <string>
 
 #include "item.h"
@@ -12,13 +13,18 @@ class Emporium {
     public:
         Emporium(int, double);
 
-        void addItems(Item *);
-        void removeItems(int); // consider not having this removed = stock to 0
+        void addItem(int, std::vector<std::string>);
+        void removeItem(int); // consider not having this removed = stock to 0
         std::string listItems();
 
-        void addPerson(Person *);
-        std::string listPersons();
+        void addServer(std::vector<std::string>);
+        std::string listServer();
+
+        void addCustomer(std::vector<std::string>);
+        std::string listCustomers();
         
+        std::string listPersons();
+
         void addOrder(Order *);
         std::string listOrders();
 
@@ -31,5 +37,9 @@ class Emporium {
         std::deque<Item *> _items;
         std::deque<Person *> _persons;        
         std::deque<Order *> _orders;
+
+        void createContainer(std::vector<std::string>);
+        void createFlavor(std::vector<std::string>);
+        void createTopping(std::vector<std::string>);
 };
 #endif

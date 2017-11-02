@@ -3,6 +3,7 @@ DEBUG := -g
 
 OBJECTS := main.o scoop.o main_window.o container.o item.o serving.o
 OBJECTS += topping.o person.o customer.o order.o server.o emporium.o
+OBJECTS += controller.o
 
 SOURCEDIR := ./src/
 TESTDIR := ./tests/
@@ -52,4 +53,4 @@ testserver: $(TESTSERVER)
 	./a.out
 
 clean:
-	-rm *.o *.out
+	-rm -f *.o *.out
