@@ -1,5 +1,6 @@
-#include "controller.h"
 #include <gtkmm.h>
+
+#include "controller.h"
 
 Controller::Controller(Emporium& emp)
 : _emp{emp}
@@ -15,124 +16,126 @@ void Controller::execute(int cmd) {
     }
 }
 
+int Controller::itemType() {
+    int item;
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Select Item Type");
+
+    Gtk::HBox box;
+    Gtk::Label label{"Item Type"};
+    label.set_width_chars(15);
+    box.pack_start(label, Gtk::PACK_SHRINK);
+
+    Gtk::ComboBoxText dropDown;
+    dropDown.set_size_request(160);
+    dropDown.append("Container");
+    dropDown.append("Flavor");
+    dropDown.append("Topping");
+    box.pack_start(dropDown, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+    if (dialog->run()) {
+        item = dropDown.get_active_row_number();
+    }
+
+    dialog->close();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    return item;
+}
+
 void Controller::createItem() {
-        Gtk::Dialog *dialog = new Gtk::Dialog();
-        dialog->set_title("Select Item Type");
-        // dialog->set_transient_for(*this);
+    std::vector<std::string> _textLabels{"", "", "", ""};
+    // dialog->set_transient_for(*this);
 
-        // Item Type
-        Gtk::HBox b_type;
+    int item = itemType();
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    
+    // May be better to use an enum here for more clarity
+        // Max Scoops
+        Gtk::HBox b_scoops;
 
-        Gtk::Label l_type{"Item Type:"};
-        l_type.set_width_chars(15);
-        b_type.pack_start(l_type, Gtk::PACK_SHRINK);
+        Gtk::Label l_scoops{"Max Scoops:"};
+        l_scoops.set_width_chars(15);
+        b_scoops.pack_start(l_scoops, Gtk::PACK_SHRINK);
 
-        Gtk::ComboBoxText c_type;
-        c_type.set_size_request(160);
-        c_type.append("Container");
-        c_type.append("Flavor");
-        c_type.append("Topping");
-        b_type.pack_start(c_type, Gtk::PACK_SHRINK);
-        dialog->get_vbox()->pack_start(b_type, Gtk::PACK_SHRINK);
+        Gtk::Entry e_scoops;
+        e_scoops.set_max_length(50);
+        b_scoops.pack_start(e_scoops, Gtk::PACK_SHRINK);
+    if (item == 0) {
+        dialog->get_vbox()->pack_start(b_scoops, Gtk::PACK_SHRINK);
 
-        // Show dialog
-        dialog->add_button("Cancel", 0);
-        dialog->add_button("OK", 1);
-        dialog->show_all();
-        // int result = dialog->run();
-        dialog->run();
+        dialog->set_title("Create Container");
+    } else if (item == 1) {
+        dialog->set_title("Create Flavor");
+    } else {
+        dialog->set_title("Create Topping");
+    }
 
-        dialog->close();
+    // Name
+    Gtk::HBox b_name;
 
-        while (Gtk::Main::events_pending())
-            Gtk::Main::iteration();
+    Gtk::Label l_name{"Name:"};
+    l_name.set_width_chars(15);
+    b_name.pack_start(l_name, Gtk::PACK_SHRINK);
 
-        int itemType = c_type.get_active_row_number();
+    Gtk::Entry e_name;
+    e_name.set_max_length(50);
+    b_name.pack_start(e_name, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
 
-        dialog = new Gtk::Dialog();
-        
-        // May be better to use an enum here for more clarity
-        if (itemType == 0) {
-            dialog->set_title("Create Container");
-            // Max Scoops
-            Gtk::HBox b_scoops;
+    // Description
+    Gtk::HBox b_desc;
 
-            Gtk::Label l_scoops{"Max Scoops:"};
-            l_scoops.set_width_chars(15);
-            b_scoops.pack_start(l_scoops, Gtk::PACK_SHRINK);
+    Gtk::Label l_desc{"Description:"};
+    l_desc.set_width_chars(15);
+    b_desc.pack_start(l_desc, Gtk::PACK_SHRINK);
 
-            Gtk::Entry e_scoops;
-            e_scoops.set_max_length(50);
-            b_scoops.pack_start(e_scoops, Gtk::PACK_SHRINK);
-            dialog->get_vbox()->pack_start(b_scoops, Gtk::PACK_SHRINK);
+    Gtk::Entry e_desc;
+    e_desc.set_max_length(50);
+    b_desc.pack_start(e_desc, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(b_desc, Gtk::PACK_SHRINK);
 
-        } else if (itemType == 1) {
-            dialog->set_title("Create Flavor");
-        } else {
-            dialog->set_title("Create Topping");
-        }
+    // Cost
+    Gtk::HBox b_cost;
 
-        // Name
-        Gtk::HBox b_name;
+    Gtk::Label l_cost{"Cost:"};
+    l_cost.set_width_chars(15);
+    b_cost.pack_start(l_cost, Gtk::PACK_SHRINK);
 
-        Gtk::Label l_name{"Name:"};
-        l_name.set_width_chars(15);
-        b_name.pack_start(l_name, Gtk::PACK_SHRINK);
+    Gtk::Entry e_cost;
+    e_cost.set_max_length(50);
+    b_cost.pack_start(e_cost, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(b_cost, Gtk::PACK_SHRINK);
 
-        Gtk::Entry e_name;
-        e_name.set_max_length(50);
-        b_name.pack_start(e_name, Gtk::PACK_SHRINK);
-        dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
+    // Price
+    Gtk::HBox b_price;
 
-        // Description
-        Gtk::HBox b_desc;
+    Gtk::Label l_price{"Price:"};
+    l_price.set_width_chars(15);
+    b_price.pack_start(l_price, Gtk::PACK_SHRINK);
 
-        Gtk::Label l_desc{"Description:"};
-        l_desc.set_width_chars(15);
-        b_desc.pack_start(l_desc, Gtk::PACK_SHRINK);
+    Gtk::Entry e_price;
+    e_price.set_max_length(50);
+    b_price.pack_start(e_price, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
 
-        Gtk::Entry e_desc;
-        e_desc.set_max_length(50);
-        b_desc.pack_start(e_desc, Gtk::PACK_SHRINK);
-        dialog->get_vbox()->pack_start(b_desc, Gtk::PACK_SHRINK);
+    // Show dialog
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+    // int result = dialog->run();
+    // if result = 1 add item to emporium
+    // will most likely need some error checking here
+    std::vector<std::string> output;
+    if(dialog->run()) {
+    }
 
-        // Cost
-        Gtk::HBox b_cost;
+    dialog->close();
 
-        Gtk::Label l_cost{"Cost:"};
-        l_cost.set_width_chars(15);
-        b_cost.pack_start(l_cost, Gtk::PACK_SHRINK);
-
-        Gtk::Entry e_cost;
-        e_cost.set_max_length(50);
-        b_cost.pack_start(e_cost, Gtk::PACK_SHRINK);
-        dialog->get_vbox()->pack_start(b_cost, Gtk::PACK_SHRINK);
-
-        // Price
-        Gtk::HBox b_price;
-
-        Gtk::Label l_price{"Price:"};
-        l_price.set_width_chars(15);
-        b_price.pack_start(l_price, Gtk::PACK_SHRINK);
-
-        Gtk::Entry e_price;
-        e_price.set_max_length(50);
-        b_price.pack_start(e_price, Gtk::PACK_SHRINK);
-        dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
-
-        // Show dialog
-        dialog->add_button("Cancel", 0);
-        dialog->add_button("OK", 1);
-        dialog->show_all();
-        // int result = dialog->run();
-        // if result = 1 add item to emporium
-        // will most likely need some error checking here
-        dialog->run();
-
-        dialog->close();
-
-        while (Gtk::Main::events_pending())
-            Gtk::Main::iteration();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
 }
 
 void Controller::createServer() {

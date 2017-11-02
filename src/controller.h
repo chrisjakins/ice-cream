@@ -17,9 +17,10 @@ class Controller {
         const static int CREATE_EMPORIUM = 4;
 
     private:
-        Emporium _emp;
+        Emporium& _emp;
 
         void createItem();
+        int itemType();
         void createServer();
         void createCustomer();
         void createEmporium();
