@@ -16,7 +16,6 @@ class Serving {
         double price();
         std::string preview ();
 
-
     private:
         std::list<Item *> _items;
         void addItem(Item *);

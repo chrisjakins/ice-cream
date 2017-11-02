@@ -15,14 +15,18 @@ class Controller {
         const static int CREATE_SERVER = 2;
         const static int CREATE_CUSTOMER = 3;
         const static int CREATE_EMPORIUM = 4;
+        const static int CREATE_SERVING = 5;
 
     private:
         Emporium& _emp;
 
-        void createItem();
+        /* helpers */
         int itemType();
+
+        void createItem();
         void createServer();
         void createCustomer();
         void createEmporium();
+        void createServing();
 };
 #endif

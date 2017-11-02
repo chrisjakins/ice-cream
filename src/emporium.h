@@ -17,7 +17,7 @@ class Emporium {
         void removeItem(int); // consider not having this removed = stock to 0
         std::string listItems();
 
-        void addPerson(Person *);
+        void addServer(std::vector<std::string>);
         std::string listPersons();
         
         void addOrder(Order *);

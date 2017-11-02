@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <iostream>
 
 #include "emporium.h"
 #include "container.h"
@@ -23,11 +22,22 @@ void Emporium::addItem(int type, std::vector<std::string> ins) {
         case 2: createTopping(ins); break;
         default: break;
     }
-    /* _items.push_back(item) */
 }
 
 void Emporium::removeItem(int index) {
     _items.erase(_items.begin() + index);
+}
+
+void Emporium::addServer(std::vector<std::string> ins) {
+    std::string name, number;
+    int id;
+    double salary;
+    std::stringstream ss;
+    for (unsigned int i = 0; i < ins.size(); i++) {
+        ss << ins[i];
+    }
+    ss >> name >> id >> number >> salary;
+    _persons.push_back(new Server{name, id, number, salary});
 }
 
 /***************************
