@@ -40,6 +40,17 @@ void Emporium::addServer(std::vector<std::string> ins) {
     _persons.push_back(new Server{name, id, number, salary});
 }
 
+void Emporium::addCustomer(std::vector<std::string> ins) {
+    std::string name, number;
+    int id;
+    std::stringstream ss;
+    for (unsigned int i = 0; i < ins.size(); i++) {
+        ss << ins[i];
+    }
+    ss >> name >> id >> number;
+    _persons.push_back(new Customer{name, id, number});
+}
+
 /***************************
           Listing
 ***************************/

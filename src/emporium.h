@@ -18,8 +18,13 @@ class Emporium {
         std::string listItems();
 
         void addServer(std::vector<std::string>);
-        std::string listPersons();
+        std::string listServer();
+
+        void addCustomer(std::vector<std::string>);
+        std::string listCustomers();
         
+        std::string listPersons();
+
         void addOrder(Order *);
         std::string listOrders();
 
