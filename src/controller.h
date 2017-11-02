@@ -2,6 +2,7 @@
 #define _CONTROLLER_H
 
 #include <string>
+#include <vector>
 #include "emporium.h"
 
 class Controller {
@@ -18,6 +19,7 @@ class Controller {
         const static int CREATE_SERVING = 5;
 
         void error(std::string);
+        void loadSamples();
 
     private:
         Emporium& _emp;

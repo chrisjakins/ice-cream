@@ -28,6 +28,12 @@ Main_window::Main_window(Controller& con)
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 
+    //         lOAD SAMPLES
+    // Append Load Samples to the File menu
+    Gtk::MenuItem *menuitem_loadSamples = Gtk::manage(new Gtk::MenuItem("_Load Samples", true));
+    menuitem_loadSamples->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadSamples));
+    filemenu->append(*menuitem_loadSamples);
+    
     //         Q U I T
     // Append Quit to the File menu
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
@@ -141,6 +147,10 @@ void Main_window::createOrder() {}
 
 void Main_window::createItem(){
     _controller.execute(Controller::CREATE_ITEM);
+}
+
+void Main_window::loadSamples() {
+    _controller.loadSamples();
 }
 
 //help callback goes here
