@@ -78,6 +78,16 @@ Main_window::Main_window(Emporium& emp)
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     vbox->add(*toolbar);
     
+    //help icon
+/*    Gtk::ToolButton *help_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HELP));
+    help_button->set_tooltip_markup("Help");
+    help_button->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::on_help_click));
+    toolbar->append(*help_button);*/
+    //exit button
+    Gtk::ToolButton *exit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    exit_button->set_tooltip_markup("Exit");
+    exit_button->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
+    toolbar->append(*exit_button);
     vbox->show_all();
 }
 
@@ -106,5 +116,10 @@ void Main_window::createOrder() {}
 void Main_window::createItem(){
     _controller.execute(Controller::CREATE_ITEM);
 }
+
+//help callback goes here
+/*void Main_window::on_help_click(){
+    controller.execute_cmd(9);
+}*/
 
 Main_window::~Main_window() { }
