@@ -71,13 +71,39 @@ Main_window::Main_window(Emporium& emp)
     menubar->append(*menuitem_help);
     Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
     menuitem_help->set_submenu(*helpmenu);
+    //append about to help menu
+    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem{"_About", true});
+    menuitem_about->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_about_click));
+    helpmenu->append(*menuitem_about);
 
     // /////////////
-    // T O O L B A R
+    // T O O L B A R    
     // Add a toolbar to the vertical box below the menu
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     vbox->add(*toolbar);
-    
+    //create item
+    Gtk::ToolButton *create_item = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    create_item->set_tooltip_markup("Create Item");
+    create_item->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createItem));
+    toolbar->append(*create_item);
+    //create server
+    Gtk::Image *server_img = Gtk::manage(new Gtk::Image("img/server.png"));
+    Gtk::ToolButton *create_server = Gtk::manage(new Gtk::ToolButton(*server_img));
+    create_server->set_tooltip_markup("Create Server");
+    create_server->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createServer));
+    toolbar->append(*create_server);
+    //create customer
+    Gtk::Image *customer_img = Gtk::manage(new Gtk::Image("img/customer.png"));
+    Gtk::ToolButton *create_customer = Gtk::manage(new Gtk::ToolButton(*customer_img));
+    create_customer->set_tooltip_markup("Create Customer");
+    create_customer->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createCustomer));
+    toolbar->append(*create_customer);
+    //create order
+    Gtk::Image *order_img = Gtk::manage(new Gtk::Image("img/order.png"));
+    Gtk::ToolButton *create_order = Gtk::manage(new Gtk::ToolButton(*order_img));
+    create_order->set_tooltip_markup("Create Order");
+    create_order->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createOrder));
+    toolbar->append(*create_order);
     //help icon
 /*    Gtk::ToolButton *help_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HELP));
     help_button->set_tooltip_markup("Help");
@@ -118,8 +144,13 @@ void Main_window::createItem(){
 }
 
 //help callback goes here
-/*void Main_window::on_help_click(){
-    controller.execute_cmd(9);
-}*/
+void Main_window::on_help_click(){
+    
+}
+void Main_window::on_about_click(){
+    Glib::ustring s = "<span size='24000' weight='bold'>Credits</span>\n<span size='large'>Server icon made by <b>Vectors Market</b> from www.flaticon.com\nCustomer icon,list icon made by <b>Freepik</b> from www.flaticon.com  </span>";
+    Gtk::MessageDialog dlg(*this, s, true, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
+    dlg.run();
+}
 
 Main_window::~Main_window() { }
