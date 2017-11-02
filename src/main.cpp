@@ -8,7 +8,8 @@ int main(int argc, char *argv[]) {
     Gtk::Application::create(argc, argv, "edu.uta.cse1325.ice-cream");
   
     Emporium emp(1, 10.9);
-    Main_window win(emp);
+    Controller con{emp};
+    Main_window win(con);
   
     // Set the window title
     win.set_title("Ice Cream");

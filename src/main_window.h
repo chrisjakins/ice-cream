@@ -8,7 +8,7 @@
 class Main_window : public Gtk::Window
 {
     public:
-        Main_window(Emporium&);
+        Main_window(Controller&);
         virtual ~Main_window();
     protected:
         void on_quit_click();       // Exit Ice Cream Application
@@ -23,7 +23,7 @@ class Main_window : public Gtk::Window
         void on_help_click();
 
     private:
-        Controller _controller;
+        Controller& _controller;
 };
 #endif 
 

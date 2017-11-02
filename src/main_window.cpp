@@ -1,8 +1,8 @@
 #include "main_window.h"
 #include "controller.h"
 
-Main_window::Main_window(Emporium& emp) 
-: _controller(emp)
+Main_window::Main_window(Controller& con) 
+: _controller{con}
 {
 
     // /////////////////
