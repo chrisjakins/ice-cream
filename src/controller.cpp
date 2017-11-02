@@ -1,4 +1,5 @@
 #include <gtkmm.h>
+#include <iostream>
 
 #include "controller.h"
 
@@ -47,80 +48,59 @@ int Controller::itemType() {
 }
 
 void Controller::createItem() {
-    std::vector<std::string> _textLabels{"", "", "", ""};
+    std::vector<std::string> textL{"Max Scoops", "Name", "Description",
+                                   "Cost", "Price", "Stock"};
+    std::vector<std::string> outputs;
+
     // dialog->set_transient_for(*this);
 
     int item = itemType();
+
     Gtk::Dialog * dialog = new Gtk::Dialog();
-    
-    // May be better to use an enum here for more clarity
-        // Max Scoops
-        Gtk::HBox b_scoops;
+    std::vector<Gtk::Label *> labels;
+    std::vector<Gtk::Entry *> entries;
+    std::vector<Gtk::HBox *> boxes;
 
-        Gtk::Label l_scoops{"Max Scoops:"};
-        l_scoops.set_width_chars(15);
-        b_scoops.pack_start(l_scoops, Gtk::PACK_SHRINK);
-
-        Gtk::Entry e_scoops;
-        e_scoops.set_max_length(50);
-        b_scoops.pack_start(e_scoops, Gtk::PACK_SHRINK);
     if (item == 0) {
-        dialog->get_vbox()->pack_start(b_scoops, Gtk::PACK_SHRINK);
-
         dialog->set_title("Create Container");
+
+        Gtk::HBox * box = Gtk::manage(new Gtk::HBox);
+        boxes.push_back(box);
+
+        Gtk::Label * label = Gtk::manage(new Gtk::Label{"Max Scoops"});
+        label->set_width_chars(15);
+        box->pack_start(*label, Gtk::PACK_SHRINK);
+        labels.push_back(label);
+
+        Gtk::Entry * entry = Gtk::manage(new Gtk::Entry);
+        entry->set_max_length(75);
+        box->pack_start(*entry, Gtk::PACK_SHRINK);
+        entries.push_back(entry);
+
+        dialog->get_vbox()->pack_start(*boxes[0], Gtk::PACK_SHRINK);
+
     } else if (item == 1) {
         dialog->set_title("Create Flavor");
     } else {
         dialog->set_title("Create Topping");
     }
 
-    // Name
-    Gtk::HBox b_name;
+    for (unsigned int i = 1; i < textL.size(); i++) {
+        std::cout << textL[i] << std::endl;
+        Gtk::HBox * box = Gtk::manage(new Gtk::HBox);
+        boxes.push_back(box);
 
-    Gtk::Label l_name{"Name:"};
-    l_name.set_width_chars(15);
-    b_name.pack_start(l_name, Gtk::PACK_SHRINK);
+        Gtk::Label * label = Gtk::manage(new Gtk::Label{textL[i]});
+        label->set_width_chars(15);
+        box->pack_start(*label, Gtk::PACK_SHRINK);
+        labels.push_back(label);
 
-    Gtk::Entry e_name;
-    e_name.set_max_length(50);
-    b_name.pack_start(e_name, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
+        Gtk::Entry * entry = Gtk::manage(new Gtk::Entry);
+        entry->set_max_length(75);
+        box->pack_start(*entry, Gtk::PACK_SHRINK);
 
-    // Description
-    Gtk::HBox b_desc;
-
-    Gtk::Label l_desc{"Description:"};
-    l_desc.set_width_chars(15);
-    b_desc.pack_start(l_desc, Gtk::PACK_SHRINK);
-
-    Gtk::Entry e_desc;
-    e_desc.set_max_length(50);
-    b_desc.pack_start(e_desc, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(b_desc, Gtk::PACK_SHRINK);
-
-    // Cost
-    Gtk::HBox b_cost;
-
-    Gtk::Label l_cost{"Cost:"};
-    l_cost.set_width_chars(15);
-    b_cost.pack_start(l_cost, Gtk::PACK_SHRINK);
-
-    Gtk::Entry e_cost;
-    e_cost.set_max_length(50);
-    b_cost.pack_start(e_cost, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(b_cost, Gtk::PACK_SHRINK);
-
-    // Price
-    Gtk::HBox b_price;
-
-    Gtk::Label l_price{"Price:"};
-    l_price.set_width_chars(15);
-    b_price.pack_start(l_price, Gtk::PACK_SHRINK);
-
-    Gtk::Entry e_price;
-    e_price.set_max_length(50);
-    b_price.pack_start(e_price, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
+        dialog->get_vbox()->pack_start(*boxes[i], Gtk::PACK_SHRINK);
+    }
 
     // Show dialog
     dialog->add_button("Cancel", 0);
