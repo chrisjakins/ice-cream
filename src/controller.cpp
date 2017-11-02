@@ -14,7 +14,7 @@ void Controller::execute(int cmd) {
         case CREATE_CUSTOMER: createCustomer(); break;
         case CREATE_EMPORIUM: createEmporium(); break;
         case CREATE_SERVING: createServing(); break;
-        default: /* what to do here */;
+        default: error("Invalid input!"); break;
     }
 }
 
@@ -219,4 +219,15 @@ void Controller::createServing() {
 
 void Controller::createEmporium() {
 
+}
+
+void Controller::error(std::string err) {
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("ERROR");
+    dialog->set_secondary_text(err, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())  Gtk::Main::iteration();
+
+    delete dialog;
 }

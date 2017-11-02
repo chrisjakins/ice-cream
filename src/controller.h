@@ -17,6 +17,8 @@ class Controller {
         const static int CREATE_EMPORIUM = 4;
         const static int CREATE_SERVING = 5;
 
+        void error(std::string);
+
     private:
         Emporium& _emp;
 
