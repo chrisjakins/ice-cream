@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "controller.h"
+#include "item.h"
 
 Controller::Controller(Emporium& emp)
 : _emp{emp}
@@ -32,6 +33,7 @@ int Controller::itemType() {
     dropDown.append("Container");
     dropDown.append("Flavor");
     dropDown.append("Topping");
+    dropDown.set_active(0);
     box.pack_start(dropDown, Gtk::PACK_SHRINK);
     dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
 
@@ -48,8 +50,8 @@ int Controller::itemType() {
 }
 
 void Controller::createItem() {
-    std::vector<std::string> textL{"Max Scoops", "Name", "Description",
-                                   "Cost", "Price", "Stock"};
+    std::vector<std::string> textL{"Name", "Description", "Cost",
+                                   "Price", "Stock", "Max Scoops"};
     std::vector<std::string> outputs;
 
     // dialog->set_transient_for(*this);
@@ -77,16 +79,14 @@ void Controller::createItem() {
         box->pack_start(*entry, Gtk::PACK_SHRINK);
         entries.push_back(entry);
 
-        dialog->get_vbox()->pack_start(*boxes[0], Gtk::PACK_SHRINK);
 
     } else if (item == 1) {
         dialog->set_title("Create Flavor");
-    } else {
+    } else if (item == 2) {
         dialog->set_title("Create Topping");
     }
 
-    for (unsigned int i = 1; i < textL.size(); i++) {
-        std::cout << textL[i] << std::endl;
+    for (unsigned int i = 0; i < textL.size() - 1; i++) {
         Gtk::HBox * box = Gtk::manage(new Gtk::HBox);
         boxes.push_back(box);
 
@@ -98,24 +98,31 @@ void Controller::createItem() {
         Gtk::Entry * entry = Gtk::manage(new Gtk::Entry);
         entry->set_max_length(75);
         box->pack_start(*entry, Gtk::PACK_SHRINK);
+        entries.push_back(entry);
 
         dialog->get_vbox()->pack_start(*boxes[i], Gtk::PACK_SHRINK);
     }
+    if (!item)
+        dialog->get_vbox()->pack_start(*boxes[5], Gtk::PACK_SHRINK);
 
-    // Show dialog
     dialog->add_button("Cancel", 0);
     dialog->add_button("OK", 1);
     dialog->show_all();
-    // int result = dialog->run();
-    // if result = 1 add item to emporium
     // will most likely need some error checking here
+    /* If the user hit "OK", add item to emporium */
     std::vector<std::string> output;
     if(dialog->run()) {
+        unsigned int size = item ? textL.size() - 1 : textL.size();
+        for (unsigned int i = 0; i < size; i++) {
+            output.push_back(entries[i]->get_text());
+        }
+        _emp.addItem(item, output);
     }
 
     dialog->close();
-
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+
+    delete dialog;
 }
 
 void Controller::createServer() {

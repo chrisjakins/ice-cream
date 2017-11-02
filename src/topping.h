@@ -10,7 +10,7 @@ class Topping : public Item {
         // Topping(std::string, std::string, double, double, int, Gtk::Image, int);
 
         /* for testing purposes before we are ready to work with images */
-        Topping(std::string, std::string, double, double, int, int);
+        Topping(std::string, std::string, double, double, int);
 
         std::string type() override;
         int amount();
