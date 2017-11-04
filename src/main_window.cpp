@@ -1,32 +1,45 @@
 #include "main_window.h"
-#include "controller.h"
 
+#include "controller.h"
+#include "container.h"
+#include "topping.h"
+#include "scoop.h"
+
+#include <iostream>
 Main_window::Main_window(Controller& con) 
 : _controller{con}
 {
-
-    // /////////////////
     // G U I   S E T U P
-    // /////////////////
-
-    set_default_size(800, 400);
+    set_default_size(1000, 600);
     
     // Put a vertical box container as the Window contents
-    Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
-    add(*vbox);
+    mainBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+    add(*mainBox);
 
+    initMenubar();
+    initToolbar();
+    initMainscreen();
+
+    mainBox->show_all();
+}
+
+// /////////////
+// H E L P E R S
+// /////////////
+
+void Main_window::initMenubar() {
     // ///////
     // M E N U
     // Add a menu bar as the top item in the vertical box
     Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar());
-    vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
+    mainBox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
 
-    //     F I L E
+    //         F I L E
     // Create a File menu and add to the menu bar
-    Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
-    menubar->append(*menuitem_file);
+    Gtk::MenuItem *mi_file = Gtk::manage(new Gtk::MenuItem("_File", true));
+    menubar->append(*mi_file);
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
-    menuitem_file->set_submenu(*filemenu);
+    mi_file->set_submenu(*filemenu);
 
     //         lOAD SAMPLES
     // Append Load Samples to the File menu
@@ -36,80 +49,55 @@ Main_window::Main_window(Controller& con)
     
     //         Q U I T
     // Append Quit to the File menu
-    Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
-    menuitem_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
-    filemenu->append(*menuitem_quit);
-
-    //     CREATE
-    // Create a 'Create' menu and add to the menu bar
-    Gtk::MenuItem *menuitem_create = Gtk::manage(new Gtk::MenuItem("_Create", true));
-    menubar->append(*menuitem_create);
-    Gtk::Menu *createmenu = Gtk::manage(new Gtk::Menu());
-    menuitem_create->set_submenu(*createmenu);
-
-    //         CREATE ITEM
-    // Append Item to the Create menu
-    Gtk::MenuItem *menuitem_createItem = Gtk::manage(new Gtk::MenuItem("_Item...", true));
-    menuitem_createItem->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createItem));
-    createmenu->append(*menuitem_createItem);
-
-    //         CREATE SERVER
-    // Append Server to the Create menu
-    Gtk::MenuItem *menuitem_createServer = Gtk::manage(new Gtk::MenuItem("_Server...", true));
-    menuitem_createServer->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createServer));
-    createmenu->append(*menuitem_createServer);
-
-    //         CREATE CUSTOMER
-    // Append Customer to the Create menu
-    Gtk::MenuItem *menuitem_createCustomer = Gtk::manage(new Gtk::MenuItem("_Customer...", true));
-    menuitem_createCustomer->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createCustomer));
-    createmenu->append(*menuitem_createCustomer);
-
-    //         CREATE ORDER
-    // Append Order to the Create menu
-    Gtk::MenuItem *menuitem_createOrder = Gtk::manage(new Gtk::MenuItem("_Order...", true));
-    menuitem_createOrder->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createOrder));
-    createmenu->append(*menuitem_createOrder);
+    Gtk::MenuItem *mi_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
+    mi_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
+    filemenu->append(*mi_quit);
 
     //     HELP
     // Create a Help menu and add to the menu bar
-    Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
-    menubar->append(*menuitem_help);
+    Gtk::MenuItem *mi_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
+    menubar->append(*mi_help);
     Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
-    menuitem_help->set_submenu(*helpmenu);
+    mi_help->set_submenu(*helpmenu);
     //append about to help menu
-    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem{"_About", true});
-    menuitem_about->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_about_click));
-    helpmenu->append(*menuitem_about);
+    Gtk::MenuItem *mi_about = Gtk::manage(new Gtk::MenuItem{"_About", true});
+    mi_about->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_about_click));
+    helpmenu->append(*mi_about);
+}
 
+void Main_window::initToolbar() {
     // /////////////
     // T O O L B A R    
     // Add a toolbar to the vertical box below the menu
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
-    vbox->add(*toolbar);
+    mainBox->add(*toolbar);
+
     //create item
-    Gtk::ToolButton *create_item = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
-    create_item->set_tooltip_markup("Create Item");
-    create_item->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createItem));
-    toolbar->append(*create_item);
+    Gtk::ToolButton *cr_item = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    cr_item->set_tooltip_markup("Create Item");
+    cr_item->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createItem));
+    toolbar->append(*cr_item);
+
     //create server
     Gtk::Image *server_img = Gtk::manage(new Gtk::Image("img/server.png"));
-    Gtk::ToolButton *create_server = Gtk::manage(new Gtk::ToolButton(*server_img));
-    create_server->set_tooltip_markup("Create Server");
-    create_server->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createServer));
-    toolbar->append(*create_server);
+    Gtk::ToolButton *cr_server = Gtk::manage(new Gtk::ToolButton(*server_img));
+    cr_server->set_tooltip_markup("Create Server");
+    cr_server->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createServer));
+    toolbar->append(*cr_server);
+
     //create customer
     Gtk::Image *customer_img = Gtk::manage(new Gtk::Image("img/customer.png"));
-    Gtk::ToolButton *create_customer = Gtk::manage(new Gtk::ToolButton(*customer_img));
-    create_customer->set_tooltip_markup("Create Customer");
-    create_customer->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createCustomer));
-    toolbar->append(*create_customer);
+    Gtk::ToolButton *cr_customer = Gtk::manage(new Gtk::ToolButton(*customer_img));
+    cr_customer->set_tooltip_markup("Create Customer");
+    cr_customer->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createCustomer));
+    toolbar->append(*cr_customer);
+
     //create order
     Gtk::Image *order_img = Gtk::manage(new Gtk::Image("img/order.png"));
-    Gtk::ToolButton *create_order = Gtk::manage(new Gtk::ToolButton(*order_img));
-    create_order->set_tooltip_markup("Create Order");
-    create_order->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createOrder));
-    toolbar->append(*create_order);
+    Gtk::ToolButton *cr_order = Gtk::manage(new Gtk::ToolButton(*order_img));
+    cr_order->set_tooltip_markup("Create Order");
+    cr_order->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createOrder));
+    toolbar->append(*cr_order);
     //help icon
 /*    Gtk::ToolButton *help_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HELP));
     help_button->set_tooltip_markup("Help");
@@ -120,7 +108,50 @@ Main_window::Main_window(Controller& con)
     exit_button->set_tooltip_markup("Exit");
     exit_button->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     toolbar->append(*exit_button);
-    vbox->show_all();
+}
+
+void Main_window::initMainscreen() {
+    // left
+    leftBox = Gtk::manage(new Gtk::VBox); 
+
+    // container
+    contBox = Gtk::manage(new Gtk::HBox);
+    cLabel = Gtk::manage(new Gtk::Label{"Containers"});
+    contBox->pack_start(*cLabel);
+
+
+    // flavor
+    scoopBox = Gtk::manage(new Gtk::HBox);
+    sLabel = Gtk::manage(new Gtk::Label{"Flavors"});
+    scoopBox->pack_start(*sLabel);
+
+    // topping
+    toppBox = Gtk::manage(new Gtk::HBox);
+    tLabel = Gtk::manage(new Gtk::Label{"Toppings"});    
+    toppBox->pack_start(*tLabel);
+
+    leftBox->pack_start(*contBox);
+    leftBox->pack_start(*scoopBox);
+    leftBox->pack_start(*toppBox);
+
+    // middle
+    midBox = Gtk::manage(new Gtk::VBox);
+    servLabel = Gtk::manage(new Gtk::Label{"Serving"});
+    midBox->pack_start(*servLabel);
+
+    // right
+    rightBox = Gtk::manage(new Gtk::VBox);
+    orderLabel = Gtk::manage(new Gtk::Label{"Order"});
+    rightBox->pack_start(*orderLabel);
+
+    mainBox->pack_start(*leftBox);
+    mainBox->pack_start(*midBox);
+    mainBox->pack_start(*rightBox);
+    mainBox->show_all();
+}
+
+void Main_window::refresh() {
+    initMainscreen();
 }
 
 // /////////////////
@@ -143,10 +174,13 @@ void Main_window::createCustomer() {
     _controller.execute(Controller::CREATE_CUSTOMER);
 }
 
-void Main_window::createOrder() {}
+void Main_window::createOrder() {
+    refresh();
+}
 
 void Main_window::createItem(){
     _controller.execute(Controller::CREATE_ITEM);
+    initMainscreen();
 }
 
 void Main_window::loadSamples() {

@@ -43,11 +43,13 @@ int Controller::itemType() {
     if (dialog->run()) {
         item = dropDown.get_active_row_number();
     } else {
-        /* what to do if cancelled */
+        dialog->close();
+        return -1;
     }
 
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
     return item;
 }
 
@@ -59,6 +61,7 @@ void Controller::createItem() {
     // dialog->set_transient_for(*this);
 
     int item = itemType();
+    if (item < 0) return;
 
     Gtk::Dialog * dialog = new Gtk::Dialog();
     std::vector<Gtk::Label *> labels;
@@ -264,4 +267,18 @@ void Controller::loadSamples() {
     _emp.createContainer(topping1);
     _emp.createContainer(topping2);
     _emp.createContainer(topping3);
+}
+/*************************
+      L I S T I N G
+*************************/
+std::vector<Item *> Controller::containers() {
+    return _emp.containers();
+}
+
+std::vector<Item *> Controller::scoops() {
+    return _emp.scoops();
+}
+
+std::vector<Item *> Controller::toppings() {
+    return _emp.toppings();
 }

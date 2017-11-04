@@ -57,16 +57,34 @@ void Emporium::addCustomer(std::vector<std::string> ins) {
 // what do these functions actually list?
 // name and what else?
 // formatting?
-
-std::string Emporium::listItems() {
-    std::string list = "";
+std::vector<Item *> Emporium::containers() {
+    std::vector<Item *> cont;
     for (unsigned int i = 0; i < _items.size(); i++) {
-        list += _items[i]->name();
-        list += "\n";
-        list += _items[i]->description();
-        list += "\n\n";
+        if (_items[i]->type() == "Container") {
+            cont.push_back(_items[i]);
+        }
     }
-    return list;
+    return cont;
+}
+
+std::vector<Item *> Emporium::scoops() {
+    std::vector<Item *> scps;
+    for (unsigned int i = 0; i < _items.size(); i++) {
+        if (_items[i]->type() == "Scoop") {
+            scps.push_back(_items[i]);
+        }
+    }
+    return scps;
+}
+
+std::vector<Item *> Emporium::toppings() {
+    std::vector<Item *> topp;
+    for (unsigned int i = 0; i < _items.size(); i++) {
+        if (_items[i]->type() == "Topping") {
+            topp.push_back(_items[i]);
+        }
+    }
+    return topp;
 }
 
 std::string Emporium::listPersons() {
@@ -97,8 +115,6 @@ std::string Emporium::listOrders() {
 /****************************
            Creation
 ****************************/
-    std::vector<std::string> textL{"Name", "Description", "Cost",
-                                   "Price", "Stock", "Max Scoops"};
 void Emporium::createContainer(std::vector<std::string> ins) {
     std::stringstream ss;
     int maxScoops, stock;

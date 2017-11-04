@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "emporium.h"
+#include "item.h"
 
 class Controller {
     public:
@@ -20,17 +21,21 @@ class Controller {
 
         void error(std::string);
         void loadSamples();
+        std::vector<Item *> containers();
+        std::vector<Item *> scoops();
+        std::vector<Item *> toppings();
 
     private:
         Emporium& _emp;
-
-        /* helpers */
-        int itemType();
 
         void createItem();
         void createServer();
         void createCustomer();
         void createEmporium();
         void createServing();
+
+
+        /* helpers */
+        int itemType();
 };
 #endif
