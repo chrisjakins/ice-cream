@@ -1,8 +1,10 @@
 #ifndef _CONTROLLER_H
 #define _CONTROLLER_H
 
-#include <string>
+#include <vector>
+
 #include "emporium.h"
+#include "item.h"
 
 class Controller {
     public:
@@ -17,6 +19,10 @@ class Controller {
         const static int CREATE_EMPORIUM = 4;
         const static int CREATE_SERVING = 5;
 
+        std::vector<Item *> containers();
+        std::vector<Item *> scoops();
+        std::vector<Item *> toppings();
+
     private:
         Emporium& _emp;
 
@@ -25,6 +31,7 @@ class Controller {
         void createCustomer();
         void createEmporium();
         void createServing();
+
 
         /* helpers */
         int itemType();

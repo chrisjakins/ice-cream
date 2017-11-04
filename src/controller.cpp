@@ -49,6 +49,7 @@ int Controller::itemType() {
 
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
     return item;
 }
 
@@ -221,4 +222,19 @@ void Controller::createServing() {
 
 void Controller::createEmporium() {
 
+}
+
+/*************************
+      L I S T I N G
+*************************/
+std::vector<Item *> Controller::containers() {
+    return _emp.containers();
+}
+
+std::vector<Item *> Controller::scoops() {
+    return _emp.scoops();
+}
+
+std::vector<Item *> Controller::toppings() {
+    return _emp.toppings();
 }

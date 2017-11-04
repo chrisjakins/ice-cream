@@ -1,6 +1,11 @@
 #include "main_window.h"
-#include "controller.h"
 
+#include "controller.h"
+#include "container.h"
+#include "topping.h"
+#include "scoop.h"
+
+#include <iostream>
 Main_window::Main_window(Controller& con) 
 : _controller{con}
 {
@@ -8,26 +13,26 @@ Main_window::Main_window(Controller& con)
     set_default_size(1000, 600);
     
     // Put a vertical box container as the Window contents
-    Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
-    add(*vbox);
+    mainBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+    add(*mainBox);
 
-    initMenubar(vbox);
-    initToolbar(vbox);
-    initMainscreen(vbox);
+    initMenubar();
+    initToolbar();
+    initMainscreen();
 
-    vbox->show_all();
+    mainBox->show_all();
 }
 
 // /////////////
 // H E L P E R S
 // /////////////
 
-void Main_window::initMenubar(Gtk::Box * vbox) {
+void Main_window::initMenubar() {
     // ///////
     // M E N U
     // Add a menu bar as the top item in the vertical box
     Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar());
-    vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
+    mainBox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
 
     //         F I L E
     // Create a File menu and add to the menu bar
@@ -54,12 +59,12 @@ void Main_window::initMenubar(Gtk::Box * vbox) {
     helpmenu->append(*mi_about);
 }
 
-void Main_window::initToolbar(Gtk::Box * vbox) {
+void Main_window::initToolbar() {
     // /////////////
     // T O O L B A R    
     // Add a toolbar to the vertical box below the menu
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
-    vbox->add(*toolbar);
+    mainBox->add(*toolbar);
 
     //create item
     Gtk::ToolButton *cr_item = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
@@ -99,8 +104,54 @@ void Main_window::initToolbar(Gtk::Box * vbox) {
     toolbar->append(*exit_button);
 }
 
-void Main_window::initMainscreen(Gtk::Box * vbox) {
+void Main_window::initMainscreen() {
+    // left
+    leftBox = Gtk::manage(new Gtk::VBox); 
 
+    // container
+    contBox = Gtk::manage(new Gtk::HBox);
+    cLabel = Gtk::manage(new Gtk::Label{"Containers"});
+    contBox->pack_start(*cLabel);
+
+    for (unsigned int i = 0; i < conts.size(); i++) {
+        // pass in image below
+        Gtk::RadioToolButton * b = Gtk::manage(new Gtk::RadioToolButton{});
+        b->set_tooltip_markup(conts[i]->name());
+        // what do we do here?
+        /* b->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::)) */
+        contBox->pack_start(*b);
+        contRtbs.push_back(b);
+    }
+
+    leftBox->pack_start(*contBox);
+    mainBox->pack_start(*leftBox);
+    mainBox->show_all();
+
+    /* // flavor */
+    /* Gtk::HBox * scpBox = Gtk::manage(new Gtk::HBox); */
+    /* Gtk::Label * sLabel = Gtk::manage(new Gtk::Label{"Flavors"}); */    
+    /* std::vector<Item *> scoops = _controller.scoops(); */
+
+    /* // topping */
+    /* Gtk::HBox * toppBox = Gtk::manage(new Gtk::HBox); */
+    /* Gtk::Label * tLabel = Gtk::manage(new Gtk::Label{"Toppings"}); */    
+    /* std::vector<Item *> topps = _controller.toppings(); */
+
+
+
+
+
+
+
+    /* // middle */
+    /* Gtk::VBox * midBox = Gtk::manage(new Gtk::VBox); */
+
+    /* // right */
+    /* Gtk::VBox * rightBox = Gtk::manage(new Gtk::VBox); */
+}
+
+void Main_window::refresh() {
+    initMainscreen();
 }
 
 // /////////////////
@@ -123,10 +174,13 @@ void Main_window::createCustomer() {
     _controller.execute(Controller::CREATE_CUSTOMER);
 }
 
-void Main_window::createOrder() {}
+void Main_window::createOrder() {
+    refresh();
+}
 
 void Main_window::createItem(){
     _controller.execute(Controller::CREATE_ITEM);
+    initMainscreen();
 }
 
 //help callback goes here
