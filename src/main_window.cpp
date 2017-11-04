@@ -4,12 +4,10 @@
 Main_window::Main_window(Controller& con) 
 : _controller{con}
 {
-
     // /////////////////
     // G U I   S E T U P
     // /////////////////
-
-    set_default_size(800, 400);
+    set_default_size(1000, 600);
     
     // Put a vertical box container as the Window contents
     Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
@@ -21,7 +19,7 @@ Main_window::Main_window(Controller& con)
     Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar());
     vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
 
-    //     F I L E
+    //         F I L E
     // Create a File menu and add to the menu bar
     Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
     menubar->append(*menuitem_file);
@@ -34,14 +32,14 @@ Main_window::Main_window(Controller& con)
     menuitem_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     filemenu->append(*menuitem_quit);
 
-    //     CREATE
+    //       C R E A T E
     // Create a 'Create' menu and add to the menu bar
     Gtk::MenuItem *menuitem_create = Gtk::manage(new Gtk::MenuItem("_Create", true));
     menubar->append(*menuitem_create);
     Gtk::Menu *createmenu = Gtk::manage(new Gtk::Menu());
     menuitem_create->set_submenu(*createmenu);
 
-    //         CREATE ITEM
+    //       CREATE ITEM
     // Append Item to the Create menu
     Gtk::MenuItem *menuitem_createItem = Gtk::manage(new Gtk::MenuItem("_Item...", true));
     menuitem_createItem->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createItem));

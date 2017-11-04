@@ -3,7 +3,6 @@
 
 #include <gtkmm.h>
 #include "controller.h"
-#include "emporium.h"
 
 class Main_window : public Gtk::Window
 {

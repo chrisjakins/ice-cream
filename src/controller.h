@@ -20,13 +20,13 @@ class Controller {
     private:
         Emporium& _emp;
 
-        /* helpers */
-        int itemType();
-
         void createItem();
         void createServer();
         void createCustomer();
         void createEmporium();
         void createServing();
+
+        /* helpers */
+        int itemType();
 };
 #endif
