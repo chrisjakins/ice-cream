@@ -30,6 +30,8 @@ class Main_window : public Gtk::Window
         Controller& _controller;
 
         Gtk::Box * mainBox;
+
+        Gtk::HBox * screenBox;
         Gtk::VBox * leftBox;
         Gtk::VBox * midBox;
         Gtk::VBox * rightBox;

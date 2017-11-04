@@ -105,6 +105,7 @@ void Main_window::initToolbar() {
 }
 
 void Main_window::initMainscreen() {
+    screenBox = Gtk::manage(new Gtk::HBox);
     // left
     leftBox = Gtk::manage(new Gtk::VBox); 
 
@@ -112,7 +113,6 @@ void Main_window::initMainscreen() {
     contBox = Gtk::manage(new Gtk::HBox);
     cLabel = Gtk::manage(new Gtk::Label{"Containers"});
     contBox->pack_start(*cLabel);
-
 
     // flavor
     scoopBox = Gtk::manage(new Gtk::HBox);
@@ -131,21 +131,22 @@ void Main_window::initMainscreen() {
     // middle
     midBox = Gtk::manage(new Gtk::VBox);
     servLabel = Gtk::manage(new Gtk::Label{"Serving"});
-    midBox->pack_start(*servLabel);
+
+    midBox->pack_start(*servLabel, Gtk::PACK_SHRINK);
 
     // right
     rightBox = Gtk::manage(new Gtk::VBox);
     orderLabel = Gtk::manage(new Gtk::Label{"Order"});
-    rightBox->pack_start(*orderLabel);
 
-    mainBox->pack_start(*leftBox);
-    mainBox->pack_start(*midBox);
-    mainBox->pack_start(*rightBox);
-    mainBox->show_all();
+    rightBox->pack_start(*orderLabel, Gtk::PACK_SHRINK);
+
+    screenBox->pack_start(*leftBox);
+    screenBox->pack_start(*midBox);
+    screenBox->pack_start(*rightBox);
+    mainBox->pack_start(*screenBox);
 }
 
 void Main_window::refresh() {
-    initMainscreen();
 }
 
 // /////////////////
@@ -154,7 +155,7 @@ void Main_window::refresh() {
 
 // File Menu
 void Main_window::on_quit_click() {
-    hide();
+    close();
 }
 
 // Create Menu
@@ -174,7 +175,7 @@ void Main_window::createOrder() {
 
 void Main_window::createItem(){
     _controller.execute(Controller::CREATE_ITEM);
-    initMainscreen();
+    refresh();
 }
 
 //help callback goes here
