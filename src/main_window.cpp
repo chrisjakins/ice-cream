@@ -113,41 +113,35 @@ void Main_window::initMainscreen() {
     cLabel = Gtk::manage(new Gtk::Label{"Containers"});
     contBox->pack_start(*cLabel);
 
-    for (unsigned int i = 0; i < conts.size(); i++) {
-        // pass in image below
-        Gtk::RadioToolButton * b = Gtk::manage(new Gtk::RadioToolButton{});
-        b->set_tooltip_markup(conts[i]->name());
-        // what do we do here?
-        /* b->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::)) */
-        contBox->pack_start(*b);
-        contRtbs.push_back(b);
-    }
+
+    // flavor
+    scoopBox = Gtk::manage(new Gtk::HBox);
+    sLabel = Gtk::manage(new Gtk::Label{"Flavors"});
+    scoopBox->pack_start(*sLabel);
+
+    // topping
+    toppBox = Gtk::manage(new Gtk::HBox);
+    tLabel = Gtk::manage(new Gtk::Label{"Toppings"});    
+    toppBox->pack_start(*tLabel);
 
     leftBox->pack_start(*contBox);
+    leftBox->pack_start(*scoopBox);
+    leftBox->pack_start(*toppBox);
+
+    // middle
+    midBox = Gtk::manage(new Gtk::VBox);
+    servLabel = Gtk::manage(new Gtk::Label{"Serving"});
+    midBox->pack_start(*servLabel);
+
+    // right
+    rightBox = Gtk::manage(new Gtk::VBox);
+    orderLabel = Gtk::manage(new Gtk::Label{"Order"});
+    rightBox->pack_start(*orderLabel);
+
     mainBox->pack_start(*leftBox);
+    mainBox->pack_start(*midBox);
+    mainBox->pack_start(*rightBox);
     mainBox->show_all();
-
-    /* // flavor */
-    /* Gtk::HBox * scpBox = Gtk::manage(new Gtk::HBox); */
-    /* Gtk::Label * sLabel = Gtk::manage(new Gtk::Label{"Flavors"}); */    
-    /* std::vector<Item *> scoops = _controller.scoops(); */
-
-    /* // topping */
-    /* Gtk::HBox * toppBox = Gtk::manage(new Gtk::HBox); */
-    /* Gtk::Label * tLabel = Gtk::manage(new Gtk::Label{"Toppings"}); */    
-    /* std::vector<Item *> topps = _controller.toppings(); */
-
-
-
-
-
-
-
-    /* // middle */
-    /* Gtk::VBox * midBox = Gtk::manage(new Gtk::VBox); */
-
-    /* // right */
-    /* Gtk::VBox * rightBox = Gtk::manage(new Gtk::VBox); */
 }
 
 void Main_window::refresh() {
