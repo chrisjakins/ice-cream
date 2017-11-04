@@ -23,6 +23,11 @@ class Main_window : public Gtk::Window
 
     private:
         Controller& _controller;
+
+        /* helpers */
+        void initMenubar(Gtk::Box *);
+        void initToolbar(Gtk::Box *);
+        void initMainscreen(Gtk::Box *);
 };
 #endif 
 

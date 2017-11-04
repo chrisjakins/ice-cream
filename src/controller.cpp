@@ -43,7 +43,8 @@ int Controller::itemType() {
     if (dialog->run()) {
         item = dropDown.get_active_row_number();
     } else {
-        /* what to do if cancelled */
+        dialog->close();
+        return -1;
     }
 
     dialog->close();
@@ -59,6 +60,7 @@ void Controller::createItem() {
     // dialog->set_transient_for(*this);
 
     int item = itemType();
+    if (item < 0) return;
 
     Gtk::Dialog * dialog = new Gtk::Dialog();
     std::vector<Gtk::Label *> labels;
