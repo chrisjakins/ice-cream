@@ -116,26 +116,28 @@ std::string Emporium::listOrders() {
            Creation
 ****************************/
 void Emporium::createContainer(std::vector<std::string> ins) {
-    std::stringstream ss;
     std::string name = ins[1], desc = ins[2];
     int maxScoops, stock;
     double cost, price;
     
-    ss << ins[0] << ins[3] << ins[4] << ins[5];
-    ss >> maxScoops >> cost >> price >> stock >> maxScoops;
+    maxScoops = stoi(ins[0]);
+    cost = stof(ins[3]);
+    price = stof(ins[4]);
+    stock = stoi(ins[5]); 
 
     _items.push_back(new Container{name, desc, cost, price, stock, maxScoops});
 }
 
+#include <iostream>
 void Emporium::createFlavor(std::vector<std::string> ins) {
-    std::stringstream ss;
     int stock;
     double cost, price;
 
     std::string name = ins[0];
     std::string desc = ins[1];
-    ss << ins[2] << ins[3] << ins[4];
-    ss >> cost >> price >> stock;
+    cost = stof(ins[2]);
+    price = stof(ins[3]);
+    stock = stoi(ins[4]);
 
     _items.push_back(new Scoop{name, desc, cost, price, stock});
 }

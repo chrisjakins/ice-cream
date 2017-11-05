@@ -169,6 +169,16 @@ void Main_window::refresh() {
         contList->pack_start(*contRbs[i - 1]);
         contRbs[i - 1]->set_group(group);
     }
+
+    std::vector<Item *> scoops = _controller.scoops();
+    if (!scoops.empty()) {
+        unsigned int i = 0;
+        for (; i < scoops.size(); i++);
+
+        flavSbs.push_back(Gtk::manage(new Gtk::Button{scoops[i - 1]->name()}));
+        scoopList->pack_start(*flavSbs[i - 1]);
+    }
+
     mainBox->show_all();
 }
 

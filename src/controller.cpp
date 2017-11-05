@@ -51,7 +51,7 @@ int Controller::itemType() {
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
     delete dialog;
     return item;
-}
+} 
 
 void Controller::createItem() {
     std::vector<std::string> textL{"Name", "Description", "Cost",
