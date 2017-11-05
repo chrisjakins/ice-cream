@@ -24,9 +24,9 @@ void Emporium::addItem(int type, std::vector<std::string> ins) {
     }
 }
 
-void Emporium::removeItem(int index) {
-    _items.erase(_items.begin() + index);
-}
+// void Emporium::removeItem(int index) {
+//     _items.erase(_items.begin() + index);
+// }
 
 void Emporium::addServer(std::vector<std::string> ins) {
     std::string name, number;
@@ -37,7 +37,7 @@ void Emporium::addServer(std::vector<std::string> ins) {
         ss << ins[i];
     }
     ss >> name >> id >> number >> salary;
-    _persons.push_back(new Server{name, id, number, salary});
+    _servers.push_back(new Server{name, id, number, salary});
 }
 
 void Emporium::addCustomer(std::vector<std::string> ins) {
@@ -48,7 +48,7 @@ void Emporium::addCustomer(std::vector<std::string> ins) {
         ss << ins[i];
     }
     ss >> name >> id >> number;
-    _persons.push_back(new Customer{name, id, number});
+    _customers.push_back(new Customer{name, id, number});
 }
 
 /***************************
@@ -57,46 +57,40 @@ void Emporium::addCustomer(std::vector<std::string> ins) {
 // what do these functions actually list?
 // name and what else?
 // formatting?
-std::vector<Item *> Emporium::containers() {
-    std::vector<Item *> cont;
-    for (unsigned int i = 0; i < _items.size(); i++) {
-        if (_items[i]->type() == "Container") {
-            cont.push_back(_items[i]);
-        }
+std::vector<Container *> Emporium::containers() {
+    std::vector<Container *> cont;
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        cont.push_back(_containers[i]);
     }
     return cont;
 }
 
-std::vector<Item *> Emporium::scoops() {
-    std::vector<Item *> scps;
-    for (unsigned int i = 0; i < _items.size(); i++) {
-        if (_items[i]->type() == "Scoop") {
-            scps.push_back(_items[i]);
-        }
+std::vector<Scoop *> Emporium::scoops() {
+    std::vector<Scoop *> scps;
+    for (unsigned int i = 0; i < _scoops.size(); i++) {
+        scps.push_back(_scoops[i]);
     }
     return scps;
 }
 
-std::vector<Item *> Emporium::toppings() {
-    std::vector<Item *> topp;
-    for (unsigned int i = 0; i < _items.size(); i++) {
-        if (_items[i]->type() == "Topping") {
-            topp.push_back(_items[i]);
-        }
+std::vector<Topping *> Emporium::toppings() {
+    std::vector<Topping *> topp;
+    for (unsigned int i = 0; i < _toppings.size(); i++) {
+        topp.push_back(_toppings[i]);
     }
     return topp;
 }
 
-std::string Emporium::listPersons() {
-    std::string list = "";
-    for (unsigned int i = 0; i < _persons.size(); i++) {
-        list += _persons[i]->id();
-        list += "\n";
-        list += _persons[i]->name();
-        list += "\n\n";
-    }
-    return list;
-}
+// std::string Emporium::listPersons() {
+//     std::string list = "";
+//     for (unsigned int i = 0; i < _persons.size(); i++) {
+//         list += _persons[i]->id();
+//         list += "\n";
+//         list += _persons[i]->name();
+//         list += "\n\n";
+//     }
+//     return list;
+// }
 
 std::string Emporium::listOrders() {
     std::string list = "";
@@ -125,7 +119,7 @@ void Emporium::createContainer(std::vector<std::string> ins) {
     price = stof(ins[4]);
     stock = stoi(ins[5]); 
 
-    _items.push_back(new Container{name, desc, cost, price, stock, maxScoops});
+    _containers.push_back(new Container{name, desc, cost, price, stock, maxScoops});
 }
 
 void Emporium::createFlavor(std::vector<std::string> ins) {
@@ -138,7 +132,7 @@ void Emporium::createFlavor(std::vector<std::string> ins) {
     price = stof(ins[3]);
     stock = stoi(ins[4]);
 
-    _items.push_back(new Scoop{name, desc, cost, price, stock});
+    _scoops.push_back(new Scoop{name, desc, cost, price, stock});
 }
 
 void Emporium::createTopping(std::vector<std::string> ins) {
@@ -151,5 +145,5 @@ void Emporium::createTopping(std::vector<std::string> ins) {
     price = stof(ins[3]);
     stock = stoi(ins[4]);
 
-    _items.push_back(new Topping{name, desc, cost, price, stock});
+    _toppings.push_back(new Topping{name, desc, cost, price, stock});
 }

@@ -5,7 +5,11 @@
 #include <vector>
 #include <string>
 
-#include "item.h"
+#include "container.h"
+#include "scoop.h"
+#include "topping.h"
+#include "server.h"
+#include "customer.h"
 #include "order.h"
 #include "person.h"
 
@@ -14,18 +18,16 @@ class Emporium {
         Emporium(int, double);
 
         void addItem(int, std::vector<std::string>);
-        void removeItem(int); // consider not having this removed = stock to 0
-        std::vector<Item *> containers();
-        std::vector<Item *> scoops();
-        std::vector<Item *> toppings();
+        // void removeItem(int); // consider not having this removed = stock to 0
+        std::vector<Container *> containers();
+        std::vector<Scoop *> scoops();
+        std::vector<Topping *> toppings();
 
         void addServer(std::vector<std::string>);
-        std::string listServer();
+        std::string listServers();
 
         void addCustomer(std::vector<std::string>);
         std::string listCustomers();
-        
-        std::string listPersons();
 
         void addOrder(Order *);
         std::string listOrders();
@@ -41,8 +43,11 @@ class Emporium {
     private:
         int _id;
         double _register = 0;
-        std::deque<Item *> _items;
-        std::deque<Person *> _persons;        
+        std::vector<Container *> _containers;
+        std::vector<Scoop *> _scoops;
+        std::vector<Topping *> _toppings;
+        std::vector<Customer *> _customers;
+        std::vector<Server *> _servers;       
         std::deque<Order *> _orders;
 
 };
