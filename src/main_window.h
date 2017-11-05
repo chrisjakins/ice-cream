@@ -31,12 +31,17 @@ class Main_window : public Gtk::Window
         Controller& _controller;
 
         Gtk::Box * mainBox;
+
+        Gtk::HBox * screenBox;
         Gtk::VBox * leftBox;
         Gtk::VBox * midBox;
         Gtk::VBox * rightBox;
-        Gtk::HBox * contBox;
-        Gtk::HBox * scoopBox;
-        Gtk::HBox * toppBox;
+        Gtk::VBox * contBox;
+        Gtk::VBox * scoopBox;
+        Gtk::VBox * toppBox;
+        Gtk::HBox * contList;
+        Gtk::HBox * scoopList;
+        Gtk::HBox * toppList;
 
         Gtk::Label * cLabel;
         Gtk::Label * sLabel;
@@ -44,7 +49,8 @@ class Main_window : public Gtk::Window
         Gtk::Label * servLabel;
         Gtk::Label * orderLabel;
 
-        std::vector<Gtk::RadioToolButton *> contRtbs;
+        std::vector<Gtk::RadioButton *> contRbs;
+        Gtk::RadioButtonGroup group;
         std::vector<Gtk::Button *> flavButtons;
         std::vector<Gtk::Button *> topButtons;
 

@@ -117,13 +117,12 @@ std::string Emporium::listOrders() {
 ****************************/
 void Emporium::createContainer(std::vector<std::string> ins) {
     std::stringstream ss;
+    std::string name = ins[1], desc = ins[2];
     int maxScoops, stock;
     double cost, price;
-
-    std::string name = ins[0];
-    std::string desc = ins[1];
-    ss << ins[2] << ins[3] << ins[4] << ins[5];
-    ss >> cost >> price >> stock >> maxScoops;
+    
+    ss << ins[0] << ins[3] << ins[4] << ins[5];
+    ss >> maxScoops >> cost >> price >> stock >> maxScoops;
 
     _items.push_back(new Container{name, desc, cost, price, stock, maxScoops});
 }
