@@ -267,21 +267,18 @@ void Controller::loadInventory() {
     _emp.addItem(2, topping1);
     _emp.addItem(2, topping2);
     _emp.addItem(2, topping3);
-
-    std::cout << _emp.listPersons() << std::endl;
-    std::cout << _emp.listOrders() << std::endl;
 }
 /*************************
       L I S T I N G
 *************************/
-std::vector<Item *> Controller::containers() {
+std::vector<Container *> Controller::containers() {
     return _emp.containers();
 }
 
-std::vector<Item *> Controller::scoops() {
+std::vector<Scoop *> Controller::scoops() {
     return _emp.scoops();
 }
 
-std::vector<Item *> Controller::toppings() {
+std::vector<Topping *> Controller::toppings() {
     return _emp.toppings();
 }

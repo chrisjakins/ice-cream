@@ -22,9 +22,9 @@ class Controller {
 
         void errorMessage(std::string);
         void loadInventory();
-        std::vector<Item *> containers();
-        std::vector<Item *> scoops();
-        std::vector<Item *> toppings();
+        std::vector<Container *> containers();
+        std::vector<Scoop *> scoops();
+        std::vector<Topping *> toppings();
 
     private:
         Emporium& _emp;
@@ -34,7 +34,6 @@ class Controller {
         void createCustomer();
         void createEmporium();
         void createServing();
-
 
         /* helpers */
         int itemType();
