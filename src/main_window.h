@@ -52,7 +52,7 @@ class Main_window : public Gtk::Window
         std::vector<Gtk::RadioButton *> contRbs;
         Gtk::RadioButtonGroup group;
         std::vector<Gtk::Button *> flavSbs;
-        std::vector<Gtk::Button *> topButtons;
+        std::vector<Gtk::Button *> topBs;
 
         Gtk::Button * servConfirm;
         Gtk::Button * cancel;

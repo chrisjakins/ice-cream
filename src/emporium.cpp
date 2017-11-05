@@ -128,7 +128,6 @@ void Emporium::createContainer(std::vector<std::string> ins) {
     _items.push_back(new Container{name, desc, cost, price, stock, maxScoops});
 }
 
-#include <iostream>
 void Emporium::createFlavor(std::vector<std::string> ins) {
     int stock;
     double cost, price;
@@ -143,14 +142,14 @@ void Emporium::createFlavor(std::vector<std::string> ins) {
 }
 
 void Emporium::createTopping(std::vector<std::string> ins) {
-    std::stringstream ss;
     int stock;
     double cost, price;
 
     std::string name = ins[0];
     std::string desc = ins[1];
-    ss << ins[2] << ins[3] << ins[4];
-    ss >> cost >> price >> stock;
+    cost = stof(ins[2]);
+    price = stof(ins[3]);
+    stock = stoi(ins[4]);
 
     _items.push_back(new Topping{name, desc, cost, price, stock});
 }
