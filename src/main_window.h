@@ -30,15 +30,21 @@ class Main_window : public Gtk::Window
     private:
         Controller& _controller;
 
+        /* Main window box */
         Gtk::Box * mainBox;
 
+        /* everything other than menubar and toolbar */
         Gtk::HBox * screenBox;
+
+        /*****************
+            ITEM PANEL
+        *****************/
         Gtk::VBox * leftBox;
-        Gtk::VBox * midBox;
-        Gtk::VBox * rightBox;
+
         Gtk::VBox * contBox;
         Gtk::VBox * scoopBox;
         Gtk::VBox * toppBox;
+
         Gtk::HBox * contList;
         Gtk::HBox * scoopList;
         Gtk::HBox * toppList;
@@ -46,19 +52,33 @@ class Main_window : public Gtk::Window
         Gtk::Label * cLabel;
         Gtk::Label * sLabel;
         Gtk::Label * tLabel;
-        Gtk::Label * servLabel;
-        Gtk::Label * orderLabel;
 
         std::vector<Gtk::RadioButton *> contRbs;
         Gtk::RadioButtonGroup group;
         std::vector<Gtk::Button *> scoopBs;
         std::vector<Gtk::Button *> topBs;
 
+        /******************************
+                 SERVING PANEL
+        *******************************/
+        Gtk::VBox * midBox;
+
+        Gtk::Label * servLabel;
+
         Gtk::Button * servConfirm;
+
+        std::vector<Gtk::Button *> servings;
+
+        /*************************
+                ORDER PANEL
+        *************************/
+        Gtk::VBox * rightBox;
+
+        Gtk::Label * orderLabel;
+
         Gtk::Button * cancel;
         Gtk::Button * Pay;
 
-        std::vector<Gtk::Button *> servings;
 
         /* helpers */
         void initMenubar();

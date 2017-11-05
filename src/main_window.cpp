@@ -119,7 +119,7 @@ void Main_window::initMainscreen() {
     contBox = Gtk::manage(new Gtk::VBox);
     cLabel = Gtk::manage(new Gtk::Label{"Containers"});
     contList = Gtk::manage(new Gtk::HBox);
-    contBox->pack_start(*cLabel);
+    contBox->pack_start(*cLabel, Gtk::PACK_SHRINK);
     contBox->pack_start(*contList);
     Gtk::RadioButtonGroup group();
 
@@ -137,7 +137,7 @@ void Main_window::initMainscreen() {
     toppBox->pack_start(*tLabel);
     toppBox->pack_start(*toppList);
 
-    leftBox->pack_start(*contBox, Gtk::PACK_SHRINK);
+    leftBox->pack_start(*contBox); //, Gtk::PACK_SHRINK);
     leftBox->pack_start(*scoopBox);
     leftBox->pack_start(*toppBox);
 
