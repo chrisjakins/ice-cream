@@ -1,8 +1,8 @@
 #ifndef _CONTROLLER_H
 #define _CONTROLLER_H
 
+#include <string>
 #include <vector>
-
 #include "emporium.h"
 #include "item.h"
 
@@ -19,6 +19,8 @@ class Controller {
         const static int CREATE_EMPORIUM = 4;
         const static int CREATE_SERVING = 5;
 
+        void error(std::string);
+        void loadSamples();
         std::vector<Item *> containers();
         std::vector<Item *> scoops();
         std::vector<Item *> toppings();

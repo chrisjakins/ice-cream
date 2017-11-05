@@ -33,6 +33,11 @@ class Emporium {
         /* FILE I/O */
         /* void load(std::istream); */
         /* void save(std::ostream); */
+
+        void createContainer(std::vector<std::string>);
+        void createFlavor(std::vector<std::string>);
+        void createTopping(std::vector<std::string>);
+        
     private:
         int _id;
         double _register = 0;
@@ -40,8 +45,5 @@ class Emporium {
         std::deque<Person *> _persons;        
         std::deque<Order *> _orders;
 
-        void createContainer(std::vector<std::string>);
-        void createFlavor(std::vector<std::string>);
-        void createTopping(std::vector<std::string>);
 };
 #endif
