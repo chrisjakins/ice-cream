@@ -271,7 +271,7 @@ void Controller::loadInventory() {
 /*************************
       L I S T I N G
 *************************/
-std::vector<Container *> Controller::containers() {
+std::vector<mice::Container *> Controller::containers() {
     return _emp.containers();
 }
 

@@ -5,6 +5,8 @@
 
 #include "item.h"
 
+namespace mice {
+
 class Container : public Item {
   public:
     Container(std::string, std::string, double, double, int, int);
@@ -16,4 +18,5 @@ class Container : public Item {
   private:
     int maxScoop;
 };
+}
 #endif

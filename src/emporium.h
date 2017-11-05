@@ -19,7 +19,7 @@ class Emporium {
 
         void addItem(int, std::vector<std::string>);
         // void removeItem(int); // consider not having this removed = stock to 0
-        std::vector<Container *> containers();
+        std::vector<mice::Container *> containers();
         std::vector<Scoop *> scoops();
         std::vector<Topping *> toppings();
 
@@ -43,7 +43,7 @@ class Emporium {
     private:
         int _id;
         double _register = 0;
-        std::vector<Container *> _containers;
+        std::vector<mice::Container *> _containers;
         std::vector<Scoop *> _scoops;
         std::vector<Topping *> _toppings;
         std::vector<Customer *> _customers;

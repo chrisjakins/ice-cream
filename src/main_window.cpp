@@ -165,7 +165,7 @@ void Main_window::initMainscreen() {
 }
 
 void Main_window::refresh() {
-    std::vector<Container *> conts = _controller.containers();
+    std::vector<mice::Container *> conts = _controller.containers();
     if (!conts.empty()) {
         unsigned int i = 0;
         for (; i < conts.size(); i++);

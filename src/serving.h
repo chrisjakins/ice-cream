@@ -11,10 +11,10 @@
 /* Employs Factory Pattern */
 class Serving {
     public:
-        Serving(Container container);
+        Serving(mice::Container container);
         void add_scoop(Scoop scoop);
         void add_topping(Topping topping);
-        Container container();
+        mice::Container container();
         std::vector<Scoop> scoops();
         std::vector<Topping> toppings();
         double wholesaleCost();
@@ -22,7 +22,7 @@ class Serving {
         // std::string preview();
 
       private:
-        Container _container;
+        mice::Container _container;
         std::vector<Scoop> _scoops;
         std::vector<Topping> _toppings;
 };

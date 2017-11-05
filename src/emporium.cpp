@@ -57,8 +57,8 @@ void Emporium::addCustomer(std::vector<std::string> ins) {
 // what do these functions actually list?
 // name and what else?
 // formatting?
-std::vector<Container *> Emporium::containers() {
-    std::vector<Container *> cont;
+std::vector<mice::Container *> Emporium::containers() {
+    std::vector<mice::Container *> cont;
     for (unsigned int i = 0; i < _containers.size(); i++) {
         cont.push_back(_containers[i]);
     }
@@ -119,7 +119,7 @@ void Emporium::createContainer(std::vector<std::string> ins) {
     price = stof(ins[4]);
     stock = stoi(ins[5]); 
 
-    _containers.push_back(new Container{name, desc, cost, price, stock, maxScoops});
+    _containers.push_back(new mice::Container{name, desc, cost, price, stock, maxScoops});
 }
 
 void Emporium::createFlavor(std::vector<std::string> ins) {
