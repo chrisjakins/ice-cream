@@ -10,7 +10,7 @@ Main_window::Main_window(Controller& con)
 : _controller{con}
 {
     // G U I   S E T U P
-    set_default_size(1000, 600);
+    set_default_size(1200, 800);
     
     // Put a vertical box container as the Window contents
     mainBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
@@ -110,19 +110,26 @@ void Main_window::initMainscreen() {
     leftBox = Gtk::manage(new Gtk::VBox); 
 
     // container
-    contBox = Gtk::manage(new Gtk::HBox);
+    contBox = Gtk::manage(new Gtk::VBox);
     cLabel = Gtk::manage(new Gtk::Label{"Containers"});
+    contList = Gtk::manage(new Gtk::HBox);
     contBox->pack_start(*cLabel);
+    contBox->pack_start(*contList);
+    Gtk::RadioButtonGroup group();
 
     // flavor
-    scoopBox = Gtk::manage(new Gtk::HBox);
+    scoopBox = Gtk::manage(new Gtk::VBox);
     sLabel = Gtk::manage(new Gtk::Label{"Flavors"});
+    scoopList = Gtk::manage(new Gtk::HBox);
     scoopBox->pack_start(*sLabel);
+    scoopBox->pack_start(*scoopList);
 
     // topping
-    toppBox = Gtk::manage(new Gtk::HBox);
+    toppBox = Gtk::manage(new Gtk::VBox);
     tLabel = Gtk::manage(new Gtk::Label{"Toppings"});    
+    toppList = Gtk::manage(new Gtk::HBox);
     toppBox->pack_start(*tLabel);
+    toppBox->pack_start(*toppList);
 
     leftBox->pack_start(*contBox);
     leftBox->pack_start(*scoopBox);
@@ -147,6 +154,16 @@ void Main_window::initMainscreen() {
 }
 
 void Main_window::refresh() {
+    std::vector<Item *> conts = _controller.containers();
+    if (!conts.empty()) {
+        unsigned int i = 0;
+        for (; i < conts.size(); i++);
+
+        contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i - 1]->name()}));
+        contList->pack_start(*contRbs[i - 1]);
+        contRbs[i - 1]->set_group(group);
+    }
+    mainBox->show_all();
 }
 
 // /////////////////
