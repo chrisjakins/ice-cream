@@ -174,6 +174,25 @@ void Main_window::refresh() {
         contList->pack_start(*contRbs[i - 1]);
         contRbs[i - 1]->set_group(group);
     }
+
+    std::vector<Item *> scoops = _controller.scoops();
+    if (!scoops.empty()) {
+        unsigned int i = 0;
+        for (; i < scoops.size(); i++);
+
+        scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i - 1]->name()}));
+        scoopList->pack_start(*scoopBs[i - 1]);
+    }
+
+    std::vector<Item *> topps = _controller.toppings();
+    if (!topps.empty()) {
+        unsigned int i = 0;
+        for (; i < topps.size(); i++);
+
+        topBs.push_back(Gtk::manage(new Gtk::Button{topps[i - 1]->name()}));
+        toppList->pack_start(*topBs[i - 1]);
+    }
+
     mainBox->show_all();
 }
 
