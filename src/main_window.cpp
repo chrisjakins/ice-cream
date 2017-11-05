@@ -165,7 +165,7 @@ void Main_window::initMainscreen() {
 }
 
 void Main_window::refresh() {
-    std::vector<Item *> conts = _controller.containers();
+    std::vector<mice::Container *> conts = _controller.containers();
     if (!conts.empty()) {
         unsigned int i = 0;
         for (; i < conts.size(); i++);
@@ -175,7 +175,7 @@ void Main_window::refresh() {
         contRbs[i - 1]->set_group(group);
     }
 
-    std::vector<Item *> scoops = _controller.scoops();
+    std::vector<Scoop *> scoops = _controller.scoops();
     if (!scoops.empty()) {
         unsigned int i = 0;
         for (; i < scoops.size(); i++);
@@ -184,7 +184,7 @@ void Main_window::refresh() {
         scoopList->pack_start(*scoopBs[i - 1]);
     }
 
-    std::vector<Item *> topps = _controller.toppings();
+    std::vector<Topping *> topps = _controller.toppings();
     if (!topps.empty()) {
         unsigned int i = 0;
         for (; i < topps.size(); i++);

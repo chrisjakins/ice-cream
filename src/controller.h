@@ -22,7 +22,7 @@ class Controller {
 
         void errorMessage(std::string);
         void loadInventory();
-        std::vector<Container *> containers();
+        std::vector<mice::Container *> containers();
         std::vector<Scoop *> scoops();
         std::vector<Topping *> toppings();
 

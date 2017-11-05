@@ -2,8 +2,8 @@
 
 #include "serving.h"
 
-Serving::Serving(Container container) : _container{container} {}
-Container Serving::container() { return _container; }
+Serving::Serving(mice::Container container) : _container{container} {}
+mice::Container Serving::container() { return _container; }
 std::vector<Scoop> Serving::scoops() { return _scoops; }
 std::vector<Topping> Serving::toppings() { return _toppings; }
 
