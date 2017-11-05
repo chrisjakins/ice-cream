@@ -1,23 +1,29 @@
 #ifndef SERVING_H
 #define SERVING_H
 
-#include <list>
-#include <memory> // not sure if needed
-#include <string.h>
+#include <string>
+#include <vector>
 
-#include "item.h"
+#include "container.h"
+#include "scoop.h"
+#include "topping.h"
 
 /* Employs Factory Pattern */
 class Serving {
     public:
-        static Serving * create(std::list<Item *>);
-
-        int numItems();
+        Serving(Container container);
+        void add_scoop(Scoop scoop);
+        void add_topping(Topping topping);
+        Container container();
+        std::vector<Scoop> scoops();
+        std::vector<Topping> toppings();
+        double wholesaleCost();
         double price();
-        std::string preview ();
+        // std::string preview();
 
-    private:
-        std::list<Item *> _items;
-        void addItem(Item *);
+      private:
+        Container _container;
+        std::vector<Scoop> _scoops;
+        std::vector<Topping> _toppings;
 };
 #endif
