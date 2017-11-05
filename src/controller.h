@@ -5,6 +5,7 @@
 #include <vector>
 #include "emporium.h"
 #include "item.h"
+#include <iostream>
 
 class Controller {
     public:
@@ -19,7 +20,7 @@ class Controller {
         const static int CREATE_EMPORIUM = 4;
         const static int CREATE_SERVING = 5;
 
-        void error(std::string);
+        void errorMessage(std::string);
         void loadInventory();
         std::vector<Item *> containers();
         std::vector<Item *> scoops();
