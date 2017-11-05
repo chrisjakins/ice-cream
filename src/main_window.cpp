@@ -137,8 +137,13 @@ void Main_window::initMainscreen() {
     toppBox->pack_start(*tLabel);
     toppBox->pack_start(*toppList);
 
+    Gtk::SeparatorToolItem *hSep1 = Gtk::manage(new Gtk::SeparatorToolItem());
+    Gtk::SeparatorToolItem *hSep2 = Gtk::manage(new Gtk::SeparatorToolItem());
+
     leftBox->pack_start(*contBox); //, Gtk::PACK_SHRINK);
+    leftBox->pack_start(*hSep1, Gtk::PACK_SHRINK, 5);    
     leftBox->pack_start(*scoopBox);
+    leftBox->pack_start(*hSep2, Gtk::PACK_SHRINK, 5);
     leftBox->pack_start(*toppBox);
 
     // middle
