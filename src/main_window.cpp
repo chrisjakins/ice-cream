@@ -43,8 +43,8 @@ void Main_window::initMenubar() {
 
     //         lOAD SAMPLES
     // Append Load Samples to the File menu
-    Gtk::MenuItem *menuitem_loadSamples = Gtk::manage(new Gtk::MenuItem("_Load Samples", true));
-    menuitem_loadSamples->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadSamples));
+    Gtk::MenuItem *menuitem_loadSamples = Gtk::manage(new Gtk::MenuItem("_Load Inventory", true));
+    menuitem_loadSamples->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadInventory));
     filemenu->append(*menuitem_loadSamples);
     
     //         Q U I T
@@ -183,8 +183,8 @@ void Main_window::createItem(){
     initMainscreen();
 }
 
-void Main_window::loadSamples() {
-    _controller.loadSamples();
+void Main_window::loadInventory() {
+    _controller.loadInventory();
 }
 
 //help callback goes here
