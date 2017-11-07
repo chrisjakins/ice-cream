@@ -21,8 +21,10 @@ class Main_window : public Gtk::Window
         void createServer();        // Prompts dialog to create Server
         void createCustomer();      // Prompts dialog to create beloved Customer
         void createOrder();         // Prompts dialog to create Order
+
         void on_about_click();
         void on_help_click();
+
         void loadInventory();
 
         void refresh();

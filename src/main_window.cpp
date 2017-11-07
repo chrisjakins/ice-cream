@@ -43,9 +43,15 @@ void Main_window::initMenubar() {
 
     //         lOAD SAMPLES
     // Append Load Samples to the File menu
-    Gtk::MenuItem *menuitem_loadSamples = Gtk::manage(new Gtk::MenuItem("_Load Inventory", true));
-    menuitem_loadSamples->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadInventory));
-    filemenu->append(*menuitem_loadSamples);
+    Gtk::MenuItem *mi_loadSample = Gtk::manage(new Gtk::MenuItem("_Load Inventory", true));
+    mi_loadSample->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadInventory));
+    filemenu->append(*mi_loadSample);
+
+    //      T E S T I N G
+    //
+    /* Gtk::MenuItem *mi_easter = Gtk::manage(new Gtk::MenuItem("_Easter Egg", true)); */
+    /* mi_easter->signal_activate().connect(sigc::mem_fun(*this, &Main_window::easterEgg)); */
+    /* filemenu->append(*mi_easter); */
     
     //         Q U I T
     // Append Quit to the File menu
@@ -170,32 +176,49 @@ void Main_window::initMainscreen() {
 }
 
 void Main_window::refresh() {
+    unsigned int i;
     std::vector<mice::Container *> conts = _controller.containers();
     if (!conts.empty()) {
-        unsigned int i = 0;
-        for (; i < conts.size(); i++);
-
-        contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i - 1]->name()}));
-        contList->pack_start(*contRbs[i - 1]);
-        contRbs[i - 1]->set_group(group);
+        if (contRbs.empty()) {
+            for (i = 0; i < conts.size(); i++) {
+                contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+                contList->pack_start(*contRbs[i]);
+                contRbs[i]->set_group(group);
+            }
+        } else {
+            i = conts.size() - 1;
+            contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+            contList->pack_start(*contRbs[i]);
+            contRbs[i]->set_group(group);
+        }
     }
 
     std::vector<Scoop *> scoops = _controller.scoops();
     if (!scoops.empty()) {
-        unsigned int i = 0;
-        for (; i < scoops.size(); i++);
-
-        scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i - 1]->name()}));
-        scoopList->pack_start(*scoopBs[i - 1]);
+        if (scoopBs.empty()) {
+            for (i = 0; i < scoops.size(); i++) {
+                scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+                scoopList->pack_start(*scoopBs[i]);
+            }
+        } else {
+            i = scoops.size() - 1;
+            scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+            scoopList->pack_start(*scoopBs[i]);
+        }
     }
 
     std::vector<Topping *> topps = _controller.toppings();
     if (!topps.empty()) {
-        unsigned int i = 0;
-        for (; i < topps.size(); i++);
-
-        topBs.push_back(Gtk::manage(new Gtk::Button{topps[i - 1]->name()}));
-        toppList->pack_start(*topBs[i - 1]);
+        if (topBs.empty()) {
+            for (i = 0; i < topps.size(); i++) {
+                topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+                toppList->pack_start(*topBs[i]);
+            }
+        } else {
+            i = topps.size() - 1;
+            topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+            toppList->pack_start(*topBs[i]);
+        }
     }
 
     mainBox->show_all();
@@ -232,6 +255,7 @@ void Main_window::createItem(){
 
 void Main_window::loadInventory() {
     _controller.loadInventory();
+    refresh();
 }
 
 //help callback goes here

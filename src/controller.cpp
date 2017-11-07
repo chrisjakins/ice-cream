@@ -236,17 +236,17 @@ void Controller::errorMessage(std::string err) {
 }
 
 void Controller::loadInventory() {
-    std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"};
-    std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"};
-    std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"};
+    /* std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"}; */
+    /* std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"}; */
+    /* std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"}; */
     
-    _emp.addServer(serv1);
-    _emp.addServer(serv2);
-    _emp.addServer(serv3);
+    /* _emp.addServer(serv1); */
+    /* _emp.addServer(serv2); */
+    /* _emp.addServer(serv3); */
 
-    std::vector<std::string> container1 = {"Waffle Cone", "Cone made of waffle", "0.10", "1.99", "1200", "3"};
-    std::vector<std::string> container2 = {"Paper Cup", "Plain old paper", "0.25", "1.00", "1500", "6"};
-    std::vector<std::string> container3 = {"Tub", "For the bad break-ups", "2.99", "4.99", "100", "15"};
+    std::vector<std::string> container1 = {"3", "Waffle Cone", "Cone made of waffle", "0.10", "1.99", "1200"};
+    std::vector<std::string> container2 = {"6", "Paper Cup", "Plain old paper", "0.25", "1.00", "1500"};
+    std::vector<std::string> container3 = {"15", "Tub", "For the bad break-ups", "2.99", "4.99", "100"};
 
     _emp.addItem(0, container1);
     _emp.addItem(0, container2);
@@ -268,6 +268,7 @@ void Controller::loadInventory() {
     _emp.addItem(2, topping2);
     _emp.addItem(2, topping3);
 }
+
 /*************************
       L I S T I N G
 *************************/
