@@ -28,6 +28,7 @@ class Main_window : public Gtk::Window
         void loadInventory();
 
         void refresh();
+        void onContainerClicked();
 
     private:
         Controller& _controller;
@@ -66,6 +67,8 @@ class Main_window : public Gtk::Window
         Gtk::VBox * midBox;
 
         Gtk::Label * servLabel;
+        /* Temporary till we get images set up */
+        Gtk::Label * contServLabel;
 
         Gtk::Button * servConfirm;
 

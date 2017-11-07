@@ -155,8 +155,10 @@ void Main_window::initMainscreen() {
     // middle
     midBox = Gtk::manage(new Gtk::VBox);
     servLabel = Gtk::manage(new Gtk::Label{"Serving"});
+    contServLabel = Gtk::manage(new Gtk::Label);
 
     midBox->pack_start(*servLabel, Gtk::PACK_SHRINK);
+    midBox->pack_start(*contServLabel, Gtk::PACK_SHRINK);
 
     // right
     rightBox = Gtk::manage(new Gtk::VBox);
@@ -182,6 +184,8 @@ void Main_window::refresh() {
         if (contRbs.empty()) {
             for (i = 0; i < conts.size(); i++) {
                 contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+                contRbs[i]->signal_clicked().connect(sigc::mem_fun(
+                    *this, &Main_window::onContainerClicked));
                 contList->pack_start(*contRbs[i]);
                 contRbs[i]->set_group(group);
             }
@@ -256,6 +260,14 @@ void Main_window::createItem(){
 void Main_window::loadInventory() {
     _controller.loadInventory();
     refresh();
+}
+
+void Main_window::onContainerClicked() {
+    int active;
+    for (int i = 0; i < contRbs.size(); i++) {
+        if (contRbs[i]->get_active()) active = i;
+    }
+    contServLabel->set_label(contRbs[active]->get_label());
 }
 
 //help callback goes here
