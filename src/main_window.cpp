@@ -178,7 +178,7 @@ void Main_window::initMainscreen() {
 void Main_window::refresh() {
     unsigned int i;
     std::vector<mice::Container *> conts = _controller.containers();
-    if (!conts.empty()) {
+    if (!conts.empty() && conts.size() != contRbs.size()) {
         if (contRbs.empty()) {
             for (i = 0; i < conts.size(); i++) {
                 contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
@@ -194,7 +194,7 @@ void Main_window::refresh() {
     }
 
     std::vector<Scoop *> scoops = _controller.scoops();
-    if (!scoops.empty()) {
+    if (!scoops.empty() && scoops.size() != scoopBs.size()) {
         if (scoopBs.empty()) {
             for (i = 0; i < scoops.size(); i++) {
                 scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
@@ -208,7 +208,7 @@ void Main_window::refresh() {
     }
 
     std::vector<Topping *> topps = _controller.toppings();
-    if (!topps.empty()) {
+    if (!topps.empty() && topps.size() != topBs.size()) {
         if (topBs.empty()) {
             for (i = 0; i < topps.size(); i++) {
                 topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
