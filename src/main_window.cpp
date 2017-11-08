@@ -119,12 +119,36 @@ void Main_window::initToolbar() {
 void Main_window::initMainscreen() {
     screenBox = Gtk::manage(new Gtk::HBox);
     // left
+    m_refCssProvider = Gtk::CssProvider::create();
+    auto refStyleContext = get_style_context();
+    refStyleContext->add_provider(m_refCssProvider,
+      GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+      m_refCssProvider->signal_parsing_error().connect(
+        sigc::mem_fun(*this, &Main_window::on_parsing_error));
+    
+      try
+      {
+        m_refCssProvider->load_from_path("src/custom_gtk.css");
+      }
+      catch(const Gtk::CssProviderError& ex)
+      {
+        std::cerr << "CssProviderError, Gtk::CssProvider::load_from_path() failed: "
+                  << ex.what() << std::endl;
+      }
+      catch(const Glib::Error& ex)
+      {
+        std::cerr << "Error, Gtk::CssProvider::load_from_path() failed: "
+                  << ex.what() << std::endl;
+      }
+   
     leftBox = Gtk::manage(new Gtk::VBox); 
 
     // container
     contBox = Gtk::manage(new Gtk::VBox);
     cLabel = Gtk::manage(new Gtk::Label{"Containers"});
     contList = Gtk::manage(new Gtk::HBox);
+    contList->set_name("dlist");
     contBox->pack_start(*cLabel, Gtk::PACK_SHRINK);
     contBox->pack_start(*contList);
     Gtk::RadioButtonGroup group();
@@ -176,7 +200,23 @@ void Main_window::initMainscreen() {
     screenBox->pack_start(*rightBox);
     mainBox->pack_start(*screenBox);
 }
+void Main_window::on_parsing_error(const Glib::RefPtr<const Gtk::CssSection>& section, const Glib::Error& error)
+{
+  std::cerr << "on_parsing_error(): " << error.what() << std::endl;
+  if (section)
+  {
+    const auto file = section->get_file();
+    if (file)
+    {
+      std::cerr << "  URI = " << file->get_uri() << std::endl;
+    }
 
+    std::cerr << "  start_line = " << section->get_start_line()+1
+              << ", end_line = " << section->get_end_line()+1 << std::endl;
+    std::cerr << "  start_position = " << section->get_start_position()
+              << ", end_position = " << section->get_end_position() << std::endl;
+  }
+}
 void Main_window::refresh() {
     unsigned int i;
     std::vector<mice::Container *> conts = _controller.containers();

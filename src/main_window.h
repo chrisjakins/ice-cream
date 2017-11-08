@@ -5,6 +5,8 @@
 #include <vector>
 
 #include "controller.h"
+#include <gtkmm/cssprovider.h>
+#include <gtkmm/styleproperty.h>
 
 class Main_window : public Gtk::Window
 {
@@ -29,7 +31,9 @@ class Main_window : public Gtk::Window
 
         void refresh();
         void onContainerClicked();
-
+        Glib::RefPtr<Gtk::CssProvider> m_refCssProvider;
+         //Signal handler:
+        void on_parsing_error(const Glib::RefPtr<const Gtk::CssSection>& section, const Glib::Error& error);
     private:
         Controller& _controller;
 
