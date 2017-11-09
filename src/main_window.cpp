@@ -6,6 +6,7 @@
 #include "scoop.h"
 
 #include <iostream>
+#include <fstream>
 
 Main_window::Main_window(Controller& con) 
 : _controller{con}
@@ -308,7 +309,8 @@ void Main_window::onConfirmClicked() {
 }
 
 void Main_window::save() {
-    _controller.execute(Controller::SAVE);
+    std::ofstream ofs{_controller.getFilename(), std::ofstream::out};
+    _controller.save(ofs);
 }
 
 //help callback goes here
