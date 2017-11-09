@@ -6,6 +6,7 @@
 #include "scoop.h"
 
 #include <iostream>
+#include <fstream>
 
 Main_window::Main_window(Controller& con) 
 : _controller{con}
@@ -47,6 +48,12 @@ void Main_window::initMenubar() {
     Gtk::MenuItem *mi_loadSample = Gtk::manage(new Gtk::MenuItem("_Load Inventory", true));
     mi_loadSample->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadInventory));
     filemenu->append(*mi_loadSample);
+    
+    //         SAVE
+    // Append SAVE to the File menu
+    Gtk::MenuItem *mi_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    mi_save->signal_activate().connect(sigc::mem_fun(*this, &Main_window::save));
+    filemenu->append(*mi_save);
 
     //      T E S T I N G
     //
@@ -304,6 +311,11 @@ void Main_window::onToppingClicked(int index) {
 
 void Main_window::onConfirmClicked() {
 
+}
+
+void Main_window::save() {
+    std::ofstream ofs{_controller.getFilename(), std::ofstream::out};
+    _controller.save(ofs);
 }
 
 //help callback goes here

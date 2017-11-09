@@ -264,6 +264,14 @@ void Controller::loadInventory() {
     _emp.addItem(2, topping3);
 }
 
+std::string Controller::getFilename() {
+    return _filename;
+}
+
+void Controller::save(std::ostream& os) {
+    os << _emp;
+}
+
 /*************************
       L I S T I N G
 *************************/

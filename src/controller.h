@@ -22,6 +22,8 @@ class Controller {
 
         void errorMessage(std::string);
         void loadInventory();
+        void save(std::ostream&);
+        std::string getFilename();
 
         std::vector<mice::Container *> containers();
         std::vector<Scoop *> scoops();
@@ -29,6 +31,7 @@ class Controller {
 
     private:
         Emporium& _emp;
+        std::string _filename = "untitled.ice";
 
         void createItem();
         void createServer();
