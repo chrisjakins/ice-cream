@@ -206,10 +206,15 @@ void Main_window::refresh() {
     }
 
     std::vector<Scoop *> scoops = _controller.scoops();
+    std::vector<Gtk::Image *> sImages;
     if (!scoops.empty() && scoops.size() != scoopBs.size()) {
         if (scoopBs.empty()) {
             for (i = 0; i < scoops.size(); i++) {
+                 sImages.push_back(Gtk::manage(new Gtk::Image(scoops[i]->img())));
+                //Gtk::ToolButton *cr_order = Gtk::manage(new Gtk::ToolButton(*order_img));
+                //cr_order->set_tooltip_markup(scoops[i]->name());
                 scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+                scoopBs[i]->set_image(*sImages[i]);
                 scoopBs[i]->signal_clicked().connect(sigc::bind<int>(
                     sigc::mem_fun(*this, &Main_window::onScoopClicked), i));
                 scoopList->pack_start(*scoopBs[i]);

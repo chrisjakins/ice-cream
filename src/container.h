@@ -9,7 +9,7 @@ namespace mice {
 
 class Container : public Item {
   public:
-    Container(std::string, std::string, double, double, int, int);
+    Container(std::string, std::string, double, double, int, int,std::string);
 
     std::string type() override;
     

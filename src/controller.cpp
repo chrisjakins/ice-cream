@@ -54,7 +54,7 @@ int Controller::itemType() {
 
 void Controller::createItem() {
     std::vector<std::string> textL{"Name", "Description", "Cost",
-                                   "Price", "Stock", "Max Scoops"};
+                                   "Price", "Stock","Image","Max Scoop"};
     std::vector<std::string> outputs;
 
     // dialog->set_transient_for(*this);
@@ -90,7 +90,7 @@ void Controller::createItem() {
         dialog->set_title("Create Topping");
     }
 
-    for (unsigned int i = 0; i < textL.size() - 1; i++) {
+    for (unsigned int i = 0; i < textL.size(); i++) {
         Gtk::HBox * box = Gtk::manage(new Gtk::HBox);
         boxes.push_back(box);
 
@@ -116,7 +116,7 @@ void Controller::createItem() {
     /* If the user hit "OK", add item to emporium */
     std::vector<std::string> output;
     if(dialog->run()) {
-        unsigned int size = item ? textL.size() - 1 : textL.size();
+        unsigned int size = item ? textL.size() : textL.size();
         for (unsigned int i = 0; i < size; i++) {
             output.push_back(entries[i]->get_text());
         }
@@ -239,25 +239,25 @@ void Controller::loadInventory() {
     /* _emp.addServer(serv2); */
     /* _emp.addServer(serv3); */
 
-    std::vector<std::string> container1 = {"3", "Waffle Cone", "Cone made of waffle", "0.10", "1.99", "1200"};
-    std::vector<std::string> container2 = {"6", "Paper Cup", "Plain old paper", "0.25", "1.00", "1500"};
-    std::vector<std::string> container3 = {"15", "Tub", "For the bad break-ups", "2.99", "4.99", "100"};
+    std::vector<std::string> container1 = {"3", "Waffle Cone", "Cone made of waffle", "0.10", "1.99", "1200","cup.jpg"};
+    std::vector<std::string> container2 = {"6", "Paper Cup", "Plain old paper", "0.25", "1.00", "1500","cup.jpg"};
+    std::vector<std::string> container3 = {"15", "Tub", "For the bad break-ups", "2.99", "4.99", "100","cup.jpg"};
 
     _emp.addItem(0, container1);
     _emp.addItem(0, container2);
     _emp.addItem(0, container3);
 
-    std::vector<std::string> flavor1 = {"Vanilla", "Classy yet delicious", "0.99", "1.99", "100"};
-    std::vector<std::string> flavor2 = {"Cookies and Cream", "Vanilla wasn't enough so we added cookies", "1.29", "2.79", "75"};
-    std::vector<std::string> flavor3 = {"Pistachio", "Pistachio flavored", "1.19", "1.29", "50"};
+    std::vector<std::string> flavor1 = {"Vanilla", "Classy yet delicious", "0.99", "1.99", "100","img/cup.jpg"};
+    std::vector<std::string> flavor2 = {"Cookies and Cream", "Vanilla wasn't enough so we added cookies", "1.29", "2.79", "75","img/cup.jpg"};
+    std::vector<std::string> flavor3 = {"Pistachio", "Pistachio flavored", "1.19", "1.29", "50","img/cup.jpg"};
 
     _emp.addItem(1, flavor1);
     _emp.addItem(1, flavor2);
     _emp.addItem(1, flavor3);
 
-    std::vector<std::string> topping1 = {"Marshmallows", "Magically delicious", "0.05", "0.10", "300"};
-    std::vector<std::string> topping2 = {"Chocolate Syrup", "Desc", "0.07", "0.10", "300"};
-    std::vector<std::string> topping3 = {"Gummi Worms", "For the gummi fish", "0.02", "0.10", "200"};
+    std::vector<std::string> topping1 = {"Marshmallows", "Magically delicious", "0.05", "0.10", "300","cup.jpg"};
+    std::vector<std::string> topping2 = {"Chocolate Syrup", "Desc", "0.07", "0.10", "300","cup.jpg"};
+    std::vector<std::string> topping3 = {"Gummi Worms", "For the gummi fish", "0.02", "0.10", "200","cup.jpg"};
 
     _emp.addItem(2, topping1);
     _emp.addItem(2, topping2);

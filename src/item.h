@@ -5,7 +5,7 @@
 
 class Item {
     public:
-        Item(std::string, std::string, double, double, int);//, Gtk::Image);
+        Item(std::string, std::string, double, double, int,std::string);//, Gtk::Image);
         /* constructor without image */
        // Item(std::string, std::string, double, double, int);
 
@@ -26,6 +26,7 @@ class Item {
         int stock();
         double wholesaleCost();
         double retailCost();
+        std::string img();
 
     protected:
         std::string _name;
@@ -33,6 +34,7 @@ class Item {
         double _wholesaleCost;
         double _retailCost;
         int _stockRemaining;
+        std::string _img;
       //  Gtk::Image _image;
 };
 #endif

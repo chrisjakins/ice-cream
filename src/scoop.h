@@ -10,7 +10,7 @@ class Scoop : public Item {
     // Scoop(std::string, std::string, double, double, int, Gtk::Image);
     
     /* for testing purposes before we are ready to work with images */
-    Scoop(std::string, std::string, double, double, int);
+    Scoop(std::string, std::string, double, double, int,std::string);
 
     std::string type() override;
 };
