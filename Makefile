@@ -24,7 +24,7 @@ build: $(OBJECTS)
 	$(CXX) $(OBJECTS) $(CFLAGS)
 
 %.o: $(SOURCEDIR)%.cpp
-	$(CXX) -g -c $< $(CFLAGS)
+	$(CXX) -c $< $(CFLAGS)
 
 testall: testscoop testcontainer testtopping testserving testcustomer testserver
 
