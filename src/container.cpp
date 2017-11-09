@@ -5,8 +5,8 @@
 namespace mice {
 
 Container::Container(std::string name, std::string description, double wholesaleCost,
-                     double retailCost, int stockRemaining, int maxScoop)
-: Item(name, description, wholesaleCost, retailCost, stockRemaining), maxScoop{maxScoop}
+                     double retailCost, int stockRemaining, int maxScoop,std::string item_img)
+: Item(name, description, wholesaleCost, retailCost, stockRemaining,item_img), maxScoop{maxScoop}
 {  }
 
 int Container::max() {

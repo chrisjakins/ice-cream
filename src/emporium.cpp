@@ -110,7 +110,7 @@ std::string Emporium::listOrders() {
            Creation
 ****************************/
 void Emporium::createContainer(std::vector<std::string> ins) {
-    std::string name = ins[1], desc = ins[2];
+    std::string name = ins[1], desc = ins[2], img ="img/"+ins[6];
     int maxScoops, stock;
     double cost, price;
     
@@ -119,7 +119,7 @@ void Emporium::createContainer(std::vector<std::string> ins) {
     price = stof(ins[4]);
     stock = stoi(ins[5]); 
 
-    _containers.push_back(new mice::Container{name, desc, cost, price, stock, maxScoops});
+    _containers.push_back(new mice::Container{name, desc, cost, price, stock, maxScoops,img});
 }
 
 void Emporium::createFlavor(std::vector<std::string> ins) {
@@ -128,11 +128,12 @@ void Emporium::createFlavor(std::vector<std::string> ins) {
 
     std::string name = ins[0];
     std::string desc = ins[1];
+    std::string img = "img/"+ins[5];
     cost = stof(ins[2]);
     price = stof(ins[3]);
     stock = stoi(ins[4]);
 
-    _scoops.push_back(new Scoop{name, desc, cost, price, stock});
+    _scoops.push_back(new Scoop{name, desc, cost, price, stock,img});
 }
 
 void Emporium::createTopping(std::vector<std::string> ins) {
@@ -141,9 +142,10 @@ void Emporium::createTopping(std::vector<std::string> ins) {
 
     std::string name = ins[0];
     std::string desc = ins[1];
+    std::string img  = "img/"+ins[5];
     cost = stof(ins[2]);
     price = stof(ins[3]);
     stock = stoi(ins[4]);
 
-    _toppings.push_back(new Topping{name, desc, cost, price, stock});
+    _toppings.push_back(new Topping{name, desc, cost, price, stock, img});
 }

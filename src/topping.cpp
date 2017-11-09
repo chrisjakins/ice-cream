@@ -9,8 +9,8 @@
 //     _quantity{quant};
 // }
 
-Topping::Topping(std::string name, std::string desc, double wsc, double rtc, int stock)
-: Item(name, desc, wsc, rtc, stock)
+Topping::Topping(std::string name, std::string desc, double wsc, double rtc, int stock,std::string item_img)
+: Item(name, desc, wsc, rtc, stock,item_img)
 { }
 
 std::string Topping::type() {
