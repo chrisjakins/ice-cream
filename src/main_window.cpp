@@ -155,11 +155,9 @@ void Main_window::initMainscreen() {
 
     // middle
     midBox = Gtk::manage(new Gtk::VBox);
-
     servLabel = Gtk::manage(new Gtk::Label{"Serving"});
     contServLabel = Gtk::manage(new Gtk::Label);
     toppServLabel = Gtk::manage(new Gtk::Label);
-
     servConfirm = Gtk::manage(new Gtk::Button{"Confirm"});
     servConfirm->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onConfirmClicked));
 
