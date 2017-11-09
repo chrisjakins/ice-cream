@@ -13,7 +13,6 @@ void Controller::execute(int cmd) {
         case CREATE_SERVER: createServer(); break;
         case CREATE_CUSTOMER: createCustomer(); break;
         case CREATE_EMPORIUM: createEmporium(); break;
-        case CREATE_SERVING: createServing(); break;
         default: errorMessage("Invalid input!"); break;
     }
 }
@@ -214,10 +213,6 @@ void Controller::createCustomer() {
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
-}
-
-void Controller::createServing() {
-
 }
 
 void Controller::createEmporium() {

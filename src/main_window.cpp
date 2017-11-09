@@ -6,6 +6,7 @@
 #include "scoop.h"
 
 #include <iostream>
+
 Main_window::Main_window(Controller& con) 
 : _controller{con}
 {
@@ -156,9 +157,11 @@ void Main_window::initMainscreen() {
     midBox = Gtk::manage(new Gtk::VBox);
     servLabel = Gtk::manage(new Gtk::Label{"Serving"});
     contServLabel = Gtk::manage(new Gtk::Label);
+    toppServLabel = Gtk::manage(new Gtk::Label);
 
     midBox->pack_start(*servLabel, Gtk::PACK_SHRINK);
     midBox->pack_start(*contServLabel, Gtk::PACK_SHRINK);
+    midBox->pack_end(*toppServLabel);
 
     // right
     rightBox = Gtk::manage(new Gtk::VBox);
@@ -192,6 +195,8 @@ void Main_window::refresh() {
         } else {
             i = conts.size() - 1;
             contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+            contRbs[i]->signal_clicked().connect(sigc::mem_fun(
+                *this, &Main_window::onContainerClicked));
             contList->pack_start(*contRbs[i]);
             contRbs[i]->set_group(group);
         }
@@ -202,11 +207,15 @@ void Main_window::refresh() {
         if (scoopBs.empty()) {
             for (i = 0; i < scoops.size(); i++) {
                 scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+                scoopBs[i]->signal_clicked().connect(sigc::bind<int>(
+                    sigc::mem_fun(*this, &Main_window::onScoopClicked), i));
                 scoopList->pack_start(*scoopBs[i]);
             }
         } else {
             i = scoops.size() - 1;
             scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+            scoopBs[i]->signal_clicked().connect(sigc::bind<int>(
+                sigc::mem_fun(*this, &Main_window::onScoopClicked), i));
             scoopList->pack_start(*scoopBs[i]);
         }
     }
@@ -216,11 +225,15 @@ void Main_window::refresh() {
         if (topBs.empty()) {
             for (i = 0; i < topps.size(); i++) {
                 topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+                topBs[i]->signal_clicked().connect(sigc::bind<int>(
+                    sigc::mem_fun(*this, &Main_window::onToppingClicked), i));
                 toppList->pack_start(*topBs[i]);
             }
         } else {
             i = topps.size() - 1;
             topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+            topBs[i]->signal_clicked().connect(sigc::bind<int>(
+                sigc::mem_fun(*this, &Main_window::onToppingClicked), i));
             toppList->pack_start(*topBs[i]);
         }
     }
@@ -264,10 +277,21 @@ void Main_window::loadInventory() {
 
 void Main_window::onContainerClicked() {
     int active;
-    for (int i = 0; i < contRbs.size(); i++) {
+    for (unsigned int i = 0; i < contRbs.size(); i++) {
         if (contRbs[i]->get_active()) active = i;
     }
     contServLabel->set_label(contRbs[active]->get_label());
+}
+
+void Main_window::onScoopClicked(int index) {
+    scoopServLabels.push_back(Gtk::manage(new Gtk::Label{scoopBs[index]->get_label()}));
+    midBox->pack_start(*scoopServLabels[scoopServLabels.size() - 1], Gtk::PACK_SHRINK);
+    mainBox->show_all();
+}
+
+void Main_window::onToppingClicked(int index) {
+    toppServLabel->set_label(topBs[index]->get_label());
+    mainBox->show_all();
 }
 
 //help callback goes here
