@@ -13,6 +13,7 @@ class Main_window : public Gtk::Window
         virtual ~Main_window();
 
     protected:
+        void save();
         void on_quit_click();       // Exit Ice Cream Application
 
         // Are NOT defined. Will need to
