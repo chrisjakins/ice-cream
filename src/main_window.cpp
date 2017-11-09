@@ -155,12 +155,17 @@ void Main_window::initMainscreen() {
 
     // middle
     midBox = Gtk::manage(new Gtk::VBox);
+
     servLabel = Gtk::manage(new Gtk::Label{"Serving"});
     contServLabel = Gtk::manage(new Gtk::Label);
     toppServLabel = Gtk::manage(new Gtk::Label);
 
+    servConfirm = Gtk::manage(new Gtk::Button{"Confirm"});
+    servConfirm->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onConfirmClicked));
+
     midBox->pack_start(*servLabel, Gtk::PACK_SHRINK);
     midBox->pack_start(*contServLabel, Gtk::PACK_SHRINK);
+    midBox->pack_end(*servConfirm, Gtk::PACK_SHRINK);
     midBox->pack_end(*toppServLabel);
 
     // right
@@ -292,6 +297,10 @@ void Main_window::onScoopClicked(int index) {
 void Main_window::onToppingClicked(int index) {
     toppServLabel->set_label(topBs[index]->get_label());
     mainBox->show_all();
+}
+
+void Main_window::onConfirmClicked() {
+
 }
 
 //help callback goes here

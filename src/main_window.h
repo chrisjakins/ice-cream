@@ -29,9 +29,10 @@ class Main_window : public Gtk::Window
 
         void refresh();
         void onContainerClicked();
-        /* void onScoopClicked(Glib::ustring); */
         void onScoopClicked(int);
         void onToppingClicked(int);
+
+        void onConfirmClicked();
 
     private:
         Controller& _controller;

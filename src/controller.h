@@ -18,6 +18,7 @@ class Controller {
         const static int CREATE_SERVER = 2;
         const static int CREATE_CUSTOMER = 3;
         const static int CREATE_EMPORIUM = 4;
+        const static int CREATE_ORDER = 5;
 
         void errorMessage(std::string);
         void loadInventory();
@@ -32,6 +33,7 @@ class Controller {
         void createItem();
         void createServer();
         void createCustomer();
+        void createOrder();
         void createEmporium();
 
         /* helpers */
