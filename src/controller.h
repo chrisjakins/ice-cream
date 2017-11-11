@@ -2,10 +2,12 @@
 #define _CONTROLLER_H
 
 #include <string>
-#include <vector>
-#include "emporium.h"
-#include "item.h"
 #include <iostream>
+#include <vector>
+
+#include "emporium.h"
+#include "serving.h"
+#include "item.h"
 
 class Controller {
     public:
@@ -34,6 +36,8 @@ class Controller {
     private:
         Emporium& _emp;
         std::string _filename = "untitled.ice";
+
+        std::vector<Serving *> _servings;
 
         void createItem();
         void createServer();

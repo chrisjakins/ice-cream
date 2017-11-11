@@ -1,7 +1,11 @@
 #include <gtkmm.h>
 
 #include "controller.h"
+#include "serving.h"
 #include "item.h"
+#include "container.h"
+#include "topping.h"
+#include "scoop.h"
 
 Controller::Controller(Emporium& emp)
 : _emp{emp}
@@ -17,8 +21,34 @@ void Controller::execute(int cmd) {
     }
 }
 
-void Controller::createServing(std::string, std::vector<std::string>, std::string) {
+void Controller::createServing(std::string contString, std::vector<std::string> scoopStrings,
+                               std::string toppingString) {
 
+    mice::Container * container;
+    std::vector<Scoop *> scoops;
+    Topping * topping;
+
+    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
+        if (contString == _emp.containers()[i]->name()) {
+            container = _emp.containers()[i];
+        }
+    }
+
+    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
+        if (toppingString == _emp.toppings()[i]->name()) {
+            topping = _emp.toppings()[i];
+        }
+    }
+
+    for (unsigned int i = 0; i < scoopStrings.size(); i++) {
+        for (unsigned int j = 0; j < _emp.scoops().size(); j++) {
+            if (scoopStrings[i] == _emp.scoops()[j]->name()) {
+                scoops.push_back(_emp.scoops()[j]);
+            }
+        }
+    }
+
+    _servings.push_back(Serving::create(container, scoops, topping));
 }
 
 void Controller::showServing(int number) {

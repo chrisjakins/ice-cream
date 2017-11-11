@@ -11,19 +11,24 @@
 /* Employs Factory Pattern */
 class Serving {
     public:
+        static Serving * create(mice::Container *, std::vector<Scoop *>, Topping *);
+
         Serving(mice::Container container);
+        Serving();
         void add_scoop(Scoop scoop);
-        void add_topping(Topping topping);
         mice::Container container();
-        std::vector<Scoop> scoops();
-        std::vector<Topping> toppings();
+        std::vector<Scoop *> scoops();
+        Topping toppings();
         double wholesaleCost();
         double price();
         // std::string preview();
 
       private:
-        mice::Container _container;
-        std::vector<Scoop> _scoops;
-        std::vector<Topping> _toppings;
+        mice::Container * _container;
+        std::vector<Scoop *> _scoops;
+        Topping * _toppings;
+
+        /**** private constructor ****/
+        /* Serving(mice::Container *,) */
 };
 #endif
