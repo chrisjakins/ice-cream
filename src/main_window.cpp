@@ -38,34 +38,56 @@ void Main_window::initMenubar() {
 
     //         F I L E
     // Create a File menu and add to the menu bar
-    Gtk::MenuItem *mi_file = Gtk::manage(new Gtk::MenuItem("_File", true));
+    Gtk::MenuItem * mi_file = Gtk::manage(new Gtk::MenuItem("_File", true));
     menubar->append(*mi_file);
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     mi_file->set_submenu(*filemenu);
 
     //         lOAD SAMPLES
     // Append Load Samples to the File menu
-    Gtk::MenuItem *mi_loadSample = Gtk::manage(new Gtk::MenuItem("_Load Inventory", true));
+    mi_loadSample = Gtk::manage(new Gtk::MenuItem("_Load Inventory", true));
     mi_loadSample->signal_activate().connect(sigc::mem_fun(*this, &Main_window::loadInventory));
     filemenu->append(*mi_loadSample);
     
     //         SAVE
     // Append SAVE to the File menu
-    Gtk::MenuItem *mi_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    mi_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     mi_save->signal_activate().connect(sigc::mem_fun(*this, &Main_window::save));
     filemenu->append(*mi_save);
 
-    //      T E S T I N G
-    //
-    /* Gtk::MenuItem *mi_easter = Gtk::manage(new Gtk::MenuItem("_Easter Egg", true)); */
-    /* mi_easter->signal_activate().connect(sigc::mem_fun(*this, &Main_window::easterEgg)); */
-    /* filemenu->append(*mi_easter); */
-    
     //         Q U I T
     // Append Quit to the File menu
-    Gtk::MenuItem *mi_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
+    mi_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     mi_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     filemenu->append(*mi_quit);
+
+    //         R O L E S
+    // Allow user to change permissions
+    Gtk::MenuItem * mi_role = Gtk::manage(new Gtk::MenuItem("_Roles", true));
+    menubar->append(*mi_role);
+    Gtk::Menu *roleMenu = Gtk::manage(new Gtk::Menu());
+    mi_role->set_submenu(*roleMenu);
+
+    //         OWNER
+    Gtk::MenuItem * mi_owner = Gtk::manage(new Gtk::MenuItem("Owner", true));
+    mi_owner->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onOwnerClick));
+    roleMenu->append(*mi_owner);
+
+    //        MANAGER
+    Gtk::MenuItem * mi_mngr = Gtk::manage(new Gtk::MenuItem("Manager", true));
+    mi_mngr->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onMngrClick));
+    roleMenu->append(*mi_mngr);
+
+    //        SERVER
+    Gtk::MenuItem * mi_server = Gtk::manage(new Gtk::MenuItem("Server", true));
+    mi_server->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onServerClick));
+    roleMenu->append(*mi_server);
+
+    //       CUSTOMER
+    Gtk::MenuItem * mi_customer = Gtk::manage(new Gtk::MenuItem("Customer", true));
+    mi_customer->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onCustomerClick));
+    roleMenu->append(*mi_customer);
+
 
     //     HELP
     // Create a Help menu and add to the menu bar
@@ -87,31 +109,24 @@ void Main_window::initToolbar() {
     mainBox->add(*toolbar);
 
     //create item
-    Gtk::ToolButton *cr_item = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    cr_item = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
     cr_item->set_tooltip_markup("Create Item");
     cr_item->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createItem));
     toolbar->append(*cr_item);
 
     //create server
     Gtk::Image *server_img = Gtk::manage(new Gtk::Image("img/server.png"));
-    Gtk::ToolButton *cr_server = Gtk::manage(new Gtk::ToolButton(*server_img));
+    cr_server = Gtk::manage(new Gtk::ToolButton(*server_img));
     cr_server->set_tooltip_markup("Create Server");
     cr_server->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createServer));
     toolbar->append(*cr_server);
 
     //create customer
     Gtk::Image *customer_img = Gtk::manage(new Gtk::Image("img/customer.png"));
-    Gtk::ToolButton *cr_customer = Gtk::manage(new Gtk::ToolButton(*customer_img));
+    cr_customer = Gtk::manage(new Gtk::ToolButton(*customer_img));
     cr_customer->set_tooltip_markup("Create Customer");
     cr_customer->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createCustomer));
     toolbar->append(*cr_customer);
-
-    //create order
-    Gtk::Image *order_img = Gtk::manage(new Gtk::Image("img/order.png"));
-    Gtk::ToolButton *cr_order = Gtk::manage(new Gtk::ToolButton(*order_img));
-    cr_order->set_tooltip_markup("Create Order");
-    cr_order->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createOrder));
-    toolbar->append(*cr_order);
 
     //help icon
 /*    Gtk::ToolButton *help_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HELP));
@@ -120,7 +135,7 @@ void Main_window::initToolbar() {
     toolbar->append(*help_button);*/
 
     //exit button
-    Gtk::ToolButton *exit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    exit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
     exit_button->set_tooltip_markup("Exit");
     exit_button->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     toolbar->append(*exit_button);
@@ -351,10 +366,50 @@ void Main_window::save() {
     _controller.save(ofs);
 }
 
-//help callback goes here
+void Main_window::onOwnerClick() {
+    mi_loadSample->set_sensitive(true); 
+    mi_save->set_sensitive(true);
+    mi_quit->set_sensitive(true);
+    cr_item->set_sensitive(true);
+    cr_server->set_sensitive(true);
+    cr_customer->set_sensitive(true);
+    exit_button->set_sensitive(true);
+}
+
+void Main_window::onMngrClick() {
+    mi_loadSample->set_sensitive(true); 
+    mi_save->set_sensitive(true);
+    mi_quit->set_sensitive(true);
+    cr_item->set_sensitive(true);
+    cr_server->set_sensitive(true);
+    cr_customer->set_sensitive(true);
+    exit_button->set_sensitive(true);
+}
+
+void Main_window::onServerClick() {
+    mi_loadSample->set_sensitive(false); 
+    mi_save->set_sensitive(true);
+    mi_quit->set_sensitive(true);
+    cr_item->set_sensitive(false);
+    cr_server->set_sensitive(false);
+    cr_customer->set_sensitive(true);
+    exit_button->set_sensitive(true);
+}
+
+void Main_window::onCustomerClick() {
+    mi_loadSample->set_sensitive(false); 
+    mi_save->set_sensitive(false);
+    mi_quit->set_sensitive(false);
+    cr_item->set_sensitive(false);
+    cr_server->set_sensitive(false);
+    cr_customer->set_sensitive(false);
+    exit_button->set_sensitive(false);
+}
+
 void Main_window::on_help_click(){
     
 }
+
 void Main_window::on_about_click(){
     Glib::ustring s = "<span size='24000' weight='bold'>Credits</span>\n<span size='large'>Server icon made by <b>Vectors Market</b> from www.flaticon.com\nCustomer icon,list icon made by <b>Freepik</b> from www.flaticon.com  </span>";
     Gtk::MessageDialog dlg(*this, s, true, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
