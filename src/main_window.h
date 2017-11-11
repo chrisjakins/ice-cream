@@ -34,6 +34,9 @@ class Main_window : public Gtk::Window
         void onToppingClicked(int);
 
         void onConfirmClicked();
+        void clearServPanel();
+
+        void onServingClicked(int);
 
     private:
         Controller& _controller;
@@ -98,5 +101,7 @@ class Main_window : public Gtk::Window
         void initMenubar();
         void initToolbar();
         void initMainscreen();
+
+        int servingsInOrder = 0;
 };
 #endif 

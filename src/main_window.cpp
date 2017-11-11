@@ -112,11 +112,13 @@ void Main_window::initToolbar() {
     cr_order->set_tooltip_markup("Create Order");
     cr_order->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::createOrder));
     toolbar->append(*cr_order);
+
     //help icon
 /*    Gtk::ToolButton *help_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HELP));
     help_button->set_tooltip_markup("Help");
     help_button->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::on_help_click));
     toolbar->append(*help_button);*/
+
     //exit button
     Gtk::ToolButton *exit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
     exit_button->set_tooltip_markup("Exit");
@@ -256,6 +258,15 @@ void Main_window::refresh() {
     mainBox->show_all();
 }
 
+void Main_window::clearServPanel() {
+    contServLabel->set_label("");
+    for (unsigned int i = 0; i < scoopServLabels.size(); i++) {
+        delete scoopServLabels[i];
+    }
+    scoopServLabels.clear();
+    toppServLabel->set_label("");
+} 
+
 // /////////////////
 // C A L L B A C K S
 // /////////////////
@@ -311,6 +322,28 @@ void Main_window::onToppingClicked(int index) {
 
 void Main_window::onConfirmClicked() {
 
+    std::vector<std::string> scoopStrings;
+    for (unsigned int i = 0; i < scoopServLabels.size(); i++) {
+        scoopStrings.push_back(scoopServLabels[i]->get_label());
+    }
+
+    _controller.createServing(contServLabel->get_label(),
+                              scoopStrings, toppServLabel->get_label());
+    
+    servings.push_back(Gtk::manage(new Gtk::Button{std::to_string(servingsInOrder)}));
+
+    servings[servingsInOrder]->signal_clicked().connect(sigc::bind<int>(
+        sigc::mem_fun(*this, &Main_window::onServingClicked), servingsInOrder));
+
+    clearServPanel();
+
+    rightBox->pack_start(*servings[servingsInOrder]);
+    servingsInOrder++;
+    mainBox->show_all();
+}
+
+void Main_window::onServingClicked(int servingNumber) {
+    _controller.showServing(servingNumber);
 }
 
 void Main_window::save() {

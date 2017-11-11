@@ -17,6 +17,14 @@ void Controller::execute(int cmd) {
     }
 }
 
+void Controller::createServing(std::string, std::vector<std::string>, std::string) {
+
+}
+
+void Controller::showServing(int number) {
+
+}
+
 int Controller::itemType() {
     int item;
     Gtk::Dialog * dialog = new Gtk::Dialog();
@@ -54,7 +62,7 @@ int Controller::itemType() {
 
 void Controller::createItem() {
     std::vector<std::string> textL{"Name", "Description", "Cost",
-                                   "Price", "Stock","Image","Max Scoop"};
+                                   "Price", "Stock", "Image"};
     std::vector<std::string> outputs;
 
     // dialog->set_transient_for(*this);
