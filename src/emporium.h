@@ -41,6 +41,7 @@ class Emporium {
         /* void load(std::istream); */
         /* void save(std::ostream&); */
 
+        // OPERATOR OVERLOADING
         // Insertion operator
         friend std::ostream &operator<<(std::ostream& os, const Emporium& e)
         {
