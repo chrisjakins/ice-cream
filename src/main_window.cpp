@@ -85,6 +85,11 @@ void Main_window::initMenubar() {
     up_salary->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onSalaryClick));
     updateMenu->append(*up_salary);
 
+    //      Item Stock
+    up_itemStock = Gtk::manage(new Gtk::MenuItem("Item Stock", true));
+    up_itemStock->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onStockClick));
+    updateMenu->append(*up_itemStock);
+
     //         R O L E S
     // Allow user to change permissions
     Gtk::MenuItem * mi_role = Gtk::manage(new Gtk::MenuItem("_Roles", true));
@@ -350,6 +355,10 @@ void Main_window::onSalaryClick() {
     _controller.updateServerSalary();
 }
 
+void Main_window::onStockClick() {
+    _controller.updateItemStock();
+}
+
 void Main_window::onContainerClicked() {
     int active;
     for (unsigned int i = 0; i < contRbs.size(); i++) {
@@ -423,6 +432,8 @@ void Main_window::onOwnerClick() {
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
     cr_customer->set_sensitive(true);
+    up_salary->set_sensitive(true);
+    up_itemStock->set_sensitive(true);
     exit_button->set_sensitive(true);
 }
 
@@ -434,6 +445,8 @@ void Main_window::onMngrClick() {
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
     cr_customer->set_sensitive(true);
+    up_salary->set_sensitive(true);
+    up_itemStock->set_sensitive(true);
     exit_button->set_sensitive(true);
 }
 
@@ -445,6 +458,8 @@ void Main_window::onServerClick() {
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(true);
+    up_salary->set_sensitive(false);
+    up_itemStock->set_sensitive(true);
     exit_button->set_sensitive(true);
 }
 
@@ -456,6 +471,8 @@ void Main_window::onCustomerClick() {
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(false);
+    up_salary->set_sensitive(false);
+    up_itemStock->set_sensitive(false);
     exit_button->set_sensitive(false);
 }
 
