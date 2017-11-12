@@ -15,6 +15,7 @@ class Serving {
 
         Serving(mice::Container container);
         Serving();
+
         void add_scoop(Scoop scoop);
         mice::Container container();
         std::vector<Scoop *> scoops();

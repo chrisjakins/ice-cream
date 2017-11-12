@@ -358,7 +358,15 @@ void Main_window::onConfirmClicked() {
 }
 
 void Main_window::onServingClicked(int servingNumber) {
-    _controller.showServing(servingNumber);
+    if(!_controller.showServing(servingNumber)) {
+        // if serving was deleted in pop-up
+        servingsInOrder--;
+        Gtk::Button * butt = servings[servingNumber];
+        servings.erase(servings.begin() + servingNumber);
+        _controller.deleteServing(servingNumber);
+        delete butt;
+        mainBox->show_all();
+    }
 }
 
 void Main_window::save() {

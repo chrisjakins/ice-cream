@@ -16,7 +16,8 @@ class Controller {
         void execute(int);
 
         void createServing(std::string, std::vector<std::string>, std::string);
-        void showServing(int);
+        bool showServing(int);
+        void deleteServing(int);
 
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;
