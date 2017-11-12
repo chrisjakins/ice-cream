@@ -91,6 +91,37 @@ void Controller::deleteServing(int index) {
     delete serv;
 }
 
+void Controller::updateServerSalary() {
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+
+    Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Server"));
+    Gtk::ComboBoxText dropDown;
+    dropDown.set_size_request(160);
+    for (unsigned int i = 0; i < _emp.servers().size(); i++) {
+        dropDown.append(_emp.servers()[i]->name());
+    }
+    dialog->get_vbox()->pack_start(*label1, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(dropDown, Gtk::PACK_SHRINK);
+
+    Gtk::Label * label2 = Gtk::manage(new Gtk::Label("New Salary"));
+    Gtk::Entry * entry = Gtk::manage(new Gtk::Entry());
+
+    dialog->get_vbox()->pack_start(*label2, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(*entry, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Ok", 1);
+
+    dialog->show_all();
+    if (dialog->run()) {
+        _emp.changeServerSalary(dropDown.get_active_row_number(),
+                                std::stod(entry->get_text()));
+    }
+    dialog->close();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
+}
+
 int Controller::itemType() {
     int item;
     Gtk::Dialog * dialog = new Gtk::Dialog();
@@ -306,13 +337,13 @@ void Controller::errorMessage(std::string err) {
 }
 
 void Controller::loadInventory() {
-    /* std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"}; */
-    /* std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"}; */
-    /* std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"}; */
+    std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"};
+    std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"};
+    std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"};
     
-    /* _emp.addServer(serv1); */
-    /* _emp.addServer(serv2); */
-    /* _emp.addServer(serv3); */
+    _emp.addServer(serv1);
+    _emp.addServer(serv2);
+    _emp.addServer(serv3);
 
     std::vector<std::string> container1 = {"3", "Waffle Cone", "Cone made of waffle", "0.10", "1.99", "1200","cup.jpg"};
     std::vector<std::string> container2 = {"6", "Paper Cup", "Plain old paper", "0.25", "1.00", "1500","cup.jpg"};
