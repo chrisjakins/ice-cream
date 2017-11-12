@@ -1,7 +1,11 @@
 #include <gtkmm.h>
 
 #include "controller.h"
+#include "serving.h"
 #include "item.h"
+#include "container.h"
+#include "topping.h"
+#include "scoop.h"
 
 Controller::Controller(Emporium& emp)
 : _emp{emp}
@@ -15,6 +19,76 @@ void Controller::execute(int cmd) {
         case CREATE_EMPORIUM: createEmporium(); break;
         default: errorMessage("Invalid input!"); break;
     }
+}
+
+void Controller::createServing(std::string contString, std::vector<std::string> scoopStrings,
+                               std::string toppingString) {
+
+    mice::Container * container;
+    std::vector<Scoop *> scoops;
+    Topping * topping;
+
+    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
+        if (contString == _emp.containers()[i]->name()) {
+            container = _emp.containers()[i];
+        }
+    }
+
+    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
+        if (toppingString == _emp.toppings()[i]->name()) {
+            topping = _emp.toppings()[i];
+        }
+    }
+
+    for (unsigned int i = 0; i < scoopStrings.size(); i++) {
+        for (unsigned int j = 0; j < _emp.scoops().size(); j++) {
+            if (scoopStrings[i] == _emp.scoops()[j]->name()) {
+                scoops.push_back(_emp.scoops()[j]);
+            }
+        }
+    }
+
+    _servings.push_back(Serving::create(container, scoops, topping));
+}
+
+bool Controller::showServing(int i) {
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Serving");
+
+    Gtk::Label contLabel{"Container "};
+    dialog->get_vbox()->pack_start(contLabel, Gtk::PACK_SHRINK);
+    Gtk::Label container{_servings[i]->container().name()};
+    dialog->get_vbox()->pack_start(container, Gtk::PACK_SHRINK);
+
+
+    Gtk::Label scoopLabel{"Scoops"};
+    dialog->get_vbox()->pack_start(scoopLabel, Gtk::PACK_SHRINK);
+    std::vector<Gtk::Label *> scoopsVec;
+    for (unsigned int j = 0; j < _servings[i]->scoops().size(); j++) {
+        Gtk::Label * temp = Gtk::manage(new Gtk::Label{_servings[i]->scoops()[j]->name()});
+        scoopsVec.push_back(temp);
+        dialog->get_vbox()->pack_start(*temp, Gtk::PACK_SHRINK);
+    }
+
+    Gtk::Label topLabel{"Toppings"};
+    dialog->get_vbox()->pack_start(topLabel, Gtk::PACK_SHRINK);
+    Gtk::Label topping{_servings[i]->toppings().name()};
+    dialog->get_vbox()->pack_start(topping, Gtk::PACK_SHRINK);
+
+
+    dialog->add_button("Delete Serving", 0);
+    dialog->add_button("Close", 1);
+    dialog->show_all();
+    int result = dialog->run(); dialog->close();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
+    return result == 1;
+}
+
+void Controller::deleteServing(int index) {
+    Serving * serv = _servings[index];
+    _servings.erase(_servings.begin() + index);
+    delete serv;
 }
 
 int Controller::itemType() {
@@ -43,6 +117,7 @@ int Controller::itemType() {
         item = dropDown.get_active_row_number();
     } else {
         dialog->close();
+        delete dialog;
         return -1;
     }
 
@@ -54,7 +129,7 @@ int Controller::itemType() {
 
 void Controller::createItem() {
     std::vector<std::string> textL{"Name", "Description", "Cost",
-                                   "Price", "Stock","Image","Max Scoop"};
+                                   "Price", "Stock", "Image"};
     std::vector<std::string> outputs;
 
     // dialog->set_transient_for(*this);

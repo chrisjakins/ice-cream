@@ -2,10 +2,12 @@
 #define _CONTROLLER_H
 
 #include <string>
-#include <vector>
-#include "emporium.h"
-#include "item.h"
 #include <iostream>
+#include <vector>
+
+#include "emporium.h"
+#include "serving.h"
+#include "item.h"
 
 class Controller {
     public:
@@ -13,6 +15,9 @@ class Controller {
 
         void execute(int);
 
+        void createServing(std::string, std::vector<std::string>, std::string);
+        bool showServing(int);
+        void deleteServing(int);
 
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;
@@ -32,6 +37,8 @@ class Controller {
     private:
         Emporium& _emp;
         std::string _filename = "untitled.ice";
+
+        std::vector<Serving *> _servings;
 
         void createItem();
         void createServer();

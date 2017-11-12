@@ -26,6 +26,11 @@ class Main_window : public Gtk::Window
         void on_about_click();
         void on_help_click();
 
+        void onOwnerClick();
+        void onMngrClick();
+        void onServerClick();
+        void onCustomerClick();
+
         void loadInventory();
 
         void refresh();
@@ -34,12 +39,31 @@ class Main_window : public Gtk::Window
         void onToppingClicked(int);
 
         void onConfirmClicked();
+        void clearServPanel();
+
+        void onServingClicked(int);
 
     private:
         Controller& _controller;
 
         /* Main window box */
         Gtk::Box * mainBox;
+
+
+        /*****************
+             MENU BAR
+        *****************/
+        Gtk::MenuItem * mi_loadSample;
+        Gtk::MenuItem * mi_save;
+        Gtk::MenuItem * mi_quit;
+
+        /****************
+             TOOL BAR
+        ****************/
+        Gtk::ToolButton * cr_item;
+        Gtk::ToolButton * cr_server;
+        Gtk::ToolButton * cr_customer;
+        Gtk::ToolButton * exit_button;
 
         /* everything other than menubar and toolbar */
         Gtk::HBox * screenBox;
@@ -98,5 +122,7 @@ class Main_window : public Gtk::Window
         void initMenubar();
         void initToolbar();
         void initMainscreen();
+
+        int servingsInOrder = 0;
 };
 #endif 
