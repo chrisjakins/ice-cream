@@ -61,11 +61,35 @@ void Main_window::initMenubar() {
     mi_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     filemenu->append(*mi_quit);
 
+    //          C R E A T E
+    // Allow user to create one of many things
+    Gtk::MenuItem * mi_create = Gtk::manage(new Gtk::MenuItem("Create", true));
+    menubar->append(*mi_create);
+    Gtk::Menu * createMenu = Gtk::manage(new Gtk::Menu());
+    mi_create->set_submenu(*createMenu);
+
+    //  Server
+    mi_createServer = Gtk::manage(new Gtk::MenuItem("Server", true));
+    mi_createServer->signal_activate().connect(sigc::mem_fun(*this,&Main_window::createServer));
+    createMenu->append(*mi_createServer);
+
+    //      U P D A T E
+    // Allow user to update anything in emporium
+    Gtk::MenuItem * mi_update = Gtk::manage(new Gtk::MenuItem("Update", true));
+    menubar->append(*mi_update);
+    Gtk::Menu * updateMenu = Gtk::manage(new Gtk::Menu());
+    mi_update->set_submenu(*updateMenu);
+
+    //      Server Salary
+    up_salary = Gtk::manage(new Gtk::MenuItem("Server Salary", true));
+    up_salary->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onSalaryClick));
+    updateMenu->append(*up_salary);
+
     //         R O L E S
     // Allow user to change permissions
     Gtk::MenuItem * mi_role = Gtk::manage(new Gtk::MenuItem("_Roles", true));
     menubar->append(*mi_role);
-    Gtk::Menu *roleMenu = Gtk::manage(new Gtk::Menu());
+    Gtk::Menu * roleMenu = Gtk::manage(new Gtk::Menu());
     mi_role->set_submenu(*roleMenu);
 
     //         OWNER
@@ -274,10 +298,16 @@ void Main_window::refresh() {
 }
 
 void Main_window::clearServPanel() {
-    contServLabel->set_label("");
+    for (unsigned int i = 0; i < contRbs.size(); i++) {
+        if (contRbs[i]->get_active()) {
+            contServLabel->set_label(contRbs[i]->get_label());
+        }
+    }
+
     for (unsigned int i = 0; i < scoopServLabels.size(); i++) {
         delete scoopServLabels[i];
     }
+
     scoopServLabels.clear();
     toppServLabel->set_label("");
 } 
@@ -314,6 +344,10 @@ void Main_window::createItem(){
 void Main_window::loadInventory() {
     _controller.loadInventory();
     refresh();
+}
+
+void Main_window::onSalaryClick() {
+    _controller.updateServerSalary();
 }
 
 void Main_window::onContainerClicked() {
@@ -365,6 +399,13 @@ void Main_window::onServingClicked(int servingNumber) {
         servings.erase(servings.begin() + servingNumber);
         _controller.deleteServing(servingNumber);
         delete butt;
+        
+        // reset other servings in list
+        if (servingsInOrder > 0) {
+            for (unsigned int i = servingNumber; i < servings.size(); i++) {
+                servings[i]->set_label(std::to_string(i));
+            }
+        }
         mainBox->show_all();
     }
 }
@@ -378,6 +419,7 @@ void Main_window::onOwnerClick() {
     mi_loadSample->set_sensitive(true); 
     mi_save->set_sensitive(true);
     mi_quit->set_sensitive(true);
+    mi_createServer->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
     cr_customer->set_sensitive(true);
@@ -388,6 +430,7 @@ void Main_window::onMngrClick() {
     mi_loadSample->set_sensitive(true); 
     mi_save->set_sensitive(true);
     mi_quit->set_sensitive(true);
+    mi_createServer->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
     cr_customer->set_sensitive(true);
@@ -398,6 +441,7 @@ void Main_window::onServerClick() {
     mi_loadSample->set_sensitive(false); 
     mi_save->set_sensitive(true);
     mi_quit->set_sensitive(true);
+    mi_createServer->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(true);
@@ -408,6 +452,7 @@ void Main_window::onCustomerClick() {
     mi_loadSample->set_sensitive(false); 
     mi_save->set_sensitive(false);
     mi_quit->set_sensitive(false);
+    mi_createServer->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(false);

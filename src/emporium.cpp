@@ -29,14 +29,9 @@ void Emporium::addItem(int type, std::vector<std::string> ins) {
 // }
 
 void Emporium::addServer(std::vector<std::string> ins) {
-    std::string name, number;
-    int id;
-    double salary;
-    std::stringstream ss;
-    for (unsigned int i = 0; i < ins.size(); i++) {
-        ss << ins[i];
-    }
-    ss >> name >> id >> number >> salary;
+    std::string name = ins[0], number = ins[1];
+    int id = std::stoi(ins[2]);
+    double salary = std::stod(ins[3]);
     _servers.push_back(new Server{name, id, number, salary});
 }
 
@@ -49,6 +44,10 @@ void Emporium::addCustomer(std::vector<std::string> ins) {
     }
     ss >> name >> id >> number;
     _customers.push_back(new Customer{name, id, number});
+}
+
+void Emporium::changeServerSalary(int serverNumber, double newSalary) {
+    _servers[serverNumber]->setSalary(newSalary);
 }
 
 /***************************
@@ -79,6 +78,10 @@ std::vector<Topping *> Emporium::toppings() {
         topp.push_back(_toppings[i]);
     }
     return topp;
+}
+
+std::vector<Server *> Emporium::servers() {
+    return _servers;
 }
 
 // std::string Emporium::listPersons() {

@@ -19,6 +19,8 @@ class Controller {
         bool showServing(int);
         void deleteServing(int);
 
+        void updateServerSalary();
+
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;
         const static int CREATE_CUSTOMER = 3;

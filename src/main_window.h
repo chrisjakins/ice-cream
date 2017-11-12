@@ -31,6 +31,8 @@ class Main_window : public Gtk::Window
         void onServerClick();
         void onCustomerClick();
 
+        void onSalaryClick();
+
         void loadInventory();
 
         void refresh();
@@ -56,6 +58,8 @@ class Main_window : public Gtk::Window
         Gtk::MenuItem * mi_loadSample;
         Gtk::MenuItem * mi_save;
         Gtk::MenuItem * mi_quit;
+        Gtk::MenuItem * mi_createServer;
+        Gtk::MenuItem * up_salary;
 
         /****************
              TOOL BAR

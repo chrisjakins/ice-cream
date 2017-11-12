@@ -26,6 +26,8 @@ class Emporium {
         std::vector<Topping *> toppings();
 
         void addServer(std::vector<std::string>);
+        void changeServerSalary(int, double);
+        std::vector<Server *> servers();
         std::string listServers();
 
         void addCustomer(std::vector<std::string>);
