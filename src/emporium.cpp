@@ -58,13 +58,8 @@ void Emporium::addServer(std::vector<std::string> ins) {
 }
 
 void Emporium::addCustomer(std::vector<std::string> ins) {
-    std::string name, number;
-    int id;
-    std::stringstream ss;
-    for (unsigned int i = 0; i < ins.size(); i++) {
-        ss << ins[i];
-    }
-    ss >> name >> id >> number;
+    std::string name = ins[0], number = ins[2];
+    int id = std::stoi(ins[1]);
     _customers.push_back(new Customer{name, id, number});
 }
 
@@ -109,9 +104,9 @@ std::vector<Server *> Emporium::servers() {
 std::string Emporium::listCustomers() {
     std::string custs = "";
     for (unsigned int i = 0; i < _customers.size(); i++) {
-        custs += _customers[i]->id();
-        custs += "\n";
         custs += _customers[i]->name();
+        custs += " - \n";
+        custs += _customers[i]->phone();
         custs += "\n";
     }
     return custs;

@@ -373,6 +373,15 @@ void Controller::errorMessage(std::string err) {
 }
 
 void Controller::loadInventory() {
+    
+    std::vector<std::string> cust1 = {"Floyd Mayweather", "89", "(238) 278-8539"};
+    std::vector<std::string> cust2 = {"Samuel Adams", "21", "(817) 894-7291"};
+    std::vector<std::string> cust3 = {"Bart Witherspoon", "239", "(908) 241-7239"};
+
+    _emp.addCustomer(cust1);
+    _emp.addCustomer(cust2);
+    _emp.addCustomer(cust3);
+    
     std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"};
     std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"};
     std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"};
