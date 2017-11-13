@@ -51,34 +51,35 @@ class Emporium {
         friend std::ostream &operator<<(std::ostream& os, const Emporium& e)
         {
             // write out individual members of e
-            os << e._id << std::endl;
+            os << "$ " << e._id << std::endl << std::endl;
             for (unsigned int i = 0; i < e._containers.size(); i++) {
-                os << e._containers[i]->name() << ' ' << e._containers[i]->description() << ' '
-                << e._containers[i]->wholesaleCost() << ' ' << e._containers[i]->retailCost() << ' '
-                << e._containers[i]->stock() << ' ' << e._containers[i]->max() << ' ';
+                os << "$ " << e._containers[i]->name() << ',' << e._containers[i]->description() << ','
+                << e._containers[i]->wholesaleCost() << ',' << e._containers[i]->retailCost() << ','
+                << e._containers[i]->stock() << ',' << e._containers[i]->max() << '\n';
             }
             os << std::endl;
             for (unsigned int i = 0; i < e._scoops.size(); i++) {
-                os << e._scoops[i]->name() << ' ' << ' ' << e._scoops[i]->description() << ' '
-                << e._scoops[i]->wholesaleCost() << ' ' << e._scoops[i]->retailCost() << ' '
-                << e._scoops[i]->stock() << ' ';
+                os << "$ " << e._scoops[i]->name() << ',' << e._scoops[i]->description() << ','
+                << e._scoops[i]->wholesaleCost() << ',' << e._scoops[i]->retailCost() << ','
+                << e._scoops[i]->stock() << '\n';
             }
             os << std::endl;
             for (unsigned int i = 0; i < e._toppings.size(); i++) {
-                os << e._toppings[i]->name() << ' ' << ' ' << e._toppings[i]->description() << ' '
-                << e._toppings[i]->wholesaleCost() << ' ' << e._toppings[i]->retailCost() << ' '
-                << e._toppings[i]->stock() << ' ';
+                os << "$ " << e._toppings[i]->name() << ',' << e._toppings[i]->description() << ','
+                << e._toppings[i]->wholesaleCost() << ',' << e._toppings[i]->retailCost() << ','
+                << e._toppings[i]->stock() << '\n';
             }
             os << std::endl;
             for (unsigned int i = 0; i < e._customers.size(); i++) {
-                os << e._customers[i]->name() << ' ' << ' ' << e._customers[i]->id() << ' '
-                << e._customers[i]->phone() << ' ';
+                os << "$ " << e._customers[i]->name() << ',' << e._customers[i]->id() << ','
+                << e._customers[i]->phone() << '\n';
             }
-            // os << std::endl;
-            // for (unsigned int i = 0; i < e._servers.size(); i++) {
-            //     os << e._servers[i]->name() << ' ' << ' ' << e.servers[i]->id() << ' '
-            //     << e.servers[i]->phone() << ' ' << e.servers[i]->salary();
-            // }
+            os << std::endl;
+            for (unsigned int i = 0; i < e._servers.size(); i++) {
+                os << "$ " << e._servers[i]->name() << ',' << e._servers[i]->id() << ','
+                << e._servers[i]->phone() << ',' << e._servers[i]->salary()
+                << '\n';
+            }
             return os;
         }
 
