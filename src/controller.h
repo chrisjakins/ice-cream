@@ -33,6 +33,7 @@ class Controller {
         void save(std::ostream&);
         void reportInventory();
         void reportCustomers();
+        void reportServers();
         std::string getFilename();
 
         std::vector<mice::Container *> containers();

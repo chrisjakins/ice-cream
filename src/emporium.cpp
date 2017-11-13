@@ -112,6 +112,17 @@ std::string Emporium::listCustomers() {
     return custs;
 }
 
+std::string Emporium::listServers() {
+    std::string servs = "";
+    for (unsigned int i = 0; i < _customers.size(); i++) {
+        servs += _customers[i]->name();
+        servs += " - \n";
+        servs += _customers[i]->phone();
+        servs += "\n\n";
+    }
+    return servs;
+}
+
 std::string Emporium::listContainers() {
     std::string cont = "";
     for (unsigned int i = 0; i < _containers.size(); i++) {

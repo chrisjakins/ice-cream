@@ -80,6 +80,12 @@ void Main_window::initMenubar() {
     mi_report_customers->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onReportCustomersClicked));
     viewmenu->append(*mi_report_customers);
 
+    //        REPORT SERVER
+    // Provides Inventory Report for Manager
+    mi_report_servers = Gtk::manage(new Gtk::MenuItem("_Create Server Report", true));
+    mi_report_servers->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onReportServersClicked));
+    viewmenu->append(*mi_report_servers);
+
     //          C R E A T E
     // Allow user to create one of many things
     Gtk::MenuItem *mi_create = Gtk::manage(new Gtk::MenuItem("Create", true));
@@ -449,6 +455,10 @@ void Main_window::onReportInventoryClicked() {
 
 void Main_window::onReportCustomersClicked() {
     _controller.reportCustomers();
+}
+
+void Main_window::onReportServersClicked() {
+    _controller.reportServers();
 }
 
 void Main_window::onOwnerClick() {

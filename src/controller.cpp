@@ -477,3 +477,18 @@ void Controller::reportCustomers()
 
     delete dialog;
 }
+
+void Controller::reportServers() {
+    std::string serv = "";
+    serv += _emp.listServers();
+
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Server Report");
+    dialog->set_secondary_text(serv, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+
+    delete dialog;
+}
