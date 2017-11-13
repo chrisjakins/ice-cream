@@ -467,6 +467,7 @@ void Main_window::onOwnerClick() {
     mi_quit->set_sensitive(true);
     mi_report_inventory->set_sensitive(true);
     mi_report_customers->set_sensitive(true);
+    mi_report_servers->set_sensitive(true);
     mi_createServer->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
@@ -482,6 +483,7 @@ void Main_window::onMngrClick() {
     mi_quit->set_sensitive(true);
     mi_report_inventory->set_sensitive(true);
     mi_report_customers->set_sensitive(true);
+    mi_report_servers->set_sensitive(true);
     mi_createServer->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
@@ -497,6 +499,7 @@ void Main_window::onServerClick() {
     mi_quit->set_sensitive(true);
     mi_report_inventory->set_sensitive(false);
     mi_report_customers->set_sensitive(false);
+    mi_report_servers->set_sensitive(false);
     mi_createServer->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
@@ -512,6 +515,7 @@ void Main_window::onCustomerClick() {
     mi_quit->set_sensitive(false);
     mi_report_inventory->set_sensitive(false);
     mi_report_customers->set_sensitive(false);
+    mi_report_servers->set_sensitive(false);
     mi_createServer->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
