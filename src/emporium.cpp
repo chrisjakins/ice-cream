@@ -97,16 +97,28 @@ std::vector<Server *> Emporium::servers() {
 
 std::string Emporium::listContainers() {
     std::string cont = "";
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        cont += _containers[i]->name() + " - ";
+        cont += std::to_string(_containers[i]->stock()) + "\n";
+    }
     return cont;
 }
 
 std::string Emporium::listScoops() {
     std::string scps = "";
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        scps += _scoops[i]->name() + " - ";
+        scps += std::to_string(_scoops[i]->stock()) + "\n";
+    }
     return scps;
 }
 
 std::string Emporium::listToppings() {
     std::string tops = "";
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        tops += _toppings[i]->name() + " - ";
+        tops += std::to_string(_toppings[i]->stock()) + "\n";
+    }
     return tops;
 }
 

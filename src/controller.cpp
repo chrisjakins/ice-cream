@@ -399,6 +399,12 @@ std::vector<Topping *> Controller::toppings() {
 
 void Controller::reportInventory() {
     std::string inv = "";
+    inv += "Containers:\n";
+    inv += _emp.listContainers() + "\n";
+    inv += "Scoops:\n";
+    inv += _emp.listScoops() + "\n";
+    inv += "Toppings:\n";
+    inv += _emp.listToppings() + "\n";
     
     Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Inventory Report");
     dialog->set_secondary_text(inv, true);
