@@ -449,6 +449,15 @@ void Controller::errorMessage(std::string err) {
 }
 
 void Controller::loadInventory() {
+    
+    std::vector<std::string> cust1 = {"Floyd Mayweather", "89", "(238) 278-8539"};
+    std::vector<std::string> cust2 = {"Samuel Adams", "21", "(817) 894-7291"};
+    std::vector<std::string> cust3 = {"Bart Witherspoon", "239", "(908) 241-7239"};
+
+    _emp.addCustomer(cust1);
+    _emp.addCustomer(cust2);
+    _emp.addCustomer(cust3);
+    
     std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"};
     std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"};
     std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"};
@@ -503,4 +512,59 @@ std::vector<Scoop *> Controller::scoops() {
 
 std::vector<Topping *> Controller::toppings() {
     return _emp.toppings();
+}
+
+/***************************
+      R E P O R T I N G
+****************************/
+
+void Controller::reportInventory() {
+    std::string inv = "";
+    inv += "Containers:\n";
+    inv += _emp.listContainers() + "\n";
+    inv += "Scoops:\n";
+    inv += _emp.listScoops() + "\n";
+    inv += "Toppings:\n";
+    inv += _emp.listToppings() + "\n";
+    
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Inventory Report");
+    dialog->set_secondary_text(inv, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+
+    delete dialog;
+}
+
+void Controller::reportCustomers()
+{
+    std::string cust = "";
+    cust += _emp.listCustomers();
+
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Customer Report");
+    dialog->set_secondary_text(cust, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+
+    delete dialog;
+}
+
+void Controller::reportServers() {
+    std::string serv = "";
+    serv += _emp.listServers();
+
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Server Report");
+    dialog->set_secondary_text(serv, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+
+    delete dialog;
 }

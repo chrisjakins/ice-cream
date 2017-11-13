@@ -25,8 +25,13 @@ class Emporium {
         void addItemStock(std::string, int);
         // void removeItem(int); // consider not having this removed = stock to 0
         std::vector<mice::Container *> containers();
+        std::string listContainers();
+        
         std::vector<Scoop *> scoops();
+        std::string listScoops();
+
         std::vector<Topping *> toppings();
+        std::string listToppings();
 
         void addServer(std::vector<std::string>);
         void changeServerSalary(int, double);

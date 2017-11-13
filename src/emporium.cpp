@@ -98,13 +98,8 @@ void Emporium::addServer(std::vector<std::string> ins) {
 }
 
 void Emporium::addCustomer(std::vector<std::string> ins) {
-    std::string name, number;
-    int id;
-    std::stringstream ss;
-    for (unsigned int i = 0; i < ins.size(); i++) {
-        ss << ins[i];
-    }
-    ss >> name >> id >> number;
+    std::string name = ins[0], number = ins[2];
+    int id = std::stoi(ins[1]);
     _customers.push_back(new Customer{name, id, number});
 }
 
@@ -146,16 +141,54 @@ std::vector<Server *> Emporium::servers() {
     return _servers;
 }
 
-// std::string Emporium::listPersons() {
-//     std::string list = "";
-//     for (unsigned int i = 0; i < _persons.size(); i++) {
-//         list += _persons[i]->id();
-//         list += "\n";
-//         list += _persons[i]->name();
-//         list += "\n\n";
-//     }
-//     return list;
-// }
+std::string Emporium::listCustomers() {
+    std::string custs = "";
+    for (unsigned int i = 0; i < _customers.size(); i++) {
+        custs += _customers[i]->name();
+        custs += " - \n";
+        custs += _customers[i]->phone();
+        custs += "\n";
+    }
+    return custs;
+}
+
+std::string Emporium::listServers() {
+    std::string servs = "";
+    for (unsigned int i = 0; i < _customers.size(); i++) {
+        servs += _customers[i]->name();
+        servs += " - \n";
+        servs += _customers[i]->phone();
+        servs += "\n\n";
+    }
+    return servs;
+}
+
+std::string Emporium::listContainers() {
+    std::string cont = "";
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        cont += _containers[i]->name() + " - ";
+        cont += std::to_string(_containers[i]->stock()) + "\n";
+    }
+    return cont;
+}
+
+std::string Emporium::listScoops() {
+    std::string scps = "";
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        scps += _scoops[i]->name() + " - ";
+        scps += std::to_string(_scoops[i]->stock()) + "\n";
+    }
+    return scps;
+}
+
+std::string Emporium::listToppings() {
+    std::string tops = "";
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        tops += _toppings[i]->name() + " - ";
+        tops += std::to_string(_toppings[i]->stock()) + "\n";
+    }
+    return tops;
+}
 
 std::string Emporium::listOrders() {
     std::string list = "";
