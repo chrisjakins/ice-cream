@@ -11,22 +11,26 @@ class Item {
 
         virtual std::string type() = 0;
 
-        /* stock operations */
+
+        std::string name();
+        void updateName(std::string);
+
+        std::string description();
+        void updateDescription(std::string);
+
+        int stock();
         bool isInStock();
         void restock(int);
         void consume(int);
 
-        /* Updating values */
-        void changeRetailCost(double);
-        void updateDescription(std::string);
-
-        /* Getters */
-        std::string name();
-        std::string description();
-        int stock();
         double wholesaleCost();
+        void updateWholesaleCost(double);
+
         double retailCost();
+        void updateRetailCost(double);
+
         std::string img();
+        void updateImg(std::string);
 
     protected:
         std::string _name;

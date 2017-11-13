@@ -110,6 +110,11 @@ void Main_window::initMenubar() {
     up_salary->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onSalaryClick));
     updateMenu->append(*up_salary);
 
+    //      Item
+    up_itemProps = Gtk::manage(new Gtk::MenuItem("Item Property", true));
+    up_itemProps->signal_activate().connect(sigc::mem_fun(*this,&Main_window::onItemPropClick));
+    updateMenu->append(*up_itemProps);
+
     //      Item Stock
     up_itemStock = Gtk::manage(new Gtk::MenuItem("Item Stock", true));
     up_itemStock->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onStockClick));
@@ -384,6 +389,27 @@ void Main_window::onStockClick() {
     _controller.updateItemStock();
 }
 
+void Main_window::onItemPropClick() {
+    _controller.updateItem();
+    for (unsigned int i = 0; i < contRbs.size(); i++) {
+        if (contRbs[i]->get_label() != _controller.containers()[i]->name()) {
+            contRbs[i]->set_label(_controller.containers()[i]->name());
+        }
+    }
+
+    for (unsigned int i = 0; i < scoopBs.size(); i++) {
+        if (scoopBs[i]->get_label() != _controller.scoops()[i]->name()) {
+            scoopBs[i]->set_label(_controller.scoops()[i]->name());
+        }
+    }
+
+    for (unsigned int i = 0; i < topBs.size(); i++) {
+        if (topBs[i]->get_label() != _controller.toppings()[i]->name()) {
+            topBs[i]->set_label(_controller.toppings()[i]->name());
+        }
+    }
+}
+
 void Main_window::onContainerClicked() {
     int active;
     for (unsigned int i = 0; i < contRbs.size(); i++) {
@@ -474,6 +500,7 @@ void Main_window::onOwnerClick() {
     cr_customer->set_sensitive(true);
     up_salary->set_sensitive(true);
     up_itemStock->set_sensitive(true);
+    up_itemProps->set_sensitive(true);
     exit_button->set_sensitive(true);
 }
 
@@ -490,6 +517,7 @@ void Main_window::onMngrClick() {
     cr_customer->set_sensitive(true);
     up_salary->set_sensitive(true);
     up_itemStock->set_sensitive(true);
+    up_itemProps->set_sensitive(true);
     exit_button->set_sensitive(true);
 }
 
@@ -506,6 +534,7 @@ void Main_window::onServerClick() {
     cr_customer->set_sensitive(true);
     up_salary->set_sensitive(false);
     up_itemStock->set_sensitive(true);
+    up_itemProps->set_sensitive(false);
     exit_button->set_sensitive(true);
 }
 
@@ -522,6 +551,7 @@ void Main_window::onCustomerClick() {
     cr_customer->set_sensitive(false);
     up_salary->set_sensitive(false);
     up_itemStock->set_sensitive(false);
+    up_itemProps->set_sensitive(false);
     exit_button->set_sensitive(false);
 }
 

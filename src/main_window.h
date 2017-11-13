@@ -33,6 +33,7 @@ class Main_window : public Gtk::Window
 
         void onSalaryClick();
         void onStockClick();
+        void onItemPropClick();
 
         void loadInventory();
 
@@ -69,6 +70,7 @@ class Main_window : public Gtk::Window
         Gtk::MenuItem * mi_report_customers;
         Gtk::MenuItem * mi_report_servers;
         Gtk::MenuItem * up_itemStock;
+        Gtk::MenuItem * up_itemProps;
 
         /****************
              TOOL BAR

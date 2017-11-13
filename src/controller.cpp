@@ -93,6 +93,7 @@ void Controller::deleteServing(int index) {
 
 void Controller::updateServerSalary() {
     Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Update Server Salary");
 
     Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Server"));
     Gtk::ComboBoxText dropDown;
@@ -124,6 +125,7 @@ void Controller::updateServerSalary() {
 
 void Controller::updateItemStock() {
     Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Update Item Stock");
 
     Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Item"));
     Gtk::ComboBoxText dropDown;
@@ -152,6 +154,82 @@ void Controller::updateItemStock() {
     dialog->show_all();
     if (dialog->run()) {
         _emp.addItemStock(dropDown.get_active_text(), std::stoi(entry->get_text()));
+    }
+    dialog->close();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
+}
+
+Item * Controller::pickItem() {
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Choose Item");
+
+    Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Item"));
+    Gtk::ComboBoxText dropDown;
+    dropDown.set_size_request(160);
+    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
+        dropDown.append(_emp.containers()[i]->name());
+    }
+    for (unsigned int i = 0; i < _emp.scoops().size(); i++) {
+        dropDown.append(_emp.scoops()[i]->name());
+    }
+    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
+        dropDown.append(_emp.toppings()[i]->name());
+    }
+    dropDown.set_active(0);
+    dialog->get_vbox()->pack_start(*label1, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(dropDown, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Ok", 1);
+
+    dialog->show_all();
+    dialog->run();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    dialog->close();
+    delete dialog;
+
+    return _emp.getItem(dropDown.get_active_text());
+}
+
+void Controller::updateItem() {
+    Item * item = pickItem();
+
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Update Item Properties");
+
+    std::vector<Gtk::Box *> boxes;
+    std::vector<Gtk::Label *> labels;
+    std::vector<Gtk::Entry *> entries;
+    std::vector<std::string> inputs = {"Name", "Descripton", "Cost", "Price"};
+    std::vector<std::string> output;
+
+    for (unsigned int i = 0; i < inputs.size(); i++) {
+        Gtk::HBox * box = Gtk::manage(new Gtk::HBox);
+        boxes.push_back(box);
+
+        Gtk::Label * label = Gtk::manage(new Gtk::Label{inputs[i]});
+        label->set_width_chars(15);
+        box->pack_start(*label, Gtk::PACK_SHRINK);
+        labels.push_back(label);
+
+        Gtk::Entry * entry = Gtk::manage(new Gtk::Entry);
+        entry->set_max_length(75);
+        box->pack_start(*entry, Gtk::PACK_SHRINK);
+        entries.push_back(entry);
+
+        dialog->get_vbox()->pack_start(*boxes[i], Gtk::PACK_SHRINK);
+    }
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Ok", 1);
+    dialog->show_all();
+
+    if (dialog->run()) {
+        for (unsigned int i = 0; i < inputs.size(); i++) {
+            output.push_back(entries[i]->get_text());
+        }
+        _emp.updateItem(*item, output);
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
@@ -224,8 +302,6 @@ void Controller::createItem() {
         entry->set_max_length(75);
         box->pack_start(*entry, Gtk::PACK_SHRINK);
         entries.push_back(entry);
-
-
     } else if (item == 1) {
         dialog->set_title("Create Flavor");
     } else if (item == 2) {

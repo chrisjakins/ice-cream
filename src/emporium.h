@@ -19,6 +19,8 @@ class Emporium {
     public:
         Emporium(int, double);
 
+        Item * getItem(std::string);
+        void updateItem(Item&, std::vector<std::string>);
         void addItem(int, std::vector<std::string>);
         void addItemStock(std::string, int);
         // void removeItem(int); // consider not having this removed = stock to 0
