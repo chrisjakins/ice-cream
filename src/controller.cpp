@@ -392,3 +392,21 @@ std::vector<Scoop *> Controller::scoops() {
 std::vector<Topping *> Controller::toppings() {
     return _emp.toppings();
 }
+
+/***************************
+      R E P O R T I N G
+****************************/
+
+void Controller::reportInventory() {
+    std::string inv = "";
+    
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Inventory Report");
+    dialog->set_secondary_text(inv, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+
+    delete dialog;
+}

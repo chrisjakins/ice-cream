@@ -30,6 +30,7 @@ class Controller {
         void errorMessage(std::string);
         void loadInventory();
         void save(std::ostream&);
+        void reportInventory();
         std::string getFilename();
 
         std::vector<mice::Container *> containers();

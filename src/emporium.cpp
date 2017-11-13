@@ -95,6 +95,21 @@ std::vector<Server *> Emporium::servers() {
 //     return list;
 // }
 
+std::string Emporium::listContainers() {
+    std::string cont = "";
+    return cont;
+}
+
+std::string Emporium::listScoops() {
+    std::string scps = "";
+    return scps;
+}
+
+std::string Emporium::listToppings() {
+    std::string tops = "";
+    return tops;
+}
+
 std::string Emporium::listOrders() {
     std::string list = "";
     for (unsigned int i = 0; i < _orders.size(); i++) {

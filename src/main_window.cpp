@@ -61,9 +61,22 @@ void Main_window::initMenubar() {
     mi_quit->signal_activate().connect(sigc::mem_fun(*this, &Main_window::on_quit_click));
     filemenu->append(*mi_quit);
 
+    //         V I E W
+    // Menu Item for all reporting functionality
+    Gtk::MenuItem *mi_view = Gtk::manage(new Gtk::MenuItem("_View", true));
+    menubar->append(*mi_view);
+    Gtk::Menu *viewmenu = Gtk::manage(new Gtk::Menu());
+    mi_view->set_submenu(*viewmenu);
+
+    //        REPORT INVENTORY
+    // Provides Inventory Report for Manager
+    mi_report_inventory = Gtk::manage(new Gtk::MenuItem("_Create Inventory Report", true));
+    mi_report_inventory->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onReportInventoryClicked));
+    viewmenu->append(*mi_report_inventory);
+
     //          C R E A T E
     // Allow user to create one of many things
-    Gtk::MenuItem * mi_create = Gtk::manage(new Gtk::MenuItem("Create", true));
+    Gtk::MenuItem *mi_create = Gtk::manage(new Gtk::MenuItem("Create", true));
     menubar->append(*mi_create);
     Gtk::Menu * createMenu = Gtk::manage(new Gtk::Menu());
     mi_create->set_submenu(*createMenu);
@@ -413,6 +426,10 @@ void Main_window::onServingClicked(int servingNumber) {
 void Main_window::save() {
     std::ofstream ofs{_controller.getFilename(), std::ofstream::out};
     _controller.save(ofs);
+}
+
+void Main_window::onReportInventoryClicked() {
+    _controller.reportInventory();
 }
 
 void Main_window::onOwnerClick() {
