@@ -13,6 +13,10 @@ int Container::max() {
 	return maxScoop;
 }
 
+void Container::updateMax(int newMax) {
+    maxScoop = newMax;
+}
+
 std::string Container::type() {
     return "Container";
 }

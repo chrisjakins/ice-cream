@@ -15,6 +15,46 @@ Emporium::Emporium(int id, double cash)
 : _id{id}, _register{cash}
 {  }
 
+Item * Emporium::getItem(std::string name) {
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        if (name == _containers[i]->name()) {
+            return _containers[i];
+        }
+    }
+
+    for (unsigned int i = 0; i < _scoops.size(); i++) {
+        if (name == _scoops[i]->name()) {
+            return _scoops[i];
+        }
+    }
+
+    for (unsigned int i = 0; i < _toppings.size(); i++) {
+        if (name == _toppings[i]->name()) {
+            return _toppings[i];
+        }
+    }
+
+    // i know this is bad, but realistically, control will never reach 
+    // this point. This is just to get rid of warnings D:
+    return NULL;
+}
+
+void Emporium::updateItem(Item & item, std::vector<std::string> ins) {
+
+    if (item.name() != ins[0]) {
+        item.updateName(ins[0]);
+    }
+    if (item.description() != ins[1]) {
+        item.updateDescription(ins[1]);
+    }
+    if (item.wholesaleCost() != std::stod(ins[2])) {
+        item.updateWholesaleCost(std::stod(ins[2]));
+    }
+    if (item.retailCost() != std::stod(ins[3])) {
+        item.updateRetailCost(std::stod(ins[3]));
+    }
+}
+
 void Emporium::addItem(int type, std::vector<std::string> ins) {
     switch (type) {
         case 0: createContainer(ins); break;

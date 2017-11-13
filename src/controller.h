@@ -21,6 +21,7 @@ class Controller {
 
         void updateServerSalary();
         void updateItemStock();
+        void updateItem();
 
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;
@@ -51,5 +52,6 @@ class Controller {
 
         /* helpers */
         int itemType();
+        Item * pickItem();
 };
 #endif

@@ -14,9 +14,11 @@ class Container : public Item {
     std::string type() override;
     
     int max();
+    void updateMax(int);
 
   private:
     int maxScoop;
 };
+
 }
 #endif
