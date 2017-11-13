@@ -20,6 +20,7 @@ class Controller {
         void deleteServing(int);
 
         void updateServerSalary();
+        void updateItemStock();
 
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;

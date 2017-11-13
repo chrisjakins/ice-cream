@@ -122,6 +122,42 @@ void Controller::updateServerSalary() {
     delete dialog;
 }
 
+void Controller::updateItemStock() {
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+
+    Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Item"));
+    Gtk::ComboBoxText dropDown;
+    dropDown.set_size_request(160);
+    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
+        dropDown.append(_emp.containers()[i]->name());
+    }
+    for (unsigned int i = 0; i < _emp.scoops().size(); i++) {
+        dropDown.append(_emp.scoops()[i]->name());
+    }
+    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
+        dropDown.append(_emp.toppings()[i]->name());
+    }
+    dialog->get_vbox()->pack_start(*label1, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(dropDown, Gtk::PACK_SHRINK);
+
+    Gtk::Label * label2 = Gtk::manage(new Gtk::Label("Stock Added"));
+    Gtk::Entry * entry = Gtk::manage(new Gtk::Entry());
+
+    dialog->get_vbox()->pack_start(*label2, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(*entry, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Ok", 1);
+
+    dialog->show_all();
+    if (dialog->run()) {
+        _emp.addItemStock(dropDown.get_active_text(), std::stoi(entry->get_text()));
+    }
+    dialog->close();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
+}
+
 int Controller::itemType() {
     int item;
     Gtk::Dialog * dialog = new Gtk::Dialog();

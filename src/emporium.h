@@ -20,6 +20,7 @@ class Emporium {
         Emporium(int, double);
 
         void addItem(int, std::vector<std::string>);
+        void addItemStock(std::string, int);
         // void removeItem(int); // consider not having this removed = stock to 0
         std::vector<mice::Container *> containers();
         std::string listContainers();

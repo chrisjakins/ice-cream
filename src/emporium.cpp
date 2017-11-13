@@ -24,6 +24,28 @@ void Emporium::addItem(int type, std::vector<std::string> ins) {
     }
 }
 
+void Emporium::addItemStock(std::string name, int newStock) {
+    for (unsigned int i = 0; i < _containers.size(); i++) {
+        if (name == _containers[i]->name()) {
+            _containers[i]->restock(newStock);
+            return;
+        }
+    }
+
+    for (unsigned int i = 0; i < _scoops.size(); i++) {
+        if (name == _scoops[i]->name()) {
+            _scoops[i]->restock(newStock);
+            return;
+        }
+    }
+    for (unsigned int i = 0; i < _toppings.size(); i++) {
+        if (name == _toppings[i]->name()) {
+            _toppings[i]->restock(newStock);
+            return;
+        }
+    }
+}
+
 // void Emporium::removeItem(int index) {
 //     _items.erase(_items.begin() + index);
 // }
