@@ -47,6 +47,7 @@ class Main_window : public Gtk::Window
         void onServingClicked(int);
 
         void onReportInventoryClicked();
+        void onReportCustomersClicked();
 
     private:
         Controller& _controller;
@@ -64,6 +65,7 @@ class Main_window : public Gtk::Window
         Gtk::MenuItem * mi_createServer;
         Gtk::MenuItem * up_salary;
         Gtk::MenuItem * mi_report_inventory;
+        Gtk::MenuItem * mi_report_customers;
         Gtk::MenuItem * up_itemStock;
 
         /****************

@@ -74,6 +74,12 @@ void Main_window::initMenubar() {
     mi_report_inventory->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onReportInventoryClicked));
     viewmenu->append(*mi_report_inventory);
 
+    //        REPORT CUSTOMER
+    // Provides Inventory Report for Manager
+    mi_report_customers = Gtk::manage(new Gtk::MenuItem("_Create Customer Report", true));
+    mi_report_customers->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onReportCustomersClicked));
+    viewmenu->append(*mi_report_customers);
+
     //          C R E A T E
     // Allow user to create one of many things
     Gtk::MenuItem *mi_create = Gtk::manage(new Gtk::MenuItem("Create", true));
@@ -441,11 +447,16 @@ void Main_window::onReportInventoryClicked() {
     _controller.reportInventory();
 }
 
+void Main_window::onReportCustomersClicked() {
+    _controller.reportCustomers();
+}
+
 void Main_window::onOwnerClick() {
     mi_loadSample->set_sensitive(true); 
     mi_save->set_sensitive(true);
     mi_quit->set_sensitive(true);
     mi_report_inventory->set_sensitive(true);
+    mi_report_customers->set_sensitive(true);
     mi_createServer->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
@@ -460,6 +471,7 @@ void Main_window::onMngrClick() {
     mi_save->set_sensitive(true);
     mi_quit->set_sensitive(true);
     mi_report_inventory->set_sensitive(true);
+    mi_report_customers->set_sensitive(true);
     mi_createServer->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
@@ -474,6 +486,7 @@ void Main_window::onServerClick() {
     mi_save->set_sensitive(true);
     mi_quit->set_sensitive(true);
     mi_report_inventory->set_sensitive(false);
+    mi_report_customers->set_sensitive(false);
     mi_createServer->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
@@ -488,6 +501,7 @@ void Main_window::onCustomerClick() {
     mi_save->set_sensitive(false);
     mi_quit->set_sensitive(false);
     mi_report_inventory->set_sensitive(false);
+    mi_report_customers->set_sensitive(false);
     mi_createServer->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);

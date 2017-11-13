@@ -452,3 +452,19 @@ void Controller::reportInventory() {
 
     delete dialog;
 }
+
+void Controller::reportCustomers()
+{
+    std::string cust = "";
+    cust += _emp.listCustomers();
+
+    Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Customer Report");
+    dialog->set_secondary_text(cust, true);
+    dialog->run();
+
+    dialog->close();
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+
+    delete dialog;
+}

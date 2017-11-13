@@ -106,16 +106,16 @@ std::vector<Server *> Emporium::servers() {
     return _servers;
 }
 
-// std::string Emporium::listPersons() {
-//     std::string list = "";
-//     for (unsigned int i = 0; i < _persons.size(); i++) {
-//         list += _persons[i]->id();
-//         list += "\n";
-//         list += _persons[i]->name();
-//         list += "\n\n";
-//     }
-//     return list;
-// }
+std::string Emporium::listCustomers() {
+    std::string custs = "";
+    for (unsigned int i = 0; i < _customers.size(); i++) {
+        custs += _customers[i]->id();
+        custs += "\n";
+        custs += _customers[i]->name();
+        custs += "\n";
+    }
+    return custs;
+}
 
 std::string Emporium::listContainers() {
     std::string cont = "";
