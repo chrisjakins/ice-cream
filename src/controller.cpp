@@ -439,6 +439,49 @@ void Controller::createCustomer() {
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
 }
 
+void Controller::createManager() {
+    std::vector<std::string> textL{"Name", "ID", "Phone Number"};
+    Gtk::Dialog *dialog = new Gtk::Dialog();
+    dialog->set_title("Create Manager");
+    // dialog->set_transient_for(*this);
+
+    std::vector<Gtk::HBox *> boxes;
+    std::vector<Gtk::Label *> labels;
+    std::vector<Gtk::Entry *> entries;
+    
+    for (unsigned int i = 0; i < textL.size(); i++) {
+        Gtk::HBox * box = Gtk::manage(new Gtk::HBox);
+
+        Gtk::Label * label = Gtk::manage(new Gtk::Label{textL[i]});
+        label->set_width_chars(15);
+        labels.push_back(label);
+
+        Gtk::Entry * entry = Gtk::manage(new Gtk::Entry);
+        entry->set_max_length(50);
+        entries.push_back(entry);
+
+        box->pack_start(*label, Gtk::PACK_SHRINK);
+        box->pack_start(*entry, Gtk::PACK_SHRINK);
+        boxes.push_back(box);
+        dialog->get_vbox()->pack_start(*box, Gtk::PACK_SHRINK);
+    }
+
+    // Show dialog
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+
+    std::vector<std::string> outputs;
+    if(dialog->run()) {
+        for (unsigned int i = 0; i < textL.size(); i++) {
+            outputs.push_back(entries[i]->get_text());
+        }
+        _emp.addManager(outputs);
+    }
+    dialog->close();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+}
+
 void Controller::createEmporium() {
 
 }

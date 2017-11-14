@@ -2,7 +2,7 @@ CFLAGS := -std=c++11 -pedantic -Wall `/usr/bin/pkg-config gtkmm-3.0 --cflags --l
 
 OBJECTS := main.o scoop.o main_window.o container.o item.o serving.o
 OBJECTS += topping.o person.o customer.o order.o server.o emporium.o
-OBJECTS += controller.o
+OBJECTS += controller.o manager.o
 
 SOURCEDIR := ./src/
 TESTDIR := ./tests/
