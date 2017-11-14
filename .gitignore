@@ -38,3 +38,7 @@
 
 # vim swp 
 *.swp
+
+# Save files
+
+*.ice

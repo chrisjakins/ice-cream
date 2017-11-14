@@ -14,6 +14,7 @@
 #include "customer.h"
 #include "order.h"
 #include "person.h"
+#include "manager.h"
 
 class Emporium {
     public:
@@ -44,49 +45,16 @@ class Emporium {
         void addOrder(Order *);
         std::string listOrders();
 
+        void addManager(std::vector<std::string>);
+
         /* FILE I/O */
-        /* void load(std::istream); */
-        /* void save(std::ostream&); */
 
         // OPERATOR OVERLOADING
         // Insertion operator
-        friend std::ostream &operator<<(std::ostream& os, const Emporium& e)
-        {
-            // write out individual members of e
-            os << "$ " << e._id << std::endl << std::endl;
-            for (unsigned int i = 0; i < e._containers.size(); i++) {
-                os << "$ " << e._containers[i]->name() << ',' << e._containers[i]->description() << ','
-                << e._containers[i]->wholesaleCost() << ',' << e._containers[i]->retailCost() << ','
-                << e._containers[i]->stock() << ',' << e._containers[i]->max() << '\n';
-            }
-            os << std::endl;
-            for (unsigned int i = 0; i < e._scoops.size(); i++) {
-                os << "$ " << e._scoops[i]->name() << ',' << e._scoops[i]->description() << ','
-                << e._scoops[i]->wholesaleCost() << ',' << e._scoops[i]->retailCost() << ','
-                << e._scoops[i]->stock() << '\n';
-            }
-            os << std::endl;
-            for (unsigned int i = 0; i < e._toppings.size(); i++) {
-                os << "$ " << e._toppings[i]->name() << ',' << e._toppings[i]->description() << ','
-                << e._toppings[i]->wholesaleCost() << ',' << e._toppings[i]->retailCost() << ','
-                << e._toppings[i]->stock() << '\n';
-            }
-            os << std::endl;
-            for (unsigned int i = 0; i < e._customers.size(); i++) {
-                os << "$ " << e._customers[i]->name() << ',' << e._customers[i]->id() << ','
-                << e._customers[i]->phone() << '\n';
-            }
-            os << std::endl;
-            for (unsigned int i = 0; i < e._servers.size(); i++) {
-                os << "$ " << e._servers[i]->name() << ',' << e._servers[i]->id() << ','
-                << e._servers[i]->phone() << ',' << e._servers[i]->salary()
-                << '\n';
-            }
-            return os;
-        }
+        friend std::ostream &operator<<(std::ostream& os, const Emporium& e);
 
-        // // Extraction operator
-        // friend std::istream &operator>>(std::istream &is, Emporium &e)
+        // Extraction operator
+        friend std::istream &operator>>(std::istream &is, Emporium &e);
         // {
         //     // write out individual members of e
         //     is >> e._id;
@@ -119,57 +87,8 @@ class Emporium {
         std::vector<Scoop *> _scoops;
         std::vector<Topping *> _toppings;
         std::vector<Customer *> _customers;
-        std::vector<Server *> _servers;       
+        std::vector<Server *> _servers;
+        std::vector<Manager *> _managers;       
         std::deque<Order *> _orders;
 };
 #endif
-
-// std::ostream &operator<<(std::ostream &os, const Emporium &e)
-// {
-//     // write out individual members of e
-//     os << e._id << std::endl;
-//     // for (unsigned int i = 0; i < e._containers.size(); i++) {
-//     //     os << e._containers[i];
-//     // }
-//     // os << std::endl;
-
-//     // for (unsigned int i = 0; i < e._scoops.size(); i++)
-//     // {
-//     //     os << e._scoops[i];
-//     // }
-//     // os << std::endl;
-
-//     // for (unsigned int i = 0; i < e._toppings.size(); i++)
-//     // {
-//     //     os << e._toppings[i];
-//     // }
-//     // os << std::endl;
-
-//     // for (unsigned int i = 0; i < e._customers.size(); i++)
-//     // {
-//     //     os << e._customers[i];
-//     // }
-//     // os << std::endl;
-
-//     // for (unsigned int i = 0; i < e._servers.size(); i++)
-//     // {
-//     //     os << e._servers[i];
-//     // }
-//     // os << std::endl;
-
-//     // for (unsigned int i = 0; i < e._orders.size(); i++)
-//     // {
-//     //     os << e._orders[i];
-//     // }
-//     // os << std::endl;
-
-//     return os;
-// }
-
-
-// std::istream &operator>>(std::istream &is, Emporium &e)
-// {
-//     // read in individual members of s
-//     is >> e._id;
-//     return is;
-// }

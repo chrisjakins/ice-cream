@@ -98,6 +98,11 @@ void Main_window::initMenubar() {
     mi_createServer->signal_activate().connect(sigc::mem_fun(*this,&Main_window::createServer));
     createMenu->append(*mi_createServer);
 
+    //  Manager
+    mi_createManager = Gtk::manage(new Gtk::MenuItem("Manager", true));
+    mi_createManager->signal_activate().connect(sigc::mem_fun(*this,&Main_window::createManager));
+    createMenu->append(*mi_createManager);
+
     //      U P D A T E
     // Allow user to update anything in emporium
     Gtk::MenuItem * mi_update = Gtk::manage(new Gtk::MenuItem("Update", true));
@@ -363,6 +368,10 @@ void Main_window::createServer() {
     _controller.execute(Controller::CREATE_SERVER);
 }
 
+void Main_window::createManager() {
+    _controller.createManager();
+}
+
 void Main_window::createCustomer() {
     _controller.execute(Controller::CREATE_CUSTOMER);
 }
@@ -495,6 +504,7 @@ void Main_window::onOwnerClick() {
     mi_report_customers->set_sensitive(true);
     mi_report_servers->set_sensitive(true);
     mi_createServer->set_sensitive(true);
+    mi_createManager->set_sensitive(true);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
     cr_customer->set_sensitive(true);
@@ -512,6 +522,7 @@ void Main_window::onMngrClick() {
     mi_report_customers->set_sensitive(true);
     mi_report_servers->set_sensitive(true);
     mi_createServer->set_sensitive(true);
+    mi_createManager->set_sensitive(false);
     cr_item->set_sensitive(true);
     cr_server->set_sensitive(true);
     cr_customer->set_sensitive(true);
@@ -529,6 +540,7 @@ void Main_window::onServerClick() {
     mi_report_customers->set_sensitive(false);
     mi_report_servers->set_sensitive(false);
     mi_createServer->set_sensitive(false);
+    mi_createManager->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(true);
@@ -546,6 +558,7 @@ void Main_window::onCustomerClick() {
     mi_report_customers->set_sensitive(false);
     mi_report_servers->set_sensitive(false);
     mi_createServer->set_sensitive(false);
+    mi_createManager->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(false);
