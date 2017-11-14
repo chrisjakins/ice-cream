@@ -462,7 +462,8 @@ void Main_window::onConfirmClicked() {
     servings.push_back(Gtk::manage(new Gtk::Button{std::to_string(servingsInOrder)}));
 
     servings[servingsInOrder]->signal_clicked().connect(sigc::bind<int>(
-        sigc::mem_fun(*this, &Main_window::onServingClicked), servingsInOrder));
+        sigc::mem_fun(*this, &Main_window::onServingClicked),
+        std::stoi(servings[servingsInOrder]->get_label())));
 
     clearServPanel();
 
@@ -471,14 +472,13 @@ void Main_window::onConfirmClicked() {
     mainBox->show_all();
 }
 
-// need to trace this
-// this is not working
 void Main_window::onServingClicked(int servingNumber) {
     if(!_controller.showServing(servingNumber)) {
         // if serving was deleted in pop-up
         servingsInOrder--;
         Gtk::Button * butt = servings[servingNumber];
         servings.erase(servings.begin() + servingNumber);
+        
         _controller.deleteServing(servingNumber);
         delete butt;
         
@@ -486,19 +486,17 @@ void Main_window::onServingClicked(int servingNumber) {
         std::vector<Gtk::Button *> newServings;
         if (servingsInOrder >= 0) {
             for (unsigned int i = 0; i < servings.size(); i++) {
+                delete servings[i];
+
                 newServings.push_back(Gtk::manage(new Gtk::Button));
                 newServings[i]->set_label(std::to_string(i));
                 newServings[i]->signal_clicked().connect(sigc::bind<int>(
                     sigc::mem_fun(*this, &Main_window::onServingClicked), i));
+
+                rightBox->pack_start(*newServings[i]);
             }
             servings.clear();
             servings = std::move(newServings);
-
-            /* for (unsigned int i = servingNumber; i < servings.size(); i++) { */
-            /*     servings[i]->set_label(std::to_string(i)); */
-            /*     servings[i]->signal_clicked().connect(sigc::bind<int>( */
-            /*         sigc::mem_fun(*this, &Main_window::onServingClicked), i)); */
-            /* } */
         }
         mainBox->show_all();
     }
