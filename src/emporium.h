@@ -55,26 +55,6 @@ class Emporium {
 
         // Extraction operator
         friend std::istream &operator>>(std::istream &is, Emporium &e);
-        // {
-        //     // write out individual members of e
-        //     is >> e._id;
-        //     for (unsigned int i = 0; i < e._containers.size(); i++) {
-        //         is >> e._containers[i];
-        //     }
-        //     for (unsigned int i = 0; i < e._scoops.size(); i++) {
-        //         is >> e._scoops[i];
-        //     }
-        //     for (unsigned int i = 0; i < e._toppings.size(); i++) {
-        //         is >> e._toppings[i];
-        //     }
-        //     for (unsigned int i = 0; i < e._customers.size(); i++) {
-        //         is >> e._customers[i];
-        //     }
-        //     for (unsigned int i = 0; i < e._servers.size(); i++) {
-        //         is >> e._servers[i];
-        //     }
-        //     return is;
-        // }
 
         void createContainer(std::vector<std::string>);
         void createFlavor(std::vector<std::string>);
