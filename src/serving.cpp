@@ -43,6 +43,16 @@ double Serving::price()
     total += _toppings->retailCost();
     return total;
 }
+
+std::ostream & operator<<(std::ostream & os, const Serving & serv) {
+    std::cout << serv._container->name() << std::endl;
+    for (Scoop * scoop : serv._scoops) {
+        std::cout << scoop->name() << std::endl;
+    }
+    std::cout << serv._toppings->name();
+    return os;
+}
+
 // std::string Serving::preview(){
 //     std::string selected="";
 //     for(Item * i: _items){

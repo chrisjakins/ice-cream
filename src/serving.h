@@ -24,6 +24,8 @@ class Serving {
         double price();
         // std::string preview();
 
+        friend std::ostream & operator<<(std::ostream & os, const Serving & serv);
+
       private:
         mice::Container * _container;
         std::vector<Scoop *> _scoops;

@@ -18,6 +18,7 @@ class Controller {
         void createServing(std::string, std::vector<std::string>, std::string);
         bool showServing(int);
         void deleteServing(int);
+        void eraseServings();
 
         void updateServerSalary();
         void updateItemStock();
