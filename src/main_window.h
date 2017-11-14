@@ -13,7 +13,8 @@ class Main_window : public Gtk::Window
         virtual ~Main_window();
 
     protected:
-        void save();
+        void onSaveClicked();
+        void onLoadClicked();
         void on_quit_click();       // Exit Ice Cream Application
 
         // Are NOT defined. Will need to
@@ -66,6 +67,7 @@ class Main_window : public Gtk::Window
         *****************/
         Gtk::MenuItem * mi_loadSample;
         Gtk::MenuItem * mi_save;
+        Gtk::MenuItem * mi_load;
         Gtk::MenuItem * mi_quit;
         Gtk::MenuItem * mi_createServer;
         Gtk::MenuItem * mi_createManager;

@@ -303,6 +303,9 @@ std::ostream &operator<<(std::ostream& os, const Emporium& e)
 std::istream &operator>>(std::istream &is, Emporium &e)
 {
     // write out individual members of e
+    unsigned int count;
+    std::string type;
+
     
     return is;
 }
