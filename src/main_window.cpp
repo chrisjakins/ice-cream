@@ -529,7 +529,8 @@ void Main_window::onSaveClicked() {
 }
 
 void Main_window::onLoadClicked() {
-    
+    std::ifstream is(_controller.getFilename());
+    _controller.load(is);
 }
 
 void Main_window::onReportInventoryClicked() {

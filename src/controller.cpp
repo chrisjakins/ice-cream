@@ -548,6 +548,10 @@ void Controller::save(std::ostream& os) {
     os << _emp;
 }
 
+void Controller::load(std::istream& is) {
+    is >> _emp;
+}
+
 /*************************
       L I S T I N G
 *************************/
