@@ -462,6 +462,8 @@ void Main_window::onConfirmClicked() {
     mainBox->show_all();
 }
 
+// need to trace this
+// this is not working
 void Main_window::onServingClicked(int servingNumber) {
     if(!_controller.showServing(servingNumber)) {
         // if serving was deleted in pop-up
@@ -472,10 +474,22 @@ void Main_window::onServingClicked(int servingNumber) {
         delete butt;
         
         // reset other servings in list
-        if (servingsInOrder > 0) {
-            for (unsigned int i = servingNumber; i < servings.size(); i++) {
-                servings[i]->set_label(std::to_string(i));
+        std::vector<Gtk::Button *> newServings;
+        if (servingsInOrder >= 0) {
+            for (unsigned int i = 0; i < servings.size(); i++) {
+                newServings.push_back(Gtk::manage(new Gtk::Button));
+                newServings[i]->set_label(std::to_string(i));
+                newServings[i]->signal_clicked().connect(sigc::bind<int>(
+                    sigc::mem_fun(*this, &Main_window::onServingClicked), i));
             }
+            servings.clear();
+            servings = std::move(newServings);
+
+            /* for (unsigned int i = servingNumber; i < servings.size(); i++) { */
+            /*     servings[i]->set_label(std::to_string(i)); */
+            /*     servings[i]->signal_clicked().connect(sigc::bind<int>( */
+            /*         sigc::mem_fun(*this, &Main_window::onServingClicked), i)); */
+            /* } */
         }
         mainBox->show_all();
     }
