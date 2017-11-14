@@ -23,6 +23,8 @@ class Controller {
         void updateItemStock();
         void updateItem();
 
+        void createManager();
+
         const static int CREATE_ITEM = 1;
         const static int CREATE_SERVER = 2;
         const static int CREATE_CUSTOMER = 3;
