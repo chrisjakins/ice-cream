@@ -91,6 +91,12 @@ void Controller::deleteServing(int index) {
     delete serv;
 }
 
+void Controller::eraseServings() {
+    for (int i = _servings.size() - 1; i >= 0; i--) {
+        deleteServing(i);
+    }
+}
+
 void Controller::updateServerSalary() {
     Gtk::Dialog * dialog = new Gtk::Dialog();
     dialog->set_title("Update Server Salary");

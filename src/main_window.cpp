@@ -257,8 +257,19 @@ void Main_window::initMainscreen() {
     // right
     rightBox = Gtk::manage(new Gtk::VBox);
     orderLabel = Gtk::manage(new Gtk::Label{"Order"});
+    buttonBox = Gtk::manage(new Gtk::HBox);
+    cancel = Gtk::manage(new Gtk::Button{"Cancel"});
+    cancel->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onCancelClicked));
+    pay = Gtk::manage(new Gtk::Button{"Finish"});
+    pay->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onPayClicked));
 
     rightBox->pack_start(*orderLabel, Gtk::PACK_SHRINK);
+
+    Gtk::SeparatorToolItem *bSep1 = Gtk::manage(new Gtk::SeparatorToolItem());
+    buttonBox->pack_start(*cancel);
+    buttonBox->pack_start(*pay);
+    rightBox->pack_end(*bSep1, Gtk::PACK_SHRINK);
+    rightBox->pack_end(*buttonBox, Gtk::PACK_SHRINK);
 
     Gtk::SeparatorToolItem *vSep1 = Gtk::manage(new Gtk::SeparatorToolItem());
     Gtk::SeparatorToolItem *vSep2 = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -447,7 +458,7 @@ void Main_window::onConfirmClicked() {
 
     _controller.createServing(contServLabel->get_label(),
                               scoopStrings, toppServLabel->get_label());
-    
+
     servings.push_back(Gtk::manage(new Gtk::Button{std::to_string(servingsInOrder)}));
 
     servings[servingsInOrder]->signal_clicked().connect(sigc::bind<int>(
@@ -460,6 +471,8 @@ void Main_window::onConfirmClicked() {
     mainBox->show_all();
 }
 
+// need to trace this
+// this is not working
 void Main_window::onServingClicked(int servingNumber) {
     if(!_controller.showServing(servingNumber)) {
         // if serving was deleted in pop-up
@@ -470,13 +483,38 @@ void Main_window::onServingClicked(int servingNumber) {
         delete butt;
         
         // reset other servings in list
-        if (servingsInOrder > 0) {
-            for (unsigned int i = servingNumber; i < servings.size(); i++) {
-                servings[i]->set_label(std::to_string(i));
+        std::vector<Gtk::Button *> newServings;
+        if (servingsInOrder >= 0) {
+            for (unsigned int i = 0; i < servings.size(); i++) {
+                newServings.push_back(Gtk::manage(new Gtk::Button));
+                newServings[i]->set_label(std::to_string(i));
+                newServings[i]->signal_clicked().connect(sigc::bind<int>(
+                    sigc::mem_fun(*this, &Main_window::onServingClicked), i));
             }
+            servings.clear();
+            servings = std::move(newServings);
+
+            /* for (unsigned int i = servingNumber; i < servings.size(); i++) { */
+            /*     servings[i]->set_label(std::to_string(i)); */
+            /*     servings[i]->signal_clicked().connect(sigc::bind<int>( */
+            /*         sigc::mem_fun(*this, &Main_window::onServingClicked), i)); */
+            /* } */
         }
         mainBox->show_all();
     }
+}
+
+void Main_window::onCancelClicked() {
+    _controller.eraseServings();
+    servingsInOrder = 0;
+    for (int i = servings.size() - 1; i >= 0; i--) {
+        delete servings[i];
+    }
+    servings.clear();
+    mainBox->show_all();
+}
+
+void Main_window::onPayClicked() {
 }
 
 void Main_window::save() {

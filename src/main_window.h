@@ -47,6 +47,8 @@ class Main_window : public Gtk::Window
         void clearServPanel();
 
         void onServingClicked(int);
+        void onCancelClicked();
+        void onPayClicked();
 
         void onReportInventoryClicked();
         void onReportCustomersClicked();
@@ -131,8 +133,9 @@ class Main_window : public Gtk::Window
 
         std::vector<Gtk::Button *> servings;
 
+        Gtk::HBox * buttonBox;
         Gtk::Button * cancel;
-        Gtk::Button * Pay;
+        Gtk::Button * pay;
 
 
         /* helpers */
