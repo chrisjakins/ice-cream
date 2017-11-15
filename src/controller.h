@@ -14,6 +14,7 @@ class Controller {
         Controller(Emporium&);
 
         void execute(int);
+        void stateMachine(int);
 
         void createServing(std::string, std::vector<std::string>, std::string);
         bool showServing(int);
@@ -33,6 +34,11 @@ class Controller {
         const static int CREATE_CUSTOMER = 3;
         const static int CREATE_EMPORIUM = 4;
         const static int CREATE_ORDER = 5;
+
+        const static int UNFILLED = 1;
+        const static int CANCELLED = 2;
+        const static int FILLED = 3;
+        const static int PAID = 4;
 
         void errorMessage(std::string);
         void loadInventory();
