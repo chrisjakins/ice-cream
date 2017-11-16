@@ -14,7 +14,7 @@ class Controller {
         Controller(Emporium&);
 
         void execute(int);
-        void stateMachine(int);
+        std::string stateMachine(int);
 
         void createServing(std::string, std::vector<std::string>, std::string);
         bool showServing(int);
