@@ -5,33 +5,27 @@
 
 class Item {
     public:
-
-        Item(std::string, std::string, double, double, int,std::string);//, Gtk::Image);
-        /* constructor without image */
-       // Item(std::string, std::string, double, double, int);
-
+        /* without image for now */
+        Item(std::string, std::string, double, double, int);//, Gtk::Image);
 
         virtual std::string type() = 0;
 
-        std::string name();
-        void updateName(std::string);
-
-        std::string description();
-        void updateDescription(std::string);
-
-        int stock();
+        /* stock operations */
         bool isInStock();
         void restock(int);
         void consume(int);
 
+        /* Updating values */
+        void changeRetail(double);
+        void changeWholesale(double);
+        void updateDescription(std::string);
+
+        /* Getters */
+        std::string name();
+        std::string description();
+        int stock();
         double wholesaleCost();
-        void updateWholesaleCost(double);
-
         double retailCost();
-        void updateRetailCost(double);
-
-        std::string img();
-        void updateImg(std::string);
 
     protected:
         const std::string _name;
@@ -39,7 +33,6 @@ class Item {
         double _wholesaleCost;
         double _retailCost;
         int _stockRemaining;
-        std::string _img;
       //  Gtk::Image _image;
 };
 #endif

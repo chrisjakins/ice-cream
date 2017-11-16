@@ -35,10 +35,3 @@
 # Visual Studio Code
 .vscode/
 .DS_Store
-
-# vim swp 
-*.swp
-
-# Save files
-
-*.ice

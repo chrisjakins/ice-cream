@@ -10,7 +10,3 @@ int Server::numOrders() {
 double Server::salary() {
     return _salary;
 }
-
-void Server::setSalary(double newSalary) {
-    _salary = newSalary;
-}

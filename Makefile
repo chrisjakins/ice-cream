@@ -1,8 +1,9 @@
 CFLAGS := -std=c++11 -pedantic -Wall `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
+DEBUG := -g
 
 OBJECTS := main.o scoop.o main_window.o container.o item.o serving.o
 OBJECTS += topping.o person.o customer.o order.o server.o emporium.o
-OBJECTS += controller.o manager.o
+OBJECTS += controller.o
 
 SOURCEDIR := ./src/
 TESTDIR := ./tests/
@@ -18,10 +19,6 @@ TESTSERVER := test_server.o person.o server.o
 # TODO find a place to put the bin files
 run: build
 	./a.out
-
-
-debug: CFLAGS += -g 
-debug: clean build
 
 build: $(OBJECTS)
 	$(CXX) $(OBJECTS) $(CFLAGS)
