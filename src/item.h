@@ -1,6 +1,6 @@
 #ifndef ITEM_H
 #define ITEM_H
-//#include <gtkmm.h>
+#include <gtkmm.h>
 #include <string>
 
 class Item {
@@ -29,8 +29,8 @@ class Item {
         double retailCost();
         void updateRetailCost(double);
 
-        std::string img();
-        void updateImg(std::string);
+        Gtk::Image * img();
+        Gtk::Image updateImg();
 
     protected:
         std::string _name;
@@ -38,7 +38,6 @@ class Item {
         double _wholesaleCost;
         double _retailCost;
         int _stockRemaining;
-        std::string _img;
-      //  Gtk::Image _image;
+        Gtk::Image * _image;
 };
 #endif
