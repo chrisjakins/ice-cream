@@ -20,6 +20,8 @@ class Controller {
         void deleteServing(int);
         void eraseServings();
 
+        void completeOrder();
+
         void updateServerSalary();
         void updateItemStock();
         void updateItem();

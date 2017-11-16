@@ -16,6 +16,16 @@ Emporium::Emporium(int id, double cash)
 : _id{id}, _register{cash}
 {  }
 
+/**************
+
+THIS NEEDS TO CHANGE ONCE WE FIGURE OUT CUSTOMERS/SERVERS/ID
+
+**************/
+void Emporium::addOrder(std::vector<Serving *> & servings) {
+    _orders.push_back(new Order{1, *_customers[0], *_servers[0], servings});
+    _register -= _orders[_orders.size() - 1]->price();
+}
+
 Item * Emporium::getItem(std::string name) {
     for (unsigned int i = 0; i < _containers.size(); i++) {
         if (name == _containers[i]->name()) {

@@ -1,6 +1,7 @@
 #include <gtkmm.h>
 
 #include "controller.h"
+#include "emporium.h"
 #include "serving.h"
 #include "item.h"
 #include "container.h"
@@ -95,6 +96,32 @@ void Controller::eraseServings() {
     for (int i = _servings.size() - 1; i >= 0; i--) {
         deleteServing(i);
     }
+}
+
+void Controller::completeOrder() {
+    double price = 0;
+    for (unsigned int i = 0; i < _servings.size(); i++) {
+        price += _servings[i]->price();
+    }
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Finalize Order");
+    
+    Gtk::Label * priceL1 = Gtk::manage(new Gtk::Label{"Price"});
+    Gtk::Label * priceL2 = Gtk::manage(new Gtk::Label{std::to_string(price)});
+
+    dialog->get_vbox()->pack_start(*priceL1);
+    dialog->get_vbox()->pack_start(*priceL2);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Pay", 1);
+    dialog->show_all();
+    if (dialog->run()) {
+        _emp.addOrder(_servings);
+    } else {
+        dialog->close();
+    }
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
 }
 
 void Controller::updateServerSalary() {

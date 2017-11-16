@@ -519,6 +519,8 @@ void Main_window::onCancelClicked() {
 }
 
 void Main_window::onPayClicked() {
+    _controller.completeOrder();
+    onCancelClicked();
 }
 
 void Main_window::onSaveClicked() {
