@@ -22,6 +22,23 @@ void Controller::execute(int cmd) {
     }
 }
 
+/*********************************
+    HERE
+    IS
+    OUR
+    STATE
+    MACHINE
+*********************************/
+std::string Controller::stateMachine(int state) {
+    switch (state) {
+        case UNFILLED: return "Unfilled";
+        case FILLED: return "Filled";
+        case CANCELLED: return "Cancelled";
+        case PAID: return "Paid";
+        default: return "";
+    }
+}
+
 void Controller::createServing(std::string contString, std::vector<std::string> scoopStrings,
                                std::string toppingString) {
 

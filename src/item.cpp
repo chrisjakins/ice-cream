@@ -10,8 +10,10 @@
 
 Item::Item(std::string name, std::string desc, double wsc, double rtc, int stock,std::string item_img)
 : _name(name), _description(desc), _wholesaleCost(wsc),
-  _retailCost(rtc), _stockRemaining(stock),_img(item_img)
-{ }
+  _retailCost(rtc), _stockRemaining(stock)
+{
+    _image = Gtk::manage(new Gtk::Image(item_img));
+ }
 
 int Item::stock() {
     return _stockRemaining;
@@ -37,8 +39,8 @@ void Item::updateName(std::string newName) {
     _name = newName;
 }
 
-std::string Item::img(){
-    return _img;
+Gtk::Image* Item::img(){
+    return _image;
 }
 
 double Item::wholesaleCost() {
