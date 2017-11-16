@@ -5,20 +5,15 @@
 
 #include "item.h"
 
-namespace mice {
-
 class Container : public Item {
   public:
-    Container(std::string, std::string, double, double, int, int,std::string);
+    Container(std::string, std::string, double, double, int, int);
 
     std::string type() override;
     
     int max();
-    void updateMax(int);
 
   private:
     int maxScoops;
 };
-
-}
 #endif

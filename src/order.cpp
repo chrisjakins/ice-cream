@@ -7,8 +7,8 @@
 #include "server.h"
 #include "serving.h"
 
-Order::Order(int id, Customer cust, Server serv, std::vector<Serving *> & servings)
-: _id{id}, _customer{cust}, _server{serv}, _servings{servings}
+Order::Order(int id, Customer cust, Server serv)
+: _id{id}, _customer{cust}, _server{serv}
 { }
 
 void Order::addServing(Serving * serv) {

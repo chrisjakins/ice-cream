@@ -15,7 +15,7 @@
 
 class Order {
     public:
-        Order(int, Customer, Server, std::vector<Serving *> &);
+        Order(int, Customer, Server);
 
         void addServing(Serving *);
         void removeServing(int);
