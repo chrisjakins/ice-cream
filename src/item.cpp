@@ -8,10 +8,14 @@
 //  _retailCost{rtc}, _stockRemaining{stock}, _image{img}
 //{ }
 
-Item::Item(std::string name, std::string desc, double wsc, double rtc, int stock)
+Item::Item(std::string name, std::string desc, double wsc, double rtc, int stock,std::string item_img)
 : _name(name), _description(desc), _wholesaleCost(wsc),
-  _retailCost(rtc), _stockRemaining(stock)
+  _retailCost(rtc), _stockRemaining(stock),_img(item_img)
 { }
+
+int Item::stock() {
+    return _stockRemaining;
+}
 
 bool Item::isInStock() {
     return _stockRemaining != 0;
@@ -25,33 +29,38 @@ void Item::consume(int quantity) {
     _stockRemaining -= quantity;
 }
 
-void Item::changeRetail(double newCost) {
-    _retailCost = newCost;
-}
-
-void Item::changeWholesale(double newCost) {
-    _wholesaleCost = newCost;
-}
-void Item::updateDescription(std::string newDesc) {
-    _description = newDesc;
-}
-
 std::string Item::name() {
     return _name;
+}
+
+void Item::updateName(std::string newName) {
+    _name = newName;
+}
+
+std::string Item::img(){
+    return _img;
 }
 
 double Item::wholesaleCost() {
     return _wholesaleCost;
 }
 
+void Item::updateWholesaleCost(double newCost) {
+    _wholesaleCost = newCost;
+}
+
 double Item::retailCost() {
     return _retailCost;
 }
 
-int Item::stock() {
-    return _stockRemaining;
+void Item::updateRetailCost(double newCost) {
+    _retailCost = newCost;
 }
 
 std::string Item::description() {
     return _description;
 }
+void Item::updateDescription(std::string newDesc) {
+    _description = newDesc;
+}
+

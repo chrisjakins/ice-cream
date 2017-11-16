@@ -1,4 +1,3 @@
-#include <iostream>
 #include <gtkmm.h>
 #include "main_window.h"
 #include "emporium.h"
