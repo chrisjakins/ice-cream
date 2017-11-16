@@ -289,6 +289,8 @@ void Main_window::refresh() {
         if (contRbs.empty()) {
             for (i = 0; i < conts.size(); i++) {
                 contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+                contRbs[i]->set_image(*conts[i]->img());
+                contRbs[i]->set_always_show_image(true);
                 contRbs[i]->signal_clicked().connect(sigc::mem_fun(
                     *this, &Main_window::onContainerClicked));
                 contList->pack_start(*contRbs[i]);
@@ -297,6 +299,8 @@ void Main_window::refresh() {
         } else {
             i = conts.size() - 1;
             contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+            contRbs[i]->set_image(*conts[i]->img());
+            contRbs[i]->set_always_show_image(true);
             contRbs[i]->signal_clicked().connect(sigc::mem_fun(
                 *this, &Main_window::onContainerClicked));
             contList->pack_start(*contRbs[i]);
@@ -319,6 +323,8 @@ void Main_window::refresh() {
         } else {
             i = scoops.size() - 1;
             scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+            scoopBs[i]->set_image(*scoops[i]->img());
+            scoopBs[i]->set_always_show_image(true);
             scoopBs[i]->signal_clicked().connect(sigc::bind<int>(
                 sigc::mem_fun(*this, &Main_window::onScoopClicked), i));
             scoopList->pack_start(*scoopBs[i]);
@@ -330,6 +336,8 @@ void Main_window::refresh() {
         if (topBs.empty()) {
             for (i = 0; i < topps.size(); i++) {
                 topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+                topBs[i]->set_image(*topps[i]->img());
+                topBs[i]->set_always_show_image(true);
                 topBs[i]->signal_clicked().connect(sigc::bind<int>(
                     sigc::mem_fun(*this, &Main_window::onToppingClicked), i));
                 toppList->pack_start(*topBs[i]);
@@ -337,6 +345,8 @@ void Main_window::refresh() {
         } else {
             i = topps.size() - 1;
             topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+            topBs[i]->set_image(*topps[i]->img());
+            topBs[i]->set_always_show_image(true);
             topBs[i]->signal_clicked().connect(sigc::bind<int>(
                 sigc::mem_fun(*this, &Main_window::onToppingClicked), i));
             toppList->pack_start(*topBs[i]);
