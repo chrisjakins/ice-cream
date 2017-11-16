@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <list>
+#include <memory> // not sure if needed
+#include <string>
 
 #include "container.h"
 #include "scoop.h"
@@ -21,8 +24,8 @@ class Serving {
         std::vector<Scoop *> scoops();
         Topping toppings();
         double wholesaleCost();
-        double price();
-        // std::string preview();
+
+        std::string preview();
 
         friend std::ostream & operator<<(std::ostream & os, const Serving & serv);
 
@@ -30,8 +33,5 @@ class Serving {
         mice::Container * _container;
         std::vector<Scoop *> _scoops;
         Topping * _toppings;
-
-        /**** private constructor ****/
-        /* Serving(mice::Container *,) */
 };
 #endif

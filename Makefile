@@ -6,6 +6,7 @@ OBJECTS += controller.o manager.o
 
 SOURCEDIR := ./src/
 TESTDIR := ./tests/
+BINDIR := ./bin/
 
 TESTSCOOP := test_scoop.o scoop.o item.o
 TESTCONTAINER := test_container.o container.o item.o

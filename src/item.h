@@ -5,12 +5,13 @@
 
 class Item {
     public:
+
         Item(std::string, std::string, double, double, int,std::string);//, Gtk::Image);
         /* constructor without image */
        // Item(std::string, std::string, double, double, int);
 
-        virtual std::string type() = 0;
 
+        virtual std::string type() = 0;
 
         std::string name();
         void updateName(std::string);
@@ -33,7 +34,7 @@ class Item {
         void updateImg(std::string);
 
     protected:
-        std::string _name;
+        const std::string _name;
         std::string _description;
         double _wholesaleCost;
         double _retailCost;

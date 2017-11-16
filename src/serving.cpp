@@ -1,5 +1,7 @@
 #include <iostream> // debugging
 #include <vector>
+#include <list>
+#include <memory> // unique_ptr?
 #include <string>
 
 #include "serving.h"
@@ -12,6 +14,7 @@ Serving::Serving() {  }
 mice::Container Serving::container() { return *_container; }
 std::vector<Scoop *> Serving::scoops() { return _scoops; }
 Topping Serving::toppings() { return *_toppings; }
+
 
 void Serving::add_scoop(Scoop scoop) { _scoops.push_back(&scoop); }
 
@@ -53,11 +56,14 @@ std::ostream & operator<<(std::ostream & os, const Serving & serv) {
     return os;
 }
 
-// std::string Serving::preview(){
-//     std::string selected="";
-//     for(Item * i: _items){
-//         selected += i->name() +" "+"("+i->description()+")"+"\t"+std::to_string(i->retailCost())+
-//         "\n";
-//     }
-//     return selected;
-// }   
+/* consider using Pango in this method, desc in italics */
+std::string Serving::preview() {
+    std::string selected = "";
+    for (Item * i : _items) {
+        selected += i->name() + "\n";
+        selected += i->description() + "\n";
+        selected += std::to_string(i->retailCost()) + "\n";
+    }
+    return selected;
+}   
+

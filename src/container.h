@@ -17,7 +17,7 @@ class Container : public Item {
     void updateMax(int);
 
   private:
-    int maxScoop;
+    int maxScoops;
 };
 
 }
