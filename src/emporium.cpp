@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 #include "emporium.h"
 #include "container.h"
@@ -272,38 +273,34 @@ std::ostream &operator<<(std::ostream& os, const Emporium& e)
 {
     // write out individual members of e
     os << "Emporium 1" << std::endl; // only 1 emporium will exist for now
-    os << "$ " << e._id << std::endl << std::endl;
+    os << e._id << std::endl;
 
     os << "Container " << e._containers.size() << std::endl;
     for (unsigned int i = 0; i < e._containers.size(); i++) {
-        os << "$ " << e._containers[i]->name() << ',' << e._containers[i]->description() << ','
+        os << e._containers[i]->name() << ',' << e._containers[i]->description() << ','
         << e._containers[i]->wholesaleCost() << ',' << e._containers[i]->retailCost() << ','
         << e._containers[i]->stock() << ',' << e._containers[i]->max() << std::endl;
     }
-    os << std::endl;
     os << "Scoop " << e._scoops.size() << std::endl;
     for (unsigned int i = 0; i < e._scoops.size(); i++) {
-        os << "$ " << e._scoops[i]->name() << ',' << e._scoops[i]->description() << ','
+        os << e._scoops[i]->name() << ',' << e._scoops[i]->description() << ','
         << e._scoops[i]->wholesaleCost() << ',' << e._scoops[i]->retailCost() << ','
         << e._scoops[i]->stock() << std::endl;
     }
-    os << std::endl;
     os << "Topping " << e._toppings.size() << std::endl;
     for (unsigned int i = 0; i < e._toppings.size(); i++) {
-        os << "$ " << e._toppings[i]->name() << ',' << e._toppings[i]->description() << ','
+        os << e._toppings[i]->name() << ',' << e._toppings[i]->description() << ','
         << e._toppings[i]->wholesaleCost() << ',' << e._toppings[i]->retailCost() << ','
         << e._toppings[i]->stock() << std::endl;
     }
-    os << std::endl;
     os << "Customer " << e._customers.size() << std::endl;
     for (unsigned int i = 0; i < e._customers.size(); i++) {
-        os << "$ " << e._customers[i]->name() << ',' << e._customers[i]->id() << ','
+        os << e._customers[i]->name() << ',' << e._customers[i]->id() << ','
         << e._customers[i]->phone() << std::endl;
     }
-    os << std::endl;
     os << "Server " << e._servers.size() << std::endl;
     for (unsigned int i = 0; i < e._servers.size(); i++) {
-        os << "$ " << e._servers[i]->name() << ',' << e._servers[i]->id() << ','
+        os << e._servers[i]->name() << ',' << e._servers[i]->id() << ','
         << e._servers[i]->phone() << ',' << e._servers[i]->salary()
         << std::endl;
     }
@@ -313,6 +310,35 @@ std::ostream &operator<<(std::ostream& os, const Emporium& e)
 std::istream &operator>>(std::istream &is, Emporium &e)
 {
     // write out individual members of e
+    unsigned int count;
+    std::string type;
+    const char delimiter{','};
+
+    is >> type >> count;
+
+    std::cout << type << " " << count << std::endl;
+
+    if (type == "Emporium") {
+        for (unsigned int i = 0; i < count; i++) {
+            is >> e._id;
+            std::cout << e._id << std::endl;
+        } 
+    } else if (type == "Container") {
+        std::string name, desc, img{""};
+        int maxScoops, stock;
+        double wholesale, retail;
+
+        is >> type >> count;
+
+        for (unsigned int i = 0; i < count; i++)
+        {
+            is >> name >> desc >> wholesale >> retail >> stock >> maxScoops;
+            std::cout << name << " - " << desc << std::endl;
+            e._containers.push_back(new mice::Container{name, desc, wholesale, retail, stock, maxScoops, img});
+        }
+    } else {
+        
+    }
     
     return is;
 }

@@ -52,8 +52,14 @@ void Main_window::initMenubar() {
     //         SAVE
     // Append SAVE to the File menu
     mi_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
-    mi_save->signal_activate().connect(sigc::mem_fun(*this, &Main_window::save));
+    mi_save->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onSaveClicked));
     filemenu->append(*mi_save);
+
+    //         LOAD
+    // Append LOAD to the File menu
+    mi_load = Gtk::manage(new Gtk::MenuItem("_Load", true));
+    mi_load->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onLoadClicked));
+    filemenu->append(*mi_load);
 
     //         Q U I T
     // Append Quit to the File menu
@@ -525,9 +531,14 @@ void Main_window::onPayClicked() {
     onCancelClicked();
 }
 
-void Main_window::save() {
+void Main_window::onSaveClicked() {
     std::ofstream ofs{_controller.getFilename(), std::ofstream::out};
     _controller.save(ofs);
+}
+
+void Main_window::onLoadClicked() {
+    std::ifstream is(_controller.getFilename());
+    _controller.load(is);
 }
 
 void Main_window::onReportInventoryClicked() {
