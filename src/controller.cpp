@@ -29,13 +29,13 @@ void Controller::execute(int cmd) {
     STATE
     MACHINE
 *********************************/
-void Controller::stateMachine(int state) {
+std::string Controller::stateMachine(int state) {
     switch (state) {
-        case UNFILLED:
-        case FILLED:
-        case CANCELLED:
-        case PAID:
-        default: break;
+        case UNFILLED: return "Unfilled";
+        case FILLED: return "Filled";
+        case CANCELLED: return "Cancelled";
+        case PAID: return "Paid";
+        default: return "";
     }
 }
 
