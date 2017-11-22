@@ -43,7 +43,7 @@ class Controller {
         void errorMessage(std::string);
         void loadInventory();
         void save();
-        void load(std::istream&);
+        void load();
         void reportInventory();
         void reportCustomers();
         void reportServers();

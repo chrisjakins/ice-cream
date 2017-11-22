@@ -614,7 +614,8 @@ void Controller::save() {
     ofs << _emp;
 }
 
-void Controller::load(std::istream& is) {
+void Controller::load() {
+    std::ifstream is(getFilename());
     is >> _emp;
 }
 
