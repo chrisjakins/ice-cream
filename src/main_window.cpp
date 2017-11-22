@@ -532,8 +532,8 @@ void Main_window::onPayClicked() {
 }
 
 void Main_window::onSaveClicked() {
-    std::ofstream ofs{_controller.getFilename(), std::ofstream::out};
-    _controller.save(ofs);
+//    std::ofstream ofs{_controller.getFilename(), std::ofstream::out};
+    _controller.save();
 }
 
 void Main_window::onLoadClicked() {

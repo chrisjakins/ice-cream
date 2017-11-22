@@ -585,11 +585,33 @@ void Controller::loadInventory() {
 }
 
 std::string Controller::getFilename() {
+    Gtk::FileChooserDialog * dialog = new Gtk::FileChooserDialog
+        ("Please Choose A File", Gtk::FILE_CHOOSER_ACTION_OPEN);
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Default", 1);
+    dialog->add_button("Ok", 2);
+
+    int result = dialog->run();
+     
+    switch (result) {
+        case 0: _filename = ""; break;
+        case 1: break;
+        case 2: _filename = dialog->get_filename(); break;
+        default: _filename = ""; break;
+    }
+    
+    dialog->close();
+
+    while (Gtk::Main::events_pending())  Gtk::Main::iteration();
+
+    delete dialog;
+
     return _filename;
 }
 
-void Controller::save(std::ostream& os) {
-    os << _emp;
+void Controller::save() {
+    std::ofstream ofs{getFilename(), std::ofstream::out};
+    ofs << _emp;
 }
 
 void Controller::load(std::istream& is) {
