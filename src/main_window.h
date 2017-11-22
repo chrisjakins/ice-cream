@@ -24,6 +24,7 @@ class Main_window : public Gtk::Window
         void createCustomer();      // Prompts dialog to create beloved Customer
         void createOrder();         // Prompts dialog to create Order
         void createManager();
+        void createEmp();
 
         void on_about_click();
         void on_help_click();
@@ -71,6 +72,7 @@ class Main_window : public Gtk::Window
         Gtk::MenuItem * mi_quit;
         Gtk::MenuItem * mi_createServer;
         Gtk::MenuItem * mi_createManager;
+        Gtk::MenuItem * mi_createEmp;
         Gtk::MenuItem * up_salary;
         Gtk::MenuItem * mi_report_inventory;
         Gtk::MenuItem * mi_report_customers;

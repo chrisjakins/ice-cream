@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
     Glib::RefPtr<Gtk::Application> app = 
     Gtk::Application::create(argc, argv, "edu.uta.cse1325.ice-cream");
   
-    Emporium emp(1, 10.9);
+    Emporium * emp = new Emporium(1, 10.9);
     Controller con{emp};
     Main_window win(con);
   
