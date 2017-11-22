@@ -11,18 +11,20 @@
 #include "item.h"
 #include "person.h"
 #include "order.h"
+#include "customer.h"
+#include "server.h"
 
 Emporium::Emporium(int id, double cash)
 : _id{id}, _register{cash}
-{  }
+{  } 
 
 /**************
 
 THIS NEEDS TO CHANGE ONCE WE FIGURE OUT CUSTOMERS/SERVERS/ID
 
 **************/
-void Emporium::addOrder(std::vector<Serving *> & servings) {
-    _orders.push_back(new Order{1, *_customers[0], *_servers[0], servings});
+void Emporium::addOrder(std::vector<Serving *> & servings, const Customer customer, Server server) {
+    _orders.push_back(new Order{1, customer, server, servings});
     _register -= _orders[_orders.size() - 1]->price();
 }
 
