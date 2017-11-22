@@ -133,7 +133,7 @@ class Main_window : public Gtk::Window
 
         Gtk::Label * orderLabel;
 
-        std::vector<Gtk::Button *> servings;
+        std::vector<Gtk::Button *> servingButtons;
 
         Gtk::HBox * buttonBox;
         Gtk::Button * cancel;

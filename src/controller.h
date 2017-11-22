@@ -57,7 +57,7 @@ class Controller {
         Emporium& _emp;
         std::string _filename = "untitled.ice";
 
-        std::vector<Serving *> _servings;
+        std::vector<Serving *> _tempServings;
 
         void createItem();
         void createServer();
