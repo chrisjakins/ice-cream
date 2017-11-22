@@ -11,7 +11,7 @@
 
 class Controller {
     public:
-        Controller(Emporium&);
+        Controller(Emporium *);
 
         void execute(int);
         std::string stateMachine(int);
@@ -54,7 +54,10 @@ class Controller {
         std::vector<Topping *> toppings();
 
     private:
-        Emporium& _emp;
+        std::vector<Emporium *> _emps;
+        int _empIndex = 0;
+        int _empNum = 1;
+        /* Emporium& _emp; */
         std::string _filename = "untitled.ice";
 
         std::vector<Serving *> _tempServings;

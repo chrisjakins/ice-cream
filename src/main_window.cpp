@@ -109,6 +109,11 @@ void Main_window::initMenubar() {
     mi_createManager->signal_activate().connect(sigc::mem_fun(*this,&Main_window::createManager));
     createMenu->append(*mi_createManager);
 
+    // Emporium
+    mi_createEmp = Gtk::manage(new Gtk::MenuItem("Emporium", true));
+    mi_createEmp->signal_activate().connect(sigc::mem_fun(*this, &Main_window::createEmp));
+    createMenu->append(*mi_createEmp);
+
     //      U P D A T E
     // Allow user to update anything in emporium
     Gtk::MenuItem * mi_update = Gtk::manage(new Gtk::MenuItem("Update", true));
@@ -395,6 +400,10 @@ void Main_window::createServer() {
 
 void Main_window::createManager() {
     _controller.createManager();
+}
+
+void Main_window::createEmp() {
+    _controller.execute(Controller::CREATE_EMPORIUM);
 }
 
 void Main_window::createCustomer() {

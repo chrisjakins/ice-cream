@@ -8,9 +8,10 @@
 #include "topping.h"
 #include "scoop.h"
 
-Controller::Controller(Emporium& emp)
-: _emp{emp}
-{ }
+Controller::Controller(Emporium * emp)
+{
+    _emps.push_back(emp);
+}
 
 void Controller::execute(int cmd) {
     switch (cmd) {
@@ -46,22 +47,22 @@ void Controller::createServing(std::string contString, std::vector<std::string> 
     std::vector<Scoop *> scoops;
     Topping * topping;
 
-    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
-        if (contString == _emp.containers()[i]->name()) {
-            container = _emp.containers()[i];
+    for (unsigned int i = 0; i < _emps[_empIndex]->containers().size(); i++) {
+        if (contString == _emps[_empIndex]->containers()[i]->name()) {
+            container = _emps[_empIndex]->containers()[i];
         }
     }
 
-    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
-        if (toppingString == _emp.toppings()[i]->name()) {
-            topping = _emp.toppings()[i];
+    for (unsigned int i = 0; i < _emps[_empIndex]->toppings().size(); i++) {
+        if (toppingString == _emps[_empIndex]->toppings()[i]->name()) {
+            topping = _emps[_empIndex]->toppings()[i];
         }
     }
 
     for (unsigned int i = 0; i < scoopStrings.size(); i++) {
-        for (unsigned int j = 0; j < _emp.scoops().size(); j++) {
-            if (scoopStrings[i] == _emp.scoops()[j]->name()) {
-                scoops.push_back(_emp.scoops()[j]);
+        for (unsigned int j = 0; j < _emps[_empIndex]->scoops().size(); j++) {
+            if (scoopStrings[i] == _emps[_empIndex]->scoops()[j]->name()) {
+                scoops.push_back(_emps[_empIndex]->scoops()[j]);
             }
         }
     }
@@ -148,8 +149,8 @@ void Controller::updateServerSalary() {
     Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Server"));
     Gtk::ComboBoxText dropDown;
     dropDown.set_size_request(160);
-    for (unsigned int i = 0; i < _emp.servers().size(); i++) {
-        dropDown.append(_emp.servers()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->servers().size(); i++) {
+        dropDown.append(_emps[_empIndex]->servers()[i]->name());
     }
     dialog->get_vbox()->pack_start(*label1, Gtk::PACK_SHRINK);
     dialog->get_vbox()->pack_start(dropDown, Gtk::PACK_SHRINK);
@@ -165,7 +166,7 @@ void Controller::updateServerSalary() {
 
     dialog->show_all();
     if (dialog->run()) {
-        _emp.changeServerSalary(dropDown.get_active_row_number(),
+        _emps[_empIndex]->changeServerSalary(dropDown.get_active_row_number(),
                                 std::stod(entry->get_text()));
     }
     dialog->close();
@@ -180,14 +181,14 @@ void Controller::updateItemStock() {
     Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Item"));
     Gtk::ComboBoxText dropDown;
     dropDown.set_size_request(160);
-    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
-        dropDown.append(_emp.containers()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->containers().size(); i++) {
+        dropDown.append(_emps[_empIndex]->containers()[i]->name());
     }
-    for (unsigned int i = 0; i < _emp.scoops().size(); i++) {
-        dropDown.append(_emp.scoops()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->scoops().size(); i++) {
+        dropDown.append(_emps[_empIndex]->scoops()[i]->name());
     }
-    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
-        dropDown.append(_emp.toppings()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->toppings().size(); i++) {
+        dropDown.append(_emps[_empIndex]->toppings()[i]->name());
     }
     dialog->get_vbox()->pack_start(*label1, Gtk::PACK_SHRINK);
     dialog->get_vbox()->pack_start(dropDown, Gtk::PACK_SHRINK);
@@ -203,7 +204,7 @@ void Controller::updateItemStock() {
 
     dialog->show_all();
     if (dialog->run()) {
-        _emp.addItemStock(dropDown.get_active_text(), std::stoi(entry->get_text()));
+        _emps[_empIndex]->addItemStock(dropDown.get_active_text(), std::stoi(entry->get_text()));
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
@@ -217,14 +218,14 @@ Item * Controller::pickItem() {
     Gtk::Label * label1 = Gtk::manage(new Gtk::Label("Item"));
     Gtk::ComboBoxText dropDown;
     dropDown.set_size_request(160);
-    for (unsigned int i = 0; i < _emp.containers().size(); i++) {
-        dropDown.append(_emp.containers()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->containers().size(); i++) {
+        dropDown.append(_emps[_empIndex]->containers()[i]->name());
     }
-    for (unsigned int i = 0; i < _emp.scoops().size(); i++) {
-        dropDown.append(_emp.scoops()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->scoops().size(); i++) {
+        dropDown.append(_emps[_empIndex]->scoops()[i]->name());
     }
-    for (unsigned int i = 0; i < _emp.toppings().size(); i++) {
-        dropDown.append(_emp.toppings()[i]->name());
+    for (unsigned int i = 0; i < _emps[_empIndex]->toppings().size(); i++) {
+        dropDown.append(_emps[_empIndex]->toppings()[i]->name());
     }
     dropDown.set_active(0);
     dialog->get_vbox()->pack_start(*label1, Gtk::PACK_SHRINK);
@@ -239,7 +240,7 @@ Item * Controller::pickItem() {
     dialog->close();
     delete dialog;
 
-    return _emp.getItem(dropDown.get_active_text());
+    return _emps[_empIndex]->getItem(dropDown.get_active_text());
 }
 
 void Controller::updateItem() {
@@ -279,7 +280,7 @@ void Controller::updateItem() {
         for (unsigned int i = 0; i < inputs.size(); i++) {
             output.push_back(entries[i]->get_text());
         }
-        _emp.updateItem(*item, output);
+        _emps[_empIndex]->updateItem(*item, output);
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
@@ -388,7 +389,7 @@ void Controller::createItem() {
         for (unsigned int i = 0; i < size; i++) {
             output.push_back(entries[i]->get_text());
         }
-        _emp.addItem(item, output);
+        _emps[_empIndex]->addItem(item, output);
     }
 
     dialog->close();
@@ -434,7 +435,7 @@ void Controller::createServer() {
         for (unsigned int i = 0; i < textL.size(); i++) {
             outputs.push_back(entries[i]->get_text());
         }
-        _emp.addServer(outputs);
+        _emps[_empIndex]->addServer(outputs);
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
@@ -477,7 +478,7 @@ void Controller::createCustomer() {
         for (unsigned int i = 0; i < textL.size(); i++) {
             outputs.push_back(entries[i]->get_text());
         }
-        _emp.addCustomer(outputs);
+        _emps[_empIndex]->addCustomer(outputs);
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
@@ -520,14 +521,17 @@ void Controller::createManager() {
         for (unsigned int i = 0; i < textL.size(); i++) {
             outputs.push_back(entries[i]->get_text());
         }
-        _emp.addManager(outputs);
+        _emps[_empIndex]->addManager(outputs);
     }
     dialog->close();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
 }
 
 void Controller::createEmporium() {
-
+    // allow user to specify cash register value
+    Emporium * newEmp = new Emporium(++_empNum, 1000);
+    _emps.push_back(newEmp);
+    std::cout << "New emporium created" << std::endl;
 }
 
 void Controller::errorMessage(std::string err) {
@@ -547,41 +551,41 @@ void Controller::loadInventory() {
     std::vector<std::string> cust2 = {"Samuel Adams", "21", "(817) 894-7291"};
     std::vector<std::string> cust3 = {"Bart Witherspoon", "239", "(908) 241-7239"};
 
-    _emp.addCustomer(cust1);
-    _emp.addCustomer(cust2);
-    _emp.addCustomer(cust3);
+    _emps[_empIndex]->addCustomer(cust1);
+    _emps[_empIndex]->addCustomer(cust2);
+    _emps[_empIndex]->addCustomer(cust3);
     
     std::vector<std::string> serv1 = {"Iron Man", "(817) 782-2734", "1", "32.50"};
     std::vector<std::string> serv2 = {"Captain America", "(313) 346-2828", "1", "32.00"};
     std::vector<std::string> serv3 = {"The Hulk", "(714) 685-3284", "1", "19.25"};
     
-    _emp.addServer(serv1);
-    _emp.addServer(serv2);
-    _emp.addServer(serv3);
+    _emps[_empIndex]->addServer(serv1);
+    _emps[_empIndex]->addServer(serv2);
+    _emps[_empIndex]->addServer(serv3);
 
     std::vector<std::string> container1 = {"3", "Waffle Cone", "Cone made of waffle", "0.10", "1.99", "1200","waffleCone.png"};
     std::vector<std::string> container2 = {"6", "Paper Cup", "Plain old paper", "0.25", "1.00", "1500","cup.png"};
     std::vector<std::string> container3 = {"15", "Tub", "For the bad break-ups", "2.99", "4.99", "100","tub.png"};
 
-    _emp.addItem(0, container1);
-    _emp.addItem(0, container2);
-    _emp.addItem(0, container3);
+    _emps[_empIndex]->addItem(0, container1);
+    _emps[_empIndex]->addItem(0, container2);
+    _emps[_empIndex]->addItem(0, container3);
 
     std::vector<std::string> flavor1 = {"Vanilla", "Classy yet delicious", "0.99", "1.99", "100","vanilla.png"};
     std::vector<std::string> flavor2 = {"Cookies and Cream", "Vanilla wasn't enough so we added cookies", "1.29", "2.79", "75","cookies.png"};
     std::vector<std::string> flavor3 = {"Pistachio", "Pistachio flavored", "1.19", "1.29", "50","pistachio.png"};
 
-    _emp.addItem(1, flavor1);
-    _emp.addItem(1, flavor2);
-    _emp.addItem(1, flavor3);
+    _emps[_empIndex]->addItem(1, flavor1);
+    _emps[_empIndex]->addItem(1, flavor2);
+    _emps[_empIndex]->addItem(1, flavor3);
 
     std::vector<std::string> topping1 = {"Marshmallows", "Magically delicious", "0.05", "0.10", "300","empty"};
     std::vector<std::string> topping2 = {"Chocolate Syrup", "Desc", "0.07", "0.10", "300","empty"};
     std::vector<std::string> topping3 = {"Gummi Worms", "For the gummi fish", "0.02", "0.10", "200","empty"};
 
-    _emp.addItem(2, topping1);
-    _emp.addItem(2, topping2);
-    _emp.addItem(2, topping3);
+    _emps[_empIndex]->addItem(2, topping1);
+    _emps[_empIndex]->addItem(2, topping2);
+    _emps[_empIndex]->addItem(2, topping3);
 }
 
 std::string Controller::getFilename() {
@@ -611,27 +615,27 @@ std::string Controller::getFilename() {
 
 void Controller::save() {
     std::ofstream ofs{getFilename(), std::ofstream::out};
-    ofs << _emp;
+    ofs << *_emps[_empIndex];
 }
 
 void Controller::load() {
     std::ifstream is(getFilename());
-    is >> _emp;
+    is >> *_emps[_empIndex];
 }
 
 /*************************
       L I S T I N G
 *************************/
 std::vector<mice::Container *> Controller::containers() {
-    return _emp.containers();
+    return _emps[_empIndex]->containers();
 }
 
 std::vector<Scoop *> Controller::scoops() {
-    return _emp.scoops();
+    return _emps[_empIndex]->scoops();
 }
 
 std::vector<Topping *> Controller::toppings() {
-    return _emp.toppings();
+    return _emps[_empIndex]->toppings();
 }
 
 /***************************
@@ -641,11 +645,11 @@ std::vector<Topping *> Controller::toppings() {
 void Controller::reportInventory() {
     std::string inv = "";
     inv += "Containers:\n";
-    inv += _emp.listContainers() + "\n";
+    inv += _emps[_empIndex]->listContainers() + "\n";
     inv += "Scoops:\n";
-    inv += _emp.listScoops() + "\n";
+    inv += _emps[_empIndex]->listScoops() + "\n";
     inv += "Toppings:\n";
-    inv += _emp.listToppings() + "\n";
+    inv += _emps[_empIndex]->listToppings() + "\n";
     
     Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Inventory Report");
     dialog->set_secondary_text(inv, true);
@@ -661,7 +665,7 @@ void Controller::reportInventory() {
 void Controller::reportCustomers()
 {
     std::string cust = "";
-    cust += _emp.listCustomers();
+    cust += _emps[_empIndex]->listCustomers();
 
     Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Customer Report");
     dialog->set_secondary_text(cust, true);
@@ -676,7 +680,7 @@ void Controller::reportCustomers()
 
 void Controller::reportServers() {
     std::string serv = "";
-    serv += _emp.listServers();
+    serv += _emps[_empIndex]->listServers();
 
     Gtk::MessageDialog *dialog = new Gtk::MessageDialog("Server Report");
     dialog->set_secondary_text(serv, true);
