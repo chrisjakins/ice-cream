@@ -482,15 +482,15 @@ void Main_window::onConfirmClicked() {
     _controller.createServing(contServLabel->get_label(),
                               scoopStrings, toppServLabel->get_label());
 
-    servings.push_back(Gtk::manage(new Gtk::Button{std::to_string(servingsInOrder)}));
+    servingButtons.push_back(Gtk::manage(new Gtk::Button{std::to_string(servingsInOrder)}));
 
-    servings[servingsInOrder]->signal_clicked().connect(sigc::bind<int>(
+    servingButtons[servingsInOrder]->signal_clicked().connect(sigc::bind<int>(
         sigc::mem_fun(*this, &Main_window::onServingClicked),
-        std::stoi(servings[servingsInOrder]->get_label())));
+        std::stoi(servingButtons[servingsInOrder]->get_label())));
 
     clearServPanel();
 
-    rightBox->pack_start(*servings[servingsInOrder]);
+    rightBox->pack_start(*servingButtons[servingsInOrder]);
     servingsInOrder++;
     mainBox->show_all();
 }
@@ -499,8 +499,8 @@ void Main_window::onServingClicked(int servingNumber) {
     if(!_controller.showServing(servingNumber)) {
         // if serving was deleted in pop-up
         servingsInOrder--;
-        Gtk::Button * butt = servings[servingNumber];
-        servings.erase(servings.begin() + servingNumber);
+        Gtk::Button * butt = servingButtons[servingNumber];
+        servingButtons.erase(servingButtons.begin() + servingNumber);
         
         _controller.deleteServing(servingNumber);
         delete butt;
@@ -508,8 +508,8 @@ void Main_window::onServingClicked(int servingNumber) {
         // reset other servings in list
         std::vector<Gtk::Button *> newServings;
         if (servingsInOrder >= 0) {
-            for (unsigned int i = 0; i < servings.size(); i++) {
-                delete servings[i];
+            for (unsigned int i = 0; i < servingButtons.size(); i++) {
+                delete servingButtons[i];
 
                 newServings.push_back(Gtk::manage(new Gtk::Button));
                 newServings[i]->set_label(std::to_string(i));
@@ -518,8 +518,8 @@ void Main_window::onServingClicked(int servingNumber) {
 
                 rightBox->pack_start(*newServings[i]);
             }
-            servings.clear();
-            servings = std::move(newServings);
+            servingButtons.clear();
+            servingButtons = std::move(newServings);
         }
         mainBox->show_all();
     }
@@ -528,10 +528,10 @@ void Main_window::onServingClicked(int servingNumber) {
 void Main_window::onCancelClicked() {
     _controller.eraseServings();
     servingsInOrder = 0;
-    for (int i = servings.size() - 1; i >= 0; i--) {
-        delete servings[i];
+    for (int i = servingButtons.size() - 1; i >= 0; i--) {
+        delete servingButtons[i];
     }
-    servings.clear();
+    servingButtons.clear();
     mainBox->show_all();
 }
 

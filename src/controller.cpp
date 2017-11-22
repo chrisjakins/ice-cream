@@ -67,7 +67,7 @@ void Controller::createServing(std::string contString, std::vector<std::string> 
         }
     }
 
-    _servings.push_back(Serving::create(container, scoops, topping));
+    _tempServings.push_back(Serving::create(container, scoops, topping));
 }
 
 bool Controller::showServing(int i) {
@@ -76,22 +76,22 @@ bool Controller::showServing(int i) {
 
     Gtk::Label contLabel{"Container "};
     dialog->get_vbox()->pack_start(contLabel, Gtk::PACK_SHRINK);
-    Gtk::Label container{_servings[i]->container().name()};
+    Gtk::Label container{_tempServings[i]->container().name()};
     dialog->get_vbox()->pack_start(container, Gtk::PACK_SHRINK);
 
 
     Gtk::Label scoopLabel{"Scoops"};
     dialog->get_vbox()->pack_start(scoopLabel, Gtk::PACK_SHRINK);
     std::vector<Gtk::Label *> scoopsVec;
-    for (unsigned int j = 0; j < _servings[i]->scoops().size(); j++) {
-        Gtk::Label * temp = Gtk::manage(new Gtk::Label{_servings[i]->scoops()[j]->name()});
+    for (unsigned int j = 0; j < _tempServings[i]->scoops().size(); j++) {
+        Gtk::Label * temp = Gtk::manage(new Gtk::Label{_tempServings[i]->scoops()[j]->name()});
         scoopsVec.push_back(temp);
         dialog->get_vbox()->pack_start(*temp, Gtk::PACK_SHRINK);
     }
 
     Gtk::Label topLabel{"Toppings"};
     dialog->get_vbox()->pack_start(topLabel, Gtk::PACK_SHRINK);
-    Gtk::Label topping{_servings[i]->toppings().name()};
+    Gtk::Label topping{_tempServings[i]->toppings().name()};
     dialog->get_vbox()->pack_start(topping, Gtk::PACK_SHRINK);
 
 
@@ -105,21 +105,21 @@ bool Controller::showServing(int i) {
 }
 
 void Controller::deleteServing(int index) {
-    Serving * serv = _servings[index];
-    _servings.erase(_servings.begin() + index);
+    Serving * serv = _tempServings[index];
+    _tempServings.erase(_tempServings.begin() + index);
     delete serv;
 }
 
 void Controller::eraseServings() {
-    for (int i = _servings.size() - 1; i >= 0; i--) {
+    for (int i = _tempServings.size() - 1; i >= 0; i--) {
         deleteServing(i);
     }
 }
 
 void Controller::completeOrder() {
     double price = 0;
-    for (unsigned int i = 0; i < _servings.size(); i++) {
-        price += _servings[i]->price();
+    for (unsigned int i = 0; i < _tempServings.size(); i++) {
+        price += _tempServings[i]->price();
     }
     Gtk::Dialog * dialog = new Gtk::Dialog();
     dialog->set_title("Finalize Order");
@@ -134,7 +134,7 @@ void Controller::completeOrder() {
     dialog->add_button("Pay", 1);
     dialog->show_all();
     if (dialog->run()) {
-        _emps[_empIndex]->addOrder(_servings);
+        // _emp.addOrder(_tempServings); doing nothing for now
     } else {
         dialog->close();
     }
