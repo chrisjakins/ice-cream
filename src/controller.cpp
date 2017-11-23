@@ -1,4 +1,5 @@
 #include <gtkmm.h>
+#include <vector>
 
 #include "controller.h"
 #include "emporium.h"
@@ -119,7 +120,10 @@ void Controller::eraseServings() {
 }
 
 void Controller::confirmOrder() {
-    int item;
+    std::vector< Server *> servs = _emps[_empIndex]->servers();
+    std::vector< Customer *> custs = _emps[_empIndex]->customers();
+    int cIndex;
+    int sIndex;
 
     Gtk::Dialog * dialog = new Gtk::Dialog();
     dialog->set_title("Finalize Order");
@@ -131,7 +135,9 @@ void Controller::confirmOrder() {
 
     Gtk::ComboBoxText sDropDown;
     sDropDown.set_size_request(160);
-    sDropDown.append("Test Server");
+    for (unsigned int i = 0; i < servs.size(); i++) {
+        sDropDown.append(servs[i]->name());
+    }
     sDropDown.set_active(0);
     box.pack_start(sDropDown, Gtk::PACK_SHRINK);
     dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
@@ -142,7 +148,9 @@ void Controller::confirmOrder() {
 
     Gtk::ComboBoxText cDropDown;
     cDropDown.set_size_request(160);
-    cDropDown.append("Test Customer");
+    for (unsigned int i = 0; i < custs.size(); i++) {
+        cDropDown.append(custs[i]->name());
+    }
     cDropDown.set_active(0);
     box.pack_start(cDropDown, Gtk::PACK_SHRINK);
     dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
@@ -151,9 +159,9 @@ void Controller::confirmOrder() {
     dialog->add_button("OK", 1);
     dialog->show_all();
     if (dialog->run()) {
-        item = sDropDown.get_active_row_number();
-        dialog->close();
-        completeOrder();
+        cIndex = cDropDown.get_active_row_number();
+        sIndex = sDropDown.get_active_row_number();
+        _emps[_empIndex]->addOrder(_tempServings, *custs[cIndex], *servs[sIndex]);
     } else {
         dialog->close();
     }

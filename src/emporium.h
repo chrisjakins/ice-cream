@@ -40,9 +40,10 @@ class Emporium {
         std::string listServers();
 
         void addCustomer(std::vector<std::string>);
+        std::vector<Customer *> customers();
         std::string listCustomers();
 
-        void addOrder(std::vector<Serving *>&, const Customer, const Server);
+        void addOrder(std::vector<Serving *>&, Customer, Server);
         std::string listOrders();
 
         void addManager(std::vector<std::string>);

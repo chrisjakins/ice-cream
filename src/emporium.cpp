@@ -23,9 +23,9 @@ Emporium::Emporium(int id, double cash)
 THIS NEEDS TO CHANGE ONCE WE FIGURE OUT CUSTOMERS/SERVERS/ID
 
 **************/
-void Emporium::addOrder(std::vector<Serving *> & servings, const Customer customer, Server server) {
+void Emporium::addOrder(std::vector<Serving *> & servings, Customer customer, Server server) {
     _orders.push_back(new Order{1, customer, server, servings});
-    _register -= _orders[_orders.size() - 1]->price();
+    _register += _orders[_orders.size() - 1]->price();
 }
 
 Item * Emporium::getItem(std::string name) {
@@ -158,6 +158,10 @@ std::vector<Topping *> Emporium::toppings() {
 
 std::vector<Server *> Emporium::servers() {
     return _servers;
+}
+
+std::vector<Customer *> Emporium::customers() {
+    return _customers;
 }
 
 std::string Emporium::listCustomers() {
