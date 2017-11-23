@@ -547,6 +547,7 @@ void Main_window::onCancelClicked() {
 
 void Main_window::onFinishClicked() {
     _controller.confirmOrder();
+    onCancelClicked();
 }
 
 void Main_window::onPayClicked() {
