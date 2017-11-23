@@ -271,14 +271,15 @@ void Main_window::initMainscreen() {
     buttonBox = Gtk::manage(new Gtk::HBox);
     cancel = Gtk::manage(new Gtk::Button{"Cancel"});
     cancel->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onCancelClicked));
-    pay = Gtk::manage(new Gtk::Button{"Finish"});
-    pay->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onPayClicked));
+    finish = Gtk::manage(new Gtk::Button{"Finish"});
+    finish->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onFinishClicked));
+    // finish->signal_clicked().connect(sigc::mem_fun(*this, &Main_window::onPayClicked));
 
     rightBox->pack_start(*orderLabel, Gtk::PACK_SHRINK);
 
     Gtk::SeparatorToolItem *bSep1 = Gtk::manage(new Gtk::SeparatorToolItem());
     buttonBox->pack_start(*cancel);
-    buttonBox->pack_start(*pay);
+    buttonBox->pack_start(*finish);
     rightBox->pack_end(*bSep1, Gtk::PACK_SHRINK);
     rightBox->pack_end(*buttonBox, Gtk::PACK_SHRINK);
 
@@ -474,6 +475,10 @@ void Main_window::onToppingClicked(int index) {
 
 void Main_window::onConfirmClicked() {
 
+    // TO-DO
+    // Need error checking for the number of scoops to ensure
+    // they don't exceed max scoops of the container
+
     std::vector<std::string> scoopStrings;
     for (unsigned int i = 0; i < scoopServLabels.size(); i++) {
         scoopStrings.push_back(scoopServLabels[i]->get_label());
@@ -496,6 +501,11 @@ void Main_window::onConfirmClicked() {
 }
 
 void Main_window::onServingClicked(int servingNumber) {
+
+    //TO-DO
+    // Need to fix bug where not selecting a topping crashes
+    // program
+
     if(!_controller.showServing(servingNumber)) {
         // if serving was deleted in pop-up
         servingsInOrder--;
@@ -533,6 +543,10 @@ void Main_window::onCancelClicked() {
     }
     servingButtons.clear();
     mainBox->show_all();
+}
+
+void Main_window::onFinishClicked() {
+    _controller.confirmOrder();
 }
 
 void Main_window::onPayClicked() {

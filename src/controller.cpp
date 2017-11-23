@@ -7,6 +7,8 @@
 #include "container.h"
 #include "topping.h"
 #include "scoop.h"
+#include "customer.h"
+#include "server.h"
 
 Controller::Controller(Emporium * emp)
 {
@@ -114,6 +116,50 @@ void Controller::eraseServings() {
     for (int i = _tempServings.size() - 1; i >= 0; i--) {
         deleteServing(i);
     }
+}
+
+void Controller::confirmOrder() {
+    int item;
+
+    Gtk::Dialog * dialog = new Gtk::Dialog();
+    dialog->set_title("Finalize Order");
+
+    Gtk::VBox box;
+    Gtk::Label slabel{"Server"};
+    slabel.set_width_chars(15);
+    box.pack_start(slabel, Gtk::PACK_SHRINK);
+
+    Gtk::ComboBoxText sDropDown;
+    sDropDown.set_size_request(160);
+    sDropDown.append("Test Server");
+    sDropDown.set_active(0);
+    box.pack_start(sDropDown, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
+
+    Gtk::Label clabel{"Customer"};
+    clabel.set_width_chars(15);
+    box.pack_start(clabel, Gtk::PACK_SHRINK);
+
+    Gtk::ComboBoxText cDropDown;
+    cDropDown.set_size_request(160);
+    cDropDown.append("Test Customer");
+    cDropDown.set_active(0);
+    box.pack_start(cDropDown, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+    if (dialog->run()) {
+        item = sDropDown.get_active_row_number();
+        dialog->close();
+        completeOrder();
+    } else {
+        dialog->close();
+    }
+
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
+    delete dialog;
 }
 
 void Controller::completeOrder() {

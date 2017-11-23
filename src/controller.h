@@ -22,6 +22,7 @@ class Controller {
         void eraseServings();
 
         void completeOrder();
+        void confirmOrder();
 
         void updateServerSalary();
         void updateItemStock();

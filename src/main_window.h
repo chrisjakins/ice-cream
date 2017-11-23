@@ -46,6 +46,7 @@ class Main_window : public Gtk::Window
         void onToppingClicked(int);
 
         void onConfirmClicked();
+        void onFinishClicked();
         void clearServPanel();
 
         void onServingClicked(int);
@@ -139,7 +140,7 @@ class Main_window : public Gtk::Window
 
         Gtk::HBox * buttonBox;
         Gtk::Button * cancel;
-        Gtk::Button * pay;
+        Gtk::Button * finish;
 
 
         /* helpers */
