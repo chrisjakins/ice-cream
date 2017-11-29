@@ -12,9 +12,11 @@ class Server : public Person {
 
         double salary();
         void setSalary(double);
+        bool isActive();
 
     private:
         int _numOrders = 0;
         double _salary;
+        bool _active = true;
 };
 #endif
