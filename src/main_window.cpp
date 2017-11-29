@@ -141,6 +141,11 @@ void Main_window::initMenubar() {
     up_itemStock->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onStockClick));
     updateMenu->append(*up_itemStock);
 
+    //      Item Status
+    mi_itemStatus = Gtk::manage(new Gtk::MenuItem("Item Status", true));
+    mi_itemStatus->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onItemStatusClick));
+    updateMenu->append(*mi_itemStatus);
+
     //         R O L E S
     // Allow user to change permissions
     Gtk::MenuItem * mi_role = Gtk::manage(new Gtk::MenuItem("_Roles", true));
@@ -440,6 +445,10 @@ void Main_window::onStockClick() {
 
 void Main_window::onServerStatusClick() {
     _controller.updateServerStatus();
+}
+
+void Main_window::onItemStatusClick() {
+    _controller.updateItemStatus();
 }
 
 void Main_window::onItemPropClick() {

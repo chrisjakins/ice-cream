@@ -788,3 +788,39 @@ void Controller::updateServerStatus() {
         Gtk::Main::iteration();
     delete dialog;
 }
+
+void Controller::updateItemStatus()
+{
+    int iIndex;
+
+    Gtk::Dialog *dialog = new Gtk::Dialog();
+    dialog->set_title("Update Item Status");
+
+    Gtk::VBox box;
+    Gtk::Label slabel{"Items"};
+    slabel.set_width_chars(15);
+    box.pack_start(slabel, Gtk::PACK_SHRINK);
+
+    Gtk::ComboBoxText sDropDown;
+    sDropDown.set_size_request(160);
+
+    sDropDown.set_active(0);
+    box.pack_start(sDropDown, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+    if (dialog->run())
+    {
+        // sIndex = sDropDown.get_active_row_number();
+    }
+    else
+    {
+        dialog->close();
+    }
+
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
+    delete dialog;
+}

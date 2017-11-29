@@ -56,6 +56,7 @@ class Main_window : public Gtk::Window
         void onReportServersClicked();
 
         void onServerStatusClick();
+        void onItemStatusClick();
 
     private:
         Controller& _controller;
@@ -81,7 +82,7 @@ class Main_window : public Gtk::Window
         Gtk::MenuItem * up_itemStock;
         Gtk::MenuItem * up_itemProps;
         Gtk::MenuItem * mi_serverStatus;
-
+        Gtk::MenuItem * mi_itemStatus;
 
         /****************
              TOOL BAR

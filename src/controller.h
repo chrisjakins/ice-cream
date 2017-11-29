@@ -49,7 +49,8 @@ class Controller {
         void reportCustomers();
         void reportServers();
         void updateServerStatus();
-            std::string getFilename();
+        void updateItemStatus();
+        std::string getFilename();
 
         std::vector<mice::Container *> containers();
         std::vector<Scoop *> scoops();
