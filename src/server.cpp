@@ -19,6 +19,6 @@ bool Server::isActive() {
     return _active;
 }
 
-void Server::setActive(bool active) {
-    _active = active;
+void Server::setActive() {
+    _active = !_active;
 }

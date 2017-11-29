@@ -782,6 +782,8 @@ void Controller::updateServerStatus() {
         dialog->close();
     }
 
+    servs[sIndex]->setActive();
+
     while (Gtk::Main::events_pending())
         Gtk::Main::iteration();
     delete dialog;

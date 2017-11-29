@@ -23,7 +23,7 @@ class Item {
         bool isActive();
         void restock(int);
         void consume(int);
-        void setActive(bool);
+        void setActive();
 
         double wholesaleCost();
         void updateWholesaleCost(double);
