@@ -633,9 +633,9 @@ void Controller::loadInventory() {
     _emps[_empIndex]->addItem(1, flavor2);
     _emps[_empIndex]->addItem(1, flavor3);
 
-    std::vector<std::string> topping1 = {"Marshmallows", "Magically delicious", "0.05", "0.10", "300","empty"};
-    std::vector<std::string> topping2 = {"Chocolate Syrup", "Desc", "0.07", "0.10", "300","empty"};
-    std::vector<std::string> topping3 = {"Gummi Worms", "For the gummi fish", "0.02", "0.10", "200","empty"};
+    std::vector<std::string> topping1 = {"Marshmallows", "Magically delicious", "0.05", "0.10", "300","marsh.png"};
+    std::vector<std::string> topping2 = {"Chocolate Syrup", "Desc", "0.07", "0.10", "300","syrup.png"};
+    std::vector<std::string> topping3 = {"Gummi Worms", "For the gummi fish", "0.02", "0.10", "200","gummy.png"};
 
     _emps[_empIndex]->addItem(2, topping1);
     _emps[_empIndex]->addItem(2, topping2);
