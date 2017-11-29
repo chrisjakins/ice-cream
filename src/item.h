@@ -20,8 +20,10 @@ class Item {
 
         int stock();
         bool isInStock();
+        bool isActive();
         void restock(int);
         void consume(int);
+        void setActive();
 
         double wholesaleCost();
         void updateWholesaleCost(double);
@@ -39,5 +41,6 @@ class Item {
         double _retailCost;
         int _stockRemaining;
         Gtk::Image * _image;
+        bool _active = true;
 };
 #endif

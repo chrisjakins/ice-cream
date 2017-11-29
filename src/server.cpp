@@ -14,3 +14,11 @@ double Server::salary() {
 void Server::setSalary(double newSalary) {
     _salary = newSalary;
 }
+
+bool Server::isActive() {
+    return _active;
+}
+
+void Server::setActive() {
+    _active = !_active;
+}

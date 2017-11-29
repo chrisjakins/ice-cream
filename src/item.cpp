@@ -66,3 +66,10 @@ void Item::updateDescription(std::string newDesc) {
     _description = newDesc;
 }
 
+bool Item::isActive() {
+    return _active;
+}
+
+void Item::setActive() {
+    _active = !_active;
+}
