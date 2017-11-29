@@ -17,8 +17,6 @@ class Main_window : public Gtk::Window
         void onLoadClicked();
         void on_quit_click();       // Exit Ice Cream Application
 
-        // Are NOT defined. Will need to
-        // discuss implementation
         void createItem();          // Prompts dialog to create various items
         void createServer();        // Prompts dialog to create Server
         void createCustomer();      // Prompts dialog to create beloved Customer
@@ -57,6 +55,8 @@ class Main_window : public Gtk::Window
         void onReportCustomersClicked();
         void onReportServersClicked();
 
+        void onServerStatusClick();
+
     private:
         Controller& _controller;
 
@@ -80,6 +80,8 @@ class Main_window : public Gtk::Window
         Gtk::MenuItem * mi_report_servers;
         Gtk::MenuItem * up_itemStock;
         Gtk::MenuItem * up_itemProps;
+        Gtk::MenuItem * mi_serverStatus;
+
 
         /****************
              TOOL BAR

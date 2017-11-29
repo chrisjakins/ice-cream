@@ -126,6 +126,11 @@ void Main_window::initMenubar() {
     up_salary->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onSalaryClick));
     updateMenu->append(*up_salary);
 
+    //      Server Status
+    mi_serverStatus = Gtk::manage(new Gtk::MenuItem("Server Status", true));
+    mi_serverStatus->signal_activate().connect(sigc::mem_fun(*this, &Main_window::onServerStatusClick));
+    updateMenu->append(*mi_serverStatus);
+
     //      Item
     up_itemProps = Gtk::manage(new Gtk::MenuItem("Item Property", true));
     up_itemProps->signal_activate().connect(sigc::mem_fun(*this,&Main_window::onItemPropClick));
@@ -433,6 +438,10 @@ void Main_window::onStockClick() {
     _controller.updateItemStock();
 }
 
+void Main_window::onServerStatusClick() {
+    _controller.updateServerStatus();
+}
+
 void Main_window::onItemPropClick() {
     _controller.updateItem();
     for (unsigned int i = 0; i < contRbs.size(); i++) {
@@ -584,6 +593,7 @@ void Main_window::onOwnerClick() {
     mi_report_inventory->set_sensitive(true);
     mi_report_customers->set_sensitive(true);
     mi_report_servers->set_sensitive(true);
+    mi_serverStatus->set_sensitive(true);
     mi_createServer->set_sensitive(true);
     mi_createManager->set_sensitive(true);
     mi_createEmp->set_sensitive(true);
@@ -603,6 +613,7 @@ void Main_window::onMngrClick() {
     mi_report_inventory->set_sensitive(true);
     mi_report_customers->set_sensitive(true);
     mi_report_servers->set_sensitive(true);
+    mi_serverStatus->set_sensitive(true);
     mi_createServer->set_sensitive(true);
     mi_createManager->set_sensitive(false);
     mi_createEmp->set_sensitive(false);
@@ -625,6 +636,7 @@ void Main_window::onServerClick() {
     mi_createServer->set_sensitive(false);
     mi_createManager->set_sensitive(false);
     mi_createEmp->set_sensitive(false);
+    mi_serverStatus->set_sensitive(false);
     cr_item->set_sensitive(false);
     cr_server->set_sensitive(false);
     cr_customer->set_sensitive(true);
@@ -651,6 +663,7 @@ void Main_window::onCustomerClick() {
     up_itemStock->set_sensitive(false);
     up_itemProps->set_sensitive(false);
     exit_button->set_sensitive(false);
+    mi_serverStatus->set_sensitive(false);
 }
 
 void Main_window::on_help_click(){

@@ -136,7 +136,8 @@ void Controller::confirmOrder() {
     Gtk::ComboBoxText sDropDown;
     sDropDown.set_size_request(160);
     for (unsigned int i = 0; i < servs.size(); i++) {
-        sDropDown.append(servs[i]->name());
+        if (servs[i]->isActive())
+            sDropDown.append(servs[i]->name());
     }
     sDropDown.set_active(0);
     box.pack_start(sDropDown, Gtk::PACK_SHRINK);
@@ -744,5 +745,44 @@ void Controller::reportServers() {
     while (Gtk::Main::events_pending())
         Gtk::Main::iteration();
 
+    delete dialog;
+}
+
+void Controller::updateServerStatus() {
+    int sIndex;
+    std::vector<Server *> servs = _emps[_empIndex]->servers();
+
+    Gtk::Dialog *dialog = new Gtk::Dialog();
+    dialog->set_title("Update Server Status");
+
+    Gtk::VBox box;
+    Gtk::Label slabel{"Servers"};
+    slabel.set_width_chars(15);
+    box.pack_start(slabel, Gtk::PACK_SHRINK);
+
+    Gtk::ComboBoxText sDropDown;
+    sDropDown.set_size_request(160);
+    for (unsigned int i = 0; i < servs.size(); i++)
+    {
+        sDropDown.append(servs[i]->name());
+    }
+    sDropDown.set_active(0);
+    box.pack_start(sDropDown, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
+
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("OK", 1);
+    dialog->show_all();
+    if (dialog->run())
+    {
+        sIndex = sDropDown.get_active_row_number();
+    }
+    else
+    {
+        dialog->close();
+    }
+
+    while (Gtk::Main::events_pending())
+        Gtk::Main::iteration();
     delete dialog;
 }
