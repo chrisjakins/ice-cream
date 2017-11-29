@@ -12,6 +12,7 @@ class Server : public Person {
 
         double salary();
         void setSalary(double);
+        void setActive(bool);
         bool isActive();
 
     private:

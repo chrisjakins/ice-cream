@@ -18,3 +18,7 @@ void Server::setSalary(double newSalary) {
 bool Server::isActive() {
     return _active;
 }
+
+void Server::setActive(bool active) {
+    _active = active;
+}

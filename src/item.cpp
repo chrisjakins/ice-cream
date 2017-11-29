@@ -70,3 +70,6 @@ bool Item::isActive() {
     return _active;
 }
 
+void Item::setActive(bool active) {
+    _active = active;
+}
