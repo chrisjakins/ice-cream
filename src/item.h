@@ -11,7 +11,6 @@ class Item {
 
         virtual std::string type() = 0;
 
-
         std::string name();
         void updateName(std::string);
 

@@ -290,12 +290,15 @@ Item * Controller::pickItem() {
     dialog->add_button("Ok", 1);
 
     dialog->show_all();
-    dialog->run();
+    int result = dialog->run();
     while (Gtk::Main::events_pending()) Gtk::Main::iteration();
     dialog->close();
     delete dialog;
 
-    return _emps[_empIndex]->getItem(dropDown.get_active_text());
+    if (result) 
+        return _emps[_empIndex]->getItem(dropDown.get_active_text());
+    else
+        return NULL;
 }
 
 void Controller::updateItem() {
@@ -791,36 +794,27 @@ void Controller::updateServerStatus() {
 
 void Controller::updateItemStatus()
 {
-    int iIndex;
+    Item * item = pickItem();
+    if (item == NULL)
+        return;        
 
     Gtk::Dialog *dialog = new Gtk::Dialog();
-    dialog->set_title("Update Item Status");
+    dialog->set_title("Retire item");
 
-    Gtk::VBox box;
-    Gtk::Label slabel{"Items"};
-    slabel.set_width_chars(15);
-    box.pack_start(slabel, Gtk::PACK_SHRINK);
+    Gtk::Label * label = Gtk::manage(
+                            new Gtk::Label("Are you sure you want to retire this item?"));
 
-    Gtk::ComboBoxText sDropDown;
-    sDropDown.set_size_request(160);
+    dialog->get_vbox()->pack_start(*label, Gtk::PACK_SHRINK);
+    dialog->add_button("No", 0);
+    dialog->add_button("Yes", 1);
 
-    sDropDown.set_active(0);
-    box.pack_start(sDropDown, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(box, Gtk::PACK_SHRINK);
-
-    dialog->add_button("Cancel", 0);
-    dialog->add_button("OK", 1);
     dialog->show_all();
-    if (dialog->run())
-    {
-        // sIndex = sDropDown.get_active_row_number();
-    }
-    else
-    {
+    if (dialog->run()) {
+        item->setActive();
+    } else {
         dialog->close();
     }
 
-    while (Gtk::Main::events_pending())
-        Gtk::Main::iteration();
+    while (Gtk::Main::events_pending()) Gtk::Main::iteration();
     delete dialog;
 }

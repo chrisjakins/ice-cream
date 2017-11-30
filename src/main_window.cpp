@@ -310,13 +310,17 @@ void Main_window::refresh() {
     if (!conts.empty() && conts.size() != contRbs.size()) {
         if (contRbs.empty()) {
             for (i = 0; i < conts.size(); i++) {
-                contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
-                contRbs[i]->set_image(*conts[i]->img());
-                contRbs[i]->set_always_show_image(true);
-                contRbs[i]->signal_clicked().connect(sigc::mem_fun(
-                    *this, &Main_window::onContainerClicked));
-                contList->pack_start(*contRbs[i]);
-                contRbs[i]->set_group(group);
+                if(conts[i]->isActive()) {
+                    std::cout << conts[i]->name() << std::endl;
+                    contRbs.push_back(Gtk::manage(new Gtk::RadioButton{conts[i]->name()}));
+                    contRbs[i]->set_image(*conts[i]->img());
+                    contRbs[i]->set_always_show_image(true);
+                    contRbs[i]->signal_clicked().connect(sigc::mem_fun(
+                        *this, &Main_window::onContainerClicked));
+                    contList->pack_start(*contRbs[i]);
+                    contRbs[i]->set_visible(true);
+                    contRbs[i]->set_group(group);
+                }
             }
         } else {
             i = conts.size() - 1;
@@ -335,12 +339,14 @@ void Main_window::refresh() {
     if (!scoops.empty() && scoops.size() != scoopBs.size()) {
         if (scoopBs.empty()) {
             for (i = 0; i < scoops.size(); i++) {
-                scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
-                scoopBs[i]->set_image(*scoops[i]->img());
-                scoopBs[i]->set_always_show_image(true);
-                scoopBs[i]->signal_clicked().connect(sigc::bind<int>(
-                    sigc::mem_fun(*this, &Main_window::onScoopClicked), i));
-                scoopList->pack_start(*scoopBs[i]);
+                if (scoops[i]->isActive()) {
+                    scoopBs.push_back(Gtk::manage(new Gtk::Button{scoops[i]->name()}));
+                    scoopBs[i]->set_image(*scoops[i]->img());
+                    scoopBs[i]->set_always_show_image(true);
+                    scoopBs[i]->signal_clicked().connect(sigc::bind<int>(
+                        sigc::mem_fun(*this, &Main_window::onScoopClicked), i));
+                    scoopList->pack_start(*scoopBs[i]);
+                }
             }
         } else {
             i = scoops.size() - 1;
@@ -357,12 +363,14 @@ void Main_window::refresh() {
     if (!topps.empty() && topps.size() != topBs.size()) {
         if (topBs.empty()) {
             for (i = 0; i < topps.size(); i++) {
-                topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
-                topBs[i]->set_image(*topps[i]->img());
-                topBs[i]->set_always_show_image(true);
-                topBs[i]->signal_clicked().connect(sigc::bind<int>(
-                    sigc::mem_fun(*this, &Main_window::onToppingClicked), i));
-                toppList->pack_start(*topBs[i]);
+                if (topps[i]->isActive()) {
+                    topBs.push_back(Gtk::manage(new Gtk::Button{topps[i]->name()}));
+                    topBs[i]->set_image(*topps[i]->img());
+                    topBs[i]->set_always_show_image(true);
+                    topBs[i]->signal_clicked().connect(sigc::bind<int>(
+                        sigc::mem_fun(*this, &Main_window::onToppingClicked), i));
+                    toppList->pack_start(*topBs[i]);
+                }
             }
         } else {
             i = topps.size() - 1;
@@ -449,6 +457,21 @@ void Main_window::onServerStatusClick() {
 
 void Main_window::onItemStatusClick() {
     _controller.updateItemStatus();
+
+    std::vector<mice::Container *> conts = _controller.containers();
+    for (unsigned int i = 0; i < contRbs.size(); i++) {
+        contRbs[i]->set_sensitive(conts[i]->isActive());
+    }
+
+    std::vector<Scoop *> scoops = _controller.scoops();
+    for (unsigned int i = 0; i < scoopBs.size(); i++) {
+        scoopBs[i]->set_sensitive(scoops[i]->isActive());
+    }
+
+    std::vector<Topping *> topps = _controller.toppings();
+    for (unsigned int i = 0; i < topBs.size(); i++) {
+        topBs[i]->set_sensitive(topps[i]->isActive());
+    }
 }
 
 void Main_window::onItemPropClick() {
